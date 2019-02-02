@@ -6,9 +6,7 @@ import UserProfile from '../../components/user-profile'
 
 class Index extends React.Component {
   render() {
-    return (
-      <UserProfile />
-    )
+    return <UserProfile />
   }
 }
 

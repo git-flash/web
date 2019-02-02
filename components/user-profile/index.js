@@ -16,7 +16,6 @@ const ME_QUERY = gql`
 `
 
 class UserProfile extends React.Component {
-
   render() {
     return (
       <Query query={ME_QUERY}>
