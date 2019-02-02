@@ -2,9 +2,9 @@
   "name": "web",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next src",
+    "build": "next build src",
+    "start": "next start src"
   },
   "dependencies": {
     "apollo-boost": "^0.1.23",
