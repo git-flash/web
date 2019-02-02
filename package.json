@@ -7,6 +7,8 @@
     "start": "next start src"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "antd": "^3.13.0",
     "apollo-boost": "^0.1.23",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",

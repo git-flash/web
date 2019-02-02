@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'antd/dist/antd.css'
 
 import Layout from '../components/layout'
 
