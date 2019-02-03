@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
@@ -7,15 +8,16 @@ const ME_QUERY = gql`
     me {
       id
       name
-      posts {
+      projects {
         id
         title
+        content
       }
     }
   }
 `
 
-class UserProfile extends React.Component {
+class UserProfile extends Component {
   render() {
     return (
       <Query query={ME_QUERY}>
@@ -25,9 +27,10 @@ class UserProfile extends React.Component {
 
           return (
             <div>
-              {data.me.posts.map(post => (
-                <div key={post.id}>
-                  <h1>{post.title}</h1>
+              {data.me.projects.map(project => (
+                <div key={project.id}>
+                  <h2>{project.title}</h2>
+                  <p>{project.content}</p>
                 </div>
               ))}
             </div>

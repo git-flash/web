@@ -20,7 +20,7 @@ function create(initialState) {
       credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
       headers: {
         Authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanJuanVocnFpOXZvMGE0MmlqaTE1NGQ1IiwiaWF0IjoxNTQ5MTI0MjEzfQ.AdqZPB-kifkMECOPPnEhzZtHkTQuBP8qRFZC_4S9HRc',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanJvZHBjajdhamhzMGE4NWEybjQ2ODhxIiwiaWF0IjoxNTQ5MTY2NDQ2fQ.fwFch5w6LOU1iCNIuKceQ4dYoYv5Z49AOYCkf6OV4zI',
       },
     }),
     cache: new InMemoryCache().restore(initialState || {}),

@@ -7,12 +7,14 @@ const { Header } = Layout
 const StyledHeader = styled(Header)`
   height: 80px;
   background: #fff;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e8e8e8;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
-const StyledLogo = styled.div``
+const StyledLogo = styled.div`
+  backgroundcolor: '#1890ff';
+`
 const StyledMenu = styled.div`
   display: flex;
 `

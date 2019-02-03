@@ -7,7 +7,7 @@ const { Sider } = Layout
 const SubMenu = Menu.SubMenu
 const StyledSider = styled(Sider)`
   background: #fff;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #e8e8e8;
 `
 const StyledMenu = styled(Menu)`
   margin: 24px 0;

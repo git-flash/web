@@ -4,10 +4,10 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 
 const { Content } = Layout
-
 const StyledContent = styled(Content)`
-  margin: 24px;
+  margin: 24px auto;
   padding: 24px;
+  max-width: 1000px;
 `
 
 class ContentComponent extends Component {
