@@ -7,19 +7,23 @@ import HeaderComponent from './header'
 import SiderComponent from './sider'
 import ContentComponent from './content'
 
-const StyledLayout = styled(Layout)`
+const StyledGlobalLayout = styled(Layout)`
   min-height: 100vh;
 `
+const StyledContentLayout = styled(Layout)`
+  flex-direction: row;
+`
+
 class LayoutComponent extends Component {
   render() {
     return (
-      <StyledLayout>
+      <StyledGlobalLayout>
         <HeaderComponent />
-        <Layout>
+        <StyledContentLayout>
           <SiderComponent />
           <ContentComponent>{this.props.children}</ContentComponent>
-        </Layout>
-      </StyledLayout>
+        </StyledContentLayout>
+      </StyledGlobalLayout>
     )
   }
 }

@@ -55,7 +55,7 @@ class UserProfile extends Component {
           return (
             <Row gutter={16}>
               {data.projects.map(project => (
-                <Col span={8}>
+                <Col span={8} key={project.id}>
                   <StyledCardContent>
                     <Card
                       key={project.id}
