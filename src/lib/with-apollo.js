@@ -11,8 +11,8 @@ function getComponentDisplayName(Component) {
 }
 
 export default ComposedComponent => {
-  return class WithData extends React.Component {
-    static displayName = `WithData(${getComponentDisplayName(
+  return class WithApollo extends React.Component {
+    static displayName = `WithApollo(${getComponentDisplayName(
       ComposedComponent
     )})`
     static propTypes = {

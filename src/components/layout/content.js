@@ -8,6 +8,7 @@ const StyledContent = styled(Content)`
   margin: 24px auto;
   padding: 24px;
   max-width: 1000px;
+  overflow-x: scroll !important;
 `
 
 class ContentComponent extends Component {

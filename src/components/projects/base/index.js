@@ -18,7 +18,7 @@ const PROJECTS_QUERY = gql`
   }
 `
 const StyledCardContent = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 48px;
 
   > .ant-card {
     > .ant-card-head {
@@ -44,7 +44,7 @@ const StyledCardFooter = styled.div`
   background-color: #e8e8e836;
 `
 
-class UserProfile extends Component {
+class Projects extends Component {
   render() {
     return (
       <Query query={PROJECTS_QUERY}>
@@ -53,7 +53,7 @@ class UserProfile extends Component {
           if (error) return <p>Error: {error.message}</p>
 
           return (
-            <Row gutter={16}>
+            <Row gutter={48}>
               {data.projects.map(project => (
                 <Col span={8} key={project.id}>
                   <StyledCardContent>
@@ -85,4 +85,4 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile
+export default Projects
