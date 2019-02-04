@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "node src/server.js",
     "build": "next build src",
-    "start": "NODE_ENV=production node src/server.js"
+    "start": "NODE_ENV=production node src/server.js",
+    "export": "yarn build && next export src"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
