@@ -2,7 +2,7 @@
   "name": "web",
   "version": "0.0.1",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "dev": "node src/server.js",
     "build": "next build src",
     "start": "NODE_ENV=production node src/server.js"
   },
@@ -27,7 +27,6 @@
     "babel-plugin-styled-components": "^1.10.0",
     "husky": "^1.2.1",
     "lint-staged": "^8.1.0",
-    "nodemon": "^1.18.9",
     "prettier": "^1.15.3"
   },
   "husky": {
