@@ -3,8 +3,8 @@ import 'antd/dist/antd.css'
 
 import Layout from '../components/layout'
 
-export default App =>
-  class extends Component {
+export default App => {
+  return class extends Component {
     static async getInitialProps(ctx) {
       let appProps = {}
 
@@ -23,3 +23,4 @@ export default App =>
       )
     }
   }
+}
