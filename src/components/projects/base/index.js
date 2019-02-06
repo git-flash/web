@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import { Card, Col, Row, Icon, Avatar } from 'antd'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 const PROJECTS_QUERY = gql`
   query PROJECTS_QUERY {
@@ -55,27 +56,35 @@ class Projects extends Component {
           return (
             <Row gutter={48}>
               {data.projects.map(project => (
-                <Col span={8} key={project.id}>
-                  <StyledCardContent>
-                    <Card
-                      key={project.id}
-                      title={project.title}
-                      extra={<Icon type="setting" />}
-                    >
-                      <StyledCardBody>{project.content}</StyledCardBody>
-                      <StyledCardFooter>
-                        <Avatar
-                          style={{
-                            color: '#e6f7ff',
-                            backgroundColor: '#1890ff',
-                          }}
+                <Link
+                  key={project.id}
+                  href={`/projects/show?id=${project.id}`}
+                  as={`/projects/${project.id}`}
+                >
+                  <a>
+                    <Col span={8}>
+                      <StyledCardContent>
+                        <Card
+                          key={project.id}
+                          title={project.title}
+                          extra={<Icon type="setting" />}
                         >
-                          {project.admin.name.split('')[0]}
-                        </Avatar>
-                      </StyledCardFooter>
-                    </Card>
-                  </StyledCardContent>
-                </Col>
+                          <StyledCardBody>{project.content}</StyledCardBody>
+                          <StyledCardFooter>
+                            <Avatar
+                              style={{
+                                color: '#e6f7ff',
+                                backgroundColor: '#1890ff',
+                              }}
+                            >
+                              {project.admin.name.split('')[0]}
+                            </Avatar>
+                          </StyledCardFooter>
+                        </Card>
+                      </StyledCardContent>
+                    </Col>
+                  </a>
+                </Link>
               ))}
             </Row>
           )

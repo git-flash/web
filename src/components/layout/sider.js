@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Icon, Avatar } from 'antd'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 const { Sider } = Layout
 const SubMenu = Menu.SubMenu
@@ -36,16 +37,28 @@ class SiderComponent extends Component {
         <StyledMenu theme="light" defaultSelectedKeys={['1']} mode="inline">
           <StyledMenuItemGroup key="menu" title="MENU">
             <StyledMenuItem key="dashboard">
-              <Icon type="bar-chart" />
-              <span>Dashboard</span>
+              <Link href="/dashboard">
+                <a>
+                  <Icon type="bar-chart" />
+                  <span>Dashboard</span>
+                </a>
+              </Link>
             </StyledMenuItem>
             <StyledMenuItem key="projects">
-              <Icon type="project" />
-              <span>Projects</span>
+              <Link href="/projects">
+                <a>
+                  <Icon type="project" />
+                  <span>Projects</span>
+                </a>
+              </Link>
             </StyledMenuItem>
             <StyledMenuItem key="users">
-              <Icon type="team" />
-              <span>Users</span>
+              <Link href="/users">
+                <a>
+                  <Icon type="team" />
+                  <span>Users</span>
+                </a>
+              </Link>
             </StyledMenuItem>
           </StyledMenuItemGroup>
           <StyledMenuItemGroup key="your-projects" title="YOUR PROJECTS">
