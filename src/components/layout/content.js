@@ -6,6 +6,7 @@ import styled from 'styled-components'
 const { Content } = Layout
 const StyledContent = styled(Content)`
   padding: 0 48px;
+  max-width: 100vw;
 `
 
 class ContentComponent extends Component {

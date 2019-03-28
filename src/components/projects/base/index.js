@@ -6,17 +6,6 @@ import { Card, Col, Row, Icon, Button } from 'antd'
 import styled from 'styled-components'
 import Link from 'next/link'
 
-const StyledHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-const StyledMeta = styled.div``
-const StyledTitle = styled.div`
-  margin: 24px 0 36px;
-  font-weight: 600;
-  font-size: 20px;
-`
 const PROJECTS_QUERY = gql`
   query PROJECTS_QUERY {
     projects {
@@ -28,6 +17,17 @@ const PROJECTS_QUERY = gql`
       }
     }
   }
+`
+const StyledHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const StyledMeta = styled.div``
+const StyledTitle = styled.div`
+  margin: 24px 0 36px;
+  font-weight: 600;
+  font-size: 20px;
 `
 
 class Projects extends Component {
