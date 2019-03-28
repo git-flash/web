@@ -14,7 +14,7 @@ const StyledHeader = styled(Header)`
   padding: 0 48px;
 `
 const StyledLogo = styled.div`
-  backgroundcolor: '#1890ff';
+  backgroundcolor: #1890ff;
 `
 const StyledMenu = styled.div`
   display: flex;
@@ -31,7 +31,9 @@ class HeaderComponent extends Component {
   render() {
     return (
       <StyledHeader>
-        <StyledLogo>Logo</StyledLogo>
+        <StyledLogo>
+          <img src={require('../../static/images/logo.png')} />
+        </StyledLogo>
         <StyledMenu>
           <StyledMenuItem>
             <Icon type="search" />

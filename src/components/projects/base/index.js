@@ -25,9 +25,16 @@ const StyledHeader = styled.div`
 `
 const StyledMeta = styled.div``
 const StyledTitle = styled.div`
-  margin: 24px 0 36px;
+  margin: 24px 0;
   font-weight: 600;
   font-size: 20px;
+`
+const StyledLoader = styled.div`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 class Projects extends Component {
@@ -35,7 +42,12 @@ class Projects extends Component {
     return (
       <Query query={PROJECTS_QUERY}>
         {({ data, error, loading }) => {
-          if (loading) return <div>Loading...</div>
+          if (loading)
+            return (
+              <StyledLoader>
+                <img src={require('../../../static/images/logo.png')} />
+              </StyledLoader>
+            )
           if (error) return <p>Error: {error.message}</p>
 
           return (
