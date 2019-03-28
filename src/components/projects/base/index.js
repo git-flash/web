@@ -1,11 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
-import { Card, Col, Row, Icon, Avatar } from 'antd'
+import { Card, Col, Row, Icon, Button } from 'antd'
 import styled from 'styled-components'
 import Link from 'next/link'
 
+const StyledHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const StyledMeta = styled.div``
+const StyledTitle = styled.div`
+  margin: 24px 0 36px;
+  font-weight: 600;
+  font-size: 20px;
+`
 const PROJECTS_QUERY = gql`
   query PROJECTS_QUERY {
     projects {
@@ -13,36 +24,10 @@ const PROJECTS_QUERY = gql`
       title
       content
       admin {
-        name
+        email
       }
     }
   }
-`
-const StyledCardContent = styled.div`
-  margin-bottom: 48px;
-
-  > .ant-card {
-    > .ant-card-head {
-      border-bottom: 0;
-
-      .ant-card-head-title {
-        padding: 24px 0;
-        max-width: 80%;
-      }
-    }
-
-    > .ant-card-body {
-      padding: 0;
-      color: #9e9e9e;
-    }
-  }
-`
-const StyledCardBody = styled.div`
-  padding: 0 24px 24px;
-`
-const StyledCardFooter = styled.div`
-  padding: 24px;
-  background-color: #e8e8e836;
 `
 
 class Projects extends Component {
@@ -54,39 +39,45 @@ class Projects extends Component {
           if (error) return <p>Error: {error.message}</p>
 
           return (
-            <Row gutter={48}>
-              {data.projects.map(project => (
-                <Link
-                  key={project.id}
-                  href={`/projects/show?id=${project.id}`}
-                  as={`/projects/${project.id}`}
-                >
-                  <a>
-                    <Col span={8}>
-                      <StyledCardContent>
+            <Fragment>
+              <Row gutter={48}>
+                <Col span={24}>
+                  <StyledHeader>
+                    <StyledTitle>Projects</StyledTitle>
+                    <StyledMeta>
+                      <Button
+                        type="primary"
+                        shape="round"
+                        icon="plus"
+                        size="large"
+                      >
+                        New Project
+                      </Button>
+                    </StyledMeta>
+                  </StyledHeader>
+                </Col>
+              </Row>
+              <Row gutter={48}>
+                {data.projects.map(project => (
+                  <Col span={6} key={project.id}>
+                    <Link
+                      href={`/projects/show?id=${project.id}`}
+                      as={`/projects/${project.id}`}
+                    >
+                      <a>
                         <Card
                           key={project.id}
                           title={project.title}
                           extra={<Icon type="setting" />}
                         >
-                          <StyledCardBody>{project.content}</StyledCardBody>
-                          <StyledCardFooter>
-                            <Avatar
-                              style={{
-                                color: '#e6f7ff',
-                                backgroundColor: '#1890ff',
-                              }}
-                            >
-                              {project.admin.name.split('')[0]}
-                            </Avatar>
-                          </StyledCardFooter>
+                          {project.content}
                         </Card>
-                      </StyledCardContent>
-                    </Col>
-                  </a>
-                </Link>
-              ))}
-            </Row>
+                      </a>
+                    </Link>
+                  </Col>
+                ))}
+              </Row>
+            </Fragment>
           )
         }}
       </Query>

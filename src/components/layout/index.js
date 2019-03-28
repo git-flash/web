@@ -4,7 +4,6 @@ import { Layout } from 'antd'
 import styled from 'styled-components'
 
 import HeaderComponent from './header'
-import SiderComponent from './sider'
 import ContentComponent from './content'
 
 const StyledGlobalLayout = styled(Layout)`
@@ -20,7 +19,6 @@ class LayoutComponent extends Component {
       <StyledGlobalLayout>
         <HeaderComponent />
         <StyledContentLayout>
-          <SiderComponent />
           <ContentComponent>{this.props.children}</ContentComponent>
         </StyledContentLayout>
       </StyledGlobalLayout>

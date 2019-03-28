@@ -7,24 +7,28 @@ import styled from 'styled-components'
 
 const PROJECT_QUERY = gql`
   query PROJECT_QUERY($id: ID!) {
-    project(id: $id) {
+    projects_by_pk(id: $id) {
       id
       title
       content
       admin {
-        name
+        email
       }
     }
   }
 `
 const StyledCardContent = styled.div`
   margin-bottom: 16px;
-  width: ${props => props.listCount * (300 + 48)}px;
+  width: ${props => (props.listCount - 1) * (500 + 48)}px;
   display: flex;
 
   > .ant-card {
-    width: 285px;
+    width: 500px;
     margin-right: 48px;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     > .ant-card-head {
       border-bottom: 0;

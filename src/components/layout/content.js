@@ -5,10 +5,7 @@ import styled from 'styled-components'
 
 const { Content } = Layout
 const StyledContent = styled(Content)`
-  margin: 24px auto;
-  padding: 24px;
-  max-width: 1000px;
-  overflow-x: scroll !important;
+  padding: 0 48px;
 `
 
 class ContentComponent extends Component {
