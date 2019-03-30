@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import toArray from 'lodash/toArray'
 
 import initialData from './initial-data'
 import Column from './column'
@@ -59,7 +60,7 @@ class Board extends React.Component {
     }
 
     if (type === 'column') {
-      const newColumnOrder = Array.from(this.state.columnOrder)
+      const newColumnOrder = toArray(this.state.columnOrder)
       newColumnOrder.splice(source.index, 1)
       newColumnOrder.splice(destination.index, 0, draggableId)
 
@@ -75,7 +76,7 @@ class Board extends React.Component {
     const foreign = this.state.columns[destination.droppableId]
 
     if (home === foreign) {
-      const newTaskIds = Array.from(home.taskIds)
+      const newTaskIds = toArray(home.taskIds)
       newTaskIds.splice(source.index, 1)
       newTaskIds.splice(destination.index, 0, draggableId)
 
@@ -97,14 +98,14 @@ class Board extends React.Component {
     }
 
     // moving from one list to another
-    const homeTaskIds = Array.from(home.taskIds)
+    const homeTaskIds = toArray(home.taskIds)
     homeTaskIds.splice(source.index, 1)
     const newHome = {
       ...home,
       taskIds: homeTaskIds,
     }
 
-    const foreignTaskIds = Array.from(foreign.taskIds)
+    const foreignTaskIds = toArray(foreign.taskIds)
     foreignTaskIds.splice(destination.index, 0, draggableId)
     const newForeign = {
       ...foreign,

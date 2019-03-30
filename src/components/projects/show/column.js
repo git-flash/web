@@ -12,7 +12,7 @@ const Container = styled.div`
   margin-right: 24px;
 `
 const Title = styled.h3`
-  padding: 16px 0;
+  padding: 16px 0 32px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
