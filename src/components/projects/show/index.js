@@ -6,6 +6,8 @@ import { Card, Col, Row, Icon, Avatar } from 'antd'
 import styled from 'styled-components'
 import Link from 'next/link'
 
+import Board from './board'
+
 const PROJECT_QUERY = gql`
   query PROJECT_QUERY($id: ID!) {
     projects_by_pk(id: $id) {
@@ -28,39 +30,10 @@ const StyledArrow = styled.div`
 `
 const StyledMeta = styled.div``
 const StyledTitle = styled.div`
-  margin: 24px 0 36px;
+  margin: 24px 0;
   font-weight: 600;
   font-size: 20px;
   display: flex;
-`
-const StyledCardContent = styled.div`
-  margin-bottom: 16px;
-  width: ${props => (props.listCount - 1) * (500 + 48)}px;
-  display: flex;
-
-  > .ant-card {
-    width: 400px;
-    margin-right: 48px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    > .ant-card-head {
-      border-bottom: 0;
-      padding: 0 24px;
-
-      .ant-card-head-title {
-        padding: 24px 0;
-        max-width: 80%;
-      }
-    }
-
-    > .ant-card-body {
-      padding: 0;
-      color: #9e9e9e;
-    }
-  }
 `
 const StyledCardBody = styled.div`
   padding: 0 24px 24px;
@@ -69,38 +42,25 @@ const StyledScrollCol = styled(Col)`
   overflow-x: scroll;
   min-height: calc(100vh - 180px);
 `
+const StyledLoader = styled.div`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 class Projects extends Component {
-  state = {
-    lists: [
-      {
-        id: 1,
-        name: 'List 1',
-      },
-      {
-        id: 2,
-        name: 'List 2',
-      },
-      {
-        id: 3,
-        name: 'List 3',
-      },
-      {
-        id: 4,
-        name: 'List 4',
-      },
-      {
-        id: 5,
-        name: 'List 5',
-      },
-    ],
-  }
-
   render() {
     return (
       <Query query={PROJECT_QUERY} variables={{ id: this.props.id }}>
         {({ data, error, loading }) => {
-          if (loading) return <div>Loading...</div>
+          if (loading)
+            return (
+              <StyledLoader>
+                <img src={require('../../../static/images/logo.png')} />
+              </StyledLoader>
+            )
           if (error) return <p>Error: {error.message}</p>
 
           const { admin, title } = data.projects_by_pk
@@ -126,17 +86,7 @@ class Projects extends Component {
               </Row>
               <Row gutter={0}>
                 <StyledScrollCol span={48}>
-                  <StyledCardContent listCount={this.state.lists.length}>
-                    {this.state.lists.map((list, index) => {
-                      return (
-                        <Card
-                          key={index}
-                          title={list.name}
-                          extra={<Icon type="setting" />}
-                        />
-                      )
-                    })}
-                  </StyledCardContent>
+                  <Board />
                 </StyledScrollCol>
               </Row>
             </Fragment>
