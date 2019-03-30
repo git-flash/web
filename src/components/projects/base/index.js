@@ -81,6 +81,7 @@ class Projects extends Component {
                           key={project.id}
                           title={project.title}
                           extra={<Icon type="setting" />}
+                          hoverable
                         >
                           {project.content}
                         </Card>

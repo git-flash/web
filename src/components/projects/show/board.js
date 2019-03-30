@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component, PureComponent } from 'react'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import toArray from 'lodash/toArray'
@@ -9,7 +9,7 @@ import Column from './column'
 const Container = styled.div`
   display: flex;
   height: calc(100vh - 180px);
-  width: ${(initialData.columnOrder.length - 1) * (500 + 48)}px;
+  width: ${(initialData.columnOrder.length - 1) * (400 + 48)}px;
 `
 
 class InnerList extends PureComponent {
@@ -20,7 +20,7 @@ class InnerList extends PureComponent {
   }
 }
 
-class Board extends React.Component {
+class Board extends Component {
   state = initialData
 
   onDragStart = (start, provided) => {

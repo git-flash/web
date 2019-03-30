@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 import { Card } from 'antd'
+import Link from 'next/link'
 
 const Container = styled.div`
   margin-bottom: 16px;
@@ -25,7 +26,14 @@ class Task extends React.Component {
             isDragging={snapshot.isDragging}
             aria-roledescription="Press space bar to lift the task"
           >
-            <StyledCard hoverable>{this.props.task.content}</StyledCard>
+            <Link
+              href={`/tasks/show?id=${this.props.task.id}`}
+              as={`/tasks/${this.props.task.id}`}
+            >
+              <a>
+                <StyledCard hoverable>{this.props.task.content}</StyledCard>
+              </a>
+            </Link>
           </Container>
         )}
       </Draggable>

@@ -20,6 +20,12 @@ app
       })
     })
 
+    server.get('/tasks/:id', (req, res) => {
+      app.render(req, res, '/tasks/show', {
+        id: req.params.id,
+      })
+    })
+
     server.get('*', (req, res) => {
       return handle(req, res)
     })

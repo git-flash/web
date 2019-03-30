@@ -9,6 +9,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 24px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `
 const Title = styled.h3`
   margin-bottom: 16px;
@@ -21,7 +25,7 @@ const TaskList = styled.div`
   height: calc(100vh - 180px);
 `
 
-class InnerList extends React.Component {
+class InnerList extends Component {
   shouldComponentUpdate(nextProps) {
     if (nextProps.tasks === this.props.tasks) {
       return false
