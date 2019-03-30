@@ -8,12 +8,10 @@ const Container = styled.div`
   width: 400px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
   margin-right: 24px;
 `
 const Title = styled.h3`
-  padding: 16px 0 32px;
-  overflow: hidden;
+  margin-bottom: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
 `
