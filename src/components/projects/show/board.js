@@ -82,53 +82,56 @@ class Board extends Component {
     /**
      * Handle cases for re-ordering tasks within the same list
      */
-    const home = find(this.state.columns, c => c.id === source.droppableId)
-    const foreign = find(
-      this.state.columns,
-      c => c.id === destination.droppableId
-    )
+    if (type === 'task') {
+      const home = find(this.state.columns, c => c.id === source.droppableId)
+      const foreign = find(
+        this.state.columns,
+        c => c.id === destination.droppableId
+      )
 
-    if (home.id === foreign.id) {
-      const tasks = find(this.state.columns, c => c.id === source.droppableId)
+      if (home.id === foreign.id) {
+        const tasks = find(this.state.columns, c => c.id === source.droppableId)
+          .tasks
+        const splicedTasks = tasks[source.index]
+
+        tasks.splice(source.index, 1)
+        tasks.splice(destination.index, 0, splicedTasks)
+
+        home.tasks = tasks
+
+        const columns = this.state.columns
+        const index = findIndex(this.state.columns, c => c.id === home.id)
+        columns[index] = home
+
+        this.setState({ columns })
+      }
+
+      /**
+       * Handle cases for re-ordering tasks within different lists
+       */
+      let tasks = find(this.state.columns, c => c.id === source.droppableId)
         .tasks
-      const splicedTasks = tasks[source.index]
+      let splicedTasks = tasks[source.index]
 
       tasks.splice(source.index, 1)
-      tasks.splice(destination.index, 0, splicedTasks)
 
       home.tasks = tasks
 
-      const columns = this.state.columns
-      const index = findIndex(this.state.columns, c => c.id === home.id)
+      tasks = find(this.state.columns, c => c.id === destination.droppableId)
+        .tasks
+      tasks.splice(destination.index, 0, splicedTasks)
+
+      foreign.tasks = tasks
+
+      let columns = this.state.columns
+      let index = findIndex(this.state.columns, c => c.id === home.id)
       columns[index] = home
+
+      index = findIndex(this.state.columns, c => c.id === foreign.id)
+      columns[index] = foreign
 
       this.setState({ columns })
     }
-
-    /**
-     * Handle cases for re-ordering tasks within different lists
-     */
-    let tasks = find(this.state.columns, c => c.id === source.droppableId).tasks
-    let splicedTasks = tasks[source.index]
-
-    tasks.splice(source.index, 1)
-
-    home.tasks = tasks
-
-    tasks = find(this.state.columns, c => c.id === destination.droppableId)
-      .tasks
-    tasks.splice(destination.index, 0, splicedTasks)
-
-    foreign.tasks = tasks
-
-    let columns = this.state.columns
-    let index = findIndex(this.state.columns, c => c.id === home.id)
-    columns[index] = home
-
-    index = findIndex(this.state.columns, c => c.id === foreign.id)
-    columns[index] = foreign
-
-    this.setState({ columns })
   }
 
   render() {
