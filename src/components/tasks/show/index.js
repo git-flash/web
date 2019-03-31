@@ -10,53 +10,72 @@ import Router from 'next/router'
 import ProjectsShow from '../../projects/show'
 import initialData from '../../projects/show/initial-data'
 
-const PROJECT_QUERY = gql`
-  query PROJECT_QUERY($id: ID!) {
-    projects_by_pk(id: $id) {
+const TASK_QUERY = gql`
+  query TASK_QUERY($id: ID!) {
+    tasks_by_pk(id: $id) {
       id
-      title
       content
-      admin {
-        email
+      column {
+        project {
+          id
+        }
       }
     }
   }
 `
+const StyledLoader = styled.div`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 class TasksShow extends Component {
-  projectId = initialData.tasks[this.props.id].projectId
-
   state = {
     showModal: true,
   }
 
-  handleClose = () => {
+  handleClose = projectId => {
     this.setState({ showModal: false }, () => {
-      Router.push(
-        `/projects/show?id=${this.projectId}`,
-        `/projects/${this.projectId}`
-      )
+      Router.push(`/projects/show?id=${projectId}`, `/projects/${projectId}`)
     })
   }
 
   render() {
     return (
-      <Fragment>
-        <ProjectsShow id={this.projectId} />
-        <Modal
-          centered
-          destroyOnClose
-          title="Basic Modal"
-          width={800}
-          visible={this.state.showModal}
-          onOk={this.handleClose}
-          onCancel={this.handleClose}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-      </Fragment>
+      <Query query={TASK_QUERY} variables={{ id: this.props.id }}>
+        {({ data, error, loading }) => {
+          if (loading)
+            return (
+              <StyledLoader>
+                <img src={require('../../../static/images/logo.png')} />
+              </StyledLoader>
+            )
+          if (error) return <p>Error: {error.message}</p>
+
+          const { content, column } = data.tasks_by_pk
+
+          return (
+            <Fragment>
+              <ProjectsShow id={column.project.id} />
+              <Modal
+                centered
+                destroyOnClose
+                title="Basic Modal"
+                width={800}
+                visible={this.state.showModal}
+                onOk={() => this.handleClose(column.project.id)}
+                onCancel={() => this.handleClose(column.project.id)}
+              >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </Modal>
+            </Fragment>
+          )
+        }}
+      </Query>
     )
   }
 }
