@@ -1,7 +1,8 @@
 import React, { Component, PureComponent } from 'react'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import toArray from 'lodash/toArray'
+import find from 'lodash/find'
+import findIndex from 'lodash/findIndex'
 
 import initialData from './initial-data'
 import Column from './column'
@@ -9,19 +10,22 @@ import Column from './column'
 const Container = styled.div`
   display: flex;
   height: calc(100vh - 180px);
-  width: ${(initialData.columnOrder.length - 1) * (400 + 48)}px;
+  width: ${props =>
+    props.columns.length * 400 + (props.columns.length - 1) * 24}px;
 `
 
 class InnerList extends PureComponent {
   render() {
-    const { column, taskMap, index } = this.props
-    const tasks = column.taskIds.map(taskId => taskMap[taskId])
+    const { column, tasks, index } = this.props
+
     return <Column column={column} tasks={tasks} index={index} />
   }
 }
 
 class Board extends Component {
-  state = initialData
+  state = {
+    columns: this.props.columns,
+  }
 
   onDragStart = (start, provided) => {
     provided.announce(
@@ -48,79 +52,83 @@ class Board extends Component {
 
     const { destination, source, draggableId, type } = result
 
+    /**
+     * Handle cases where updation isn't necessary
+     */
     if (!destination) {
-      return
+      return false
     }
 
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-      return
+      return false
     }
 
+    /**
+     * Handle cases for re-ordering columns
+     */
     if (type === 'column') {
-      const newColumnOrder = toArray(this.state.columnOrder)
-      newColumnOrder.splice(source.index, 1)
-      newColumnOrder.splice(destination.index, 0, draggableId)
+      const columns = this.state.columns
+      const splicedColumn = this.state.columns[source.index]
 
-      const newState = {
-        ...this.state,
-        columnOrder: newColumnOrder,
-      }
-      this.setState(newState)
-      return
+      columns.splice(source.index, 1)
+      columns.splice(destination.index, 0, splicedColumn)
+
+      this.setState({ columns })
     }
 
-    const home = this.state.columns[source.droppableId]
-    const foreign = this.state.columns[destination.droppableId]
+    /**
+     * Handle cases for re-ordering tasks within the same list
+     */
+    const home = find(this.state.columns, c => c.id === source.droppableId)
+    const foreign = find(
+      this.state.columns,
+      c => c.id === destination.droppableId
+    )
 
-    if (home === foreign) {
-      const newTaskIds = toArray(home.taskIds)
-      newTaskIds.splice(source.index, 1)
-      newTaskIds.splice(destination.index, 0, draggableId)
+    if (home.id === foreign.id) {
+      const tasks = find(this.state.columns, c => c.id === source.droppableId)
+        .tasks
+      const splicedTasks = tasks[source.index]
 
-      const newHome = {
-        ...home,
-        taskIds: newTaskIds,
-      }
+      tasks.splice(source.index, 1)
+      tasks.splice(destination.index, 0, splicedTasks)
 
-      const newState = {
-        ...this.state,
-        columns: {
-          ...this.state.columns,
-          [newHome.id]: newHome,
-        },
-      }
+      home.tasks = tasks
 
-      this.setState(newState)
-      return
+      const columns = this.state.columns
+      const index = findIndex(this.state.columns, c => c.id === home.id)
+      columns[index] = home
+
+      this.setState({ columns })
     }
 
-    // moving from one list to another
-    const homeTaskIds = toArray(home.taskIds)
-    homeTaskIds.splice(source.index, 1)
-    const newHome = {
-      ...home,
-      taskIds: homeTaskIds,
-    }
+    /**
+     * Handle cases for re-ordering tasks within different lists
+     */
+    let tasks = find(this.state.columns, c => c.id === source.droppableId).tasks
+    let splicedTasks = tasks[source.index]
 
-    const foreignTaskIds = toArray(foreign.taskIds)
-    foreignTaskIds.splice(destination.index, 0, draggableId)
-    const newForeign = {
-      ...foreign,
-      taskIds: foreignTaskIds,
-    }
+    tasks.splice(source.index, 1)
 
-    const newState = {
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newHome.id]: newHome,
-        [newForeign.id]: newForeign,
-      },
-    }
-    this.setState(newState)
+    home.tasks = tasks
+
+    tasks = find(this.state.columns, c => c.id === destination.droppableId)
+      .tasks
+    tasks.splice(destination.index, 0, splicedTasks)
+
+    foreign.tasks = tasks
+
+    let columns = this.state.columns
+    let index = findIndex(this.state.columns, c => c.id === home.id)
+    columns[index] = home
+
+    index = findIndex(this.state.columns, c => c.id === foreign.id)
+    columns[index] = foreign
+
+    this.setState({ columns })
   }
 
   render() {
@@ -136,14 +144,17 @@ class Board extends Component {
           type="column"
         >
           {provided => (
-            <Container {...provided.droppableProps} ref={provided.innerRef}>
-              {this.state.columnOrder.map((columnId, index) => {
-                const column = this.state.columns[columnId]
+            <Container
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              columns={this.state.columns}
+            >
+              {this.state.columns.map((column, index) => {
                 return (
                   <InnerList
                     key={column.id}
                     column={column}
-                    taskMap={this.state.tasks}
+                    tasks={column.tasks}
                     index={index}
                   />
                 )

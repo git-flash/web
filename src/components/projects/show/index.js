@@ -17,6 +17,14 @@ const PROJECT_QUERY = gql`
       admin {
         email
       }
+      columns {
+        id
+        title
+        tasks {
+          id
+          content
+        }
+      }
     }
   }
 `
@@ -63,7 +71,7 @@ class Projects extends Component {
             )
           if (error) return <p>Error: {error.message}</p>
 
-          const { admin, title } = data.projects_by_pk
+          const { admin, title, columns } = data.projects_by_pk
 
           return (
             <Fragment>
@@ -86,7 +94,7 @@ class Projects extends Component {
               </Row>
               <Row gutter={0}>
                 <StyledScrollCol span={48}>
-                  <Board />
+                  <Board columns={columns} />
                 </StyledScrollCol>
               </Row>
             </Fragment>
