@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
+import { Subscription } from 'react-apollo'
 import { Card, Col, Row, Icon, Avatar } from 'antd'
 import styled from 'styled-components'
 import Link from 'next/link'
 
 import Board from './board'
 
-const PROJECT_QUERY = gql`
-  query PROJECT_QUERY($id: ID!) {
+const PROJECT_SUBSCRIPTION = gql`
+  subscription PROJECT_SUBSCRIPTION($id: ID!) {
     projects_by_pk(id: $id) {
       id
       title
@@ -17,12 +17,15 @@ const PROJECT_QUERY = gql`
       admin {
         email
       }
-      columns {
+      columns(order_by: { sequence: asc }) {
         id
+        sequence
         title
-        tasks {
+        tasks(order_by: { sequence: asc }) {
           id
+          sequence
           content
+          column_id
         }
       }
     }
@@ -61,7 +64,10 @@ const StyledLoader = styled.div`
 class Projects extends Component {
   render() {
     return (
-      <Query query={PROJECT_QUERY} variables={{ id: this.props.id }}>
+      <Subscription
+        subscription={PROJECT_SUBSCRIPTION}
+        variables={{ id: this.props.id }}
+      >
         {({ data, error, loading }) => {
           if (loading)
             return (
@@ -100,7 +106,7 @@ class Projects extends Component {
             </Fragment>
           )
         }}
-      </Query>
+      </Subscription>
     )
   }
 }

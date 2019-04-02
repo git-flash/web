@@ -3,10 +3,48 @@ import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { Mutation } from 'react-apollo'
 
-import initialData from './initial-data'
 import Column from './column'
+import { SourceNode } from 'source-map'
 
+const UPDATE_TASKS = gql`
+  mutation UPDATE_TASKS(
+    $id: uuid!
+    $content: String
+    $sequence: Int
+    $column_id: uuid
+  ) {
+    update_tasks(
+      where: { id: { _eq: $id } }
+      _set: { content: $content, sequence: $sequence, column_id: $column_id }
+    ) {
+      affected_rows
+      returning {
+        id
+        content
+        sequence
+      }
+    }
+  }
+`
+const UPDATE_COLUMNS = gql`
+  mutation update_columns($id: uuid, $title: String, $sequence: Int) {
+    update_columns(
+      where: { id: { _eq: $id } }
+      _set: { title: $title, sequence: $sequence }
+    ) {
+      affected_rows
+      returning {
+        id
+        title
+        sequence
+      }
+    }
+  }
+`
 const Container = styled.div`
   display: flex;
   height: calc(100vh - 180px);
@@ -23,10 +61,6 @@ class InnerList extends PureComponent {
 }
 
 class Board extends Component {
-  state = {
-    columns: this.props.columns,
-  }
-
   onDragStart = (start, provided) => {
     provided.announce(
       `You have lifted the task in position ${start.source.index + 1}`
@@ -41,7 +75,7 @@ class Board extends Component {
     provided.announce(message)
   }
 
-  onDragEnd = (result, provided) => {
+  onDragEnd = (result, provided, update_columns, update_tasks) => {
     const message = result.destination
       ? `You have moved the task from position
         ${result.source.index + 1} to ${result.destination.index + 1}`
@@ -70,103 +104,108 @@ class Board extends Component {
      * Handle cases for re-ordering columns
      */
     if (type === 'column') {
-      const columns = this.state.columns
-      const splicedColumn = this.state.columns[source.index]
+      /**
+       * Find the sourceColumn and destinationColumn and exchange their sequence
+       */
+      const sourceColumn = this.props.columns[source.index]
+      const sequenceOfSourceColumn = sourceColumn.sequence
+      const destinationColumn = this.props.columns[destination.index]
+      const sequenceOfDestinationColumn = destinationColumn.sequence
 
-      columns.splice(source.index, 1)
-      columns.splice(destination.index, 0, splicedColumn)
+      sourceColumn.sequence = sequenceOfDestinationColumn
+      destinationColumn.sequence = sequenceOfSourceColumn
 
-      this.setState({ columns })
+      /**
+       * Save both the updated columns
+       */
+      update_columns({
+        variables: {
+          id: sourceColumn.id,
+          title: sourceColumn.title,
+          sequence: sourceColumn.sequence,
+        },
+      })
+
+      update_columns({
+        variables: {
+          id: destinationColumn.id,
+          title: destinationColumn.title,
+          sequence: destinationColumn.sequence,
+        },
+      })
     }
 
     /**
-     * Handle cases for re-ordering tasks within the same list
+     * Handle cases for re-ordering tasks
      */
     if (type === 'task') {
-      const home = find(this.state.columns, c => c.id === source.droppableId)
-      const foreign = find(
-        this.state.columns,
+      /**
+       * Find the source and destination column
+       */
+      const sourceColumn = find(
+        this.props.columns,
+        c => c.id === source.droppableId
+      )
+      const destinationColumn = find(
+        this.props.columns,
         c => c.id === destination.droppableId
       )
 
-      if (home.id === foreign.id) {
-        const tasks = find(this.state.columns, c => c.id === source.droppableId)
-          .tasks
-        const splicedTasks = tasks[source.index]
-
-        tasks.splice(source.index, 1)
-        tasks.splice(destination.index, 0, splicedTasks)
-
-        home.tasks = tasks
-
-        const columns = this.state.columns
-        const index = findIndex(this.state.columns, c => c.id === home.id)
-        columns[index] = home
-
-        this.setState({ columns })
+      if (sourceColumn.id === destinationColumn.id) {
+        /**
+         * Handle cases for re-ordering tasks within the same list
+         */
+      } else {
+        /**
+         * Handle cases for re-ordering tasks within different lists
+         */
       }
-
-      /**
-       * Handle cases for re-ordering tasks within different lists
-       */
-      let tasks = find(this.state.columns, c => c.id === source.droppableId)
-        .tasks
-      let splicedTasks = tasks[source.index]
-
-      tasks.splice(source.index, 1)
-
-      home.tasks = tasks
-
-      tasks = find(this.state.columns, c => c.id === destination.droppableId)
-        .tasks
-      tasks.splice(destination.index, 0, splicedTasks)
-
-      foreign.tasks = tasks
-
-      let columns = this.state.columns
-      let index = findIndex(this.state.columns, c => c.id === home.id)
-      columns[index] = home
-
-      index = findIndex(this.state.columns, c => c.id === foreign.id)
-      columns[index] = foreign
-
-      this.setState({ columns })
     }
   }
 
   render() {
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}
-      >
-        <Droppable
-          droppableId="all-columns"
-          direction="horizontal"
-          type="column"
-        >
-          {provided => (
-            <Container
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              columns={this.state.columns}
-            >
-              {this.state.columns.map((column, index) => {
-                return (
-                  <InnerList
-                    key={column.id}
-                    column={column}
-                    tasks={column.tasks}
-                    index={index}
-                  />
-                )
-              })}
-              {provided.placeholder}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <Mutation mutation={UPDATE_TASKS}>
+        {(update_tasks, { tasks }) => (
+          <Mutation mutation={UPDATE_COLUMNS}>
+            {(update_columns, { columns }) => (
+              <DragDropContext
+                onDragStart={this.onDragStart}
+                onDragUpdate={this.onDragUpdate}
+                onDragEnd={(result, provided) =>
+                  this.onDragEnd(result, provided, update_columns, update_tasks)
+                }
+              >
+                <Droppable
+                  droppableId="all-columns"
+                  direction="horizontal"
+                  type="column"
+                >
+                  {provided => (
+                    <Container
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      columns={this.props.columns}
+                    >
+                      {this.props.columns.map((column, index) => {
+                        return (
+                          <InnerList
+                            key={column.id}
+                            column={column}
+                            tasks={column.tasks}
+                            index={index}
+                          />
+                        )
+                      })}
+                      {provided.placeholder}
+                    </Container>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            )}
+          </Mutation>
+        )}
+      </Mutation>
     )
   }
 }
