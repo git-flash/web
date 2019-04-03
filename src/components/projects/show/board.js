@@ -51,6 +51,13 @@ const Container = styled.div`
   width: ${props =>
     props.columns.length * 400 + (props.columns.length - 1) * 24}px;
 `
+const StyledLoader = styled.div`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 class InnerList extends PureComponent {
   render() {
@@ -267,45 +274,72 @@ class Board extends Component {
   render() {
     return (
       <Mutation mutation={UPDATE_TASKS}>
-        {(update_tasks, { tasks }) => (
-          <Mutation mutation={UPDATE_COLUMNS}>
-            {(update_columns, { columns }) => (
-              <DragDropContext
-                onDragStart={this.onDragStart}
-                onDragUpdate={this.onDragUpdate}
-                onDragEnd={(result, provided) =>
-                  this.onDragEnd(result, provided, update_columns, update_tasks)
-                }
-              >
-                <Droppable
-                  droppableId="all-columns"
-                  direction="horizontal"
-                  type="column"
-                >
-                  {provided => (
-                    <Container
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                      columns={this.props.columns}
+        {(update_tasks, { loading, error }) => {
+          if (loading)
+            return (
+              <StyledLoader>
+                <img src={require('../../../static/images/logo.png')} />
+              </StyledLoader>
+            )
+
+          if (error) return <p>Error: {error.message}</p>
+
+          return (
+            <Mutation mutation={UPDATE_COLUMNS}>
+              {(update_columns, { loading, error }) => {
+                if (loading)
+                  return (
+                    <StyledLoader>
+                      <img src={require('../../../static/images/logo.png')} />
+                    </StyledLoader>
+                  )
+
+                if (error) return <p>Error: {error.message}</p>
+
+                return (
+                  <DragDropContext
+                    onDragStart={this.onDragStart}
+                    onDragUpdate={this.onDragUpdate}
+                    onDragEnd={(result, provided) =>
+                      this.onDragEnd(
+                        result,
+                        provided,
+                        update_columns,
+                        update_tasks
+                      )
+                    }
+                  >
+                    <Droppable
+                      droppableId="all-columns"
+                      direction="horizontal"
+                      type="column"
                     >
-                      {this.props.columns.map((column, index) => {
-                        return (
-                          <InnerList
-                            key={column.id}
-                            column={column}
-                            tasks={column.tasks}
-                            index={index}
-                          />
-                        )
-                      })}
-                      {provided.placeholder}
-                    </Container>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            )}
-          </Mutation>
-        )}
+                      {provided => (
+                        <Container
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          columns={this.props.columns}
+                        >
+                          {this.props.columns.map((column, index) => {
+                            return (
+                              <InnerList
+                                key={column.id}
+                                column={column}
+                                tasks={column.tasks}
+                                index={index}
+                              />
+                            )
+                          })}
+                          {provided.placeholder}
+                        </Container>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                )
+              }}
+            </Mutation>
+          )
+        }}
       </Mutation>
     )
   }

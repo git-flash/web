@@ -75,6 +75,7 @@ class Projects extends Component {
                 <img src={require('../../../static/images/logo.png')} />
               </StyledLoader>
             )
+
           if (error) return <p>Error: {error.message}</p>
 
           const { admin, title, columns } = data.projects_by_pk
