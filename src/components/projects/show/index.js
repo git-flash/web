@@ -69,8 +69,6 @@ class Projects extends Component {
         variables={{ id: this.props.id }}
       >
         {({ data, error, loading }) => {
-          console.log(loading)
-
           if (loading)
             return (
               <StyledLoader>

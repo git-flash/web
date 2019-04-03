@@ -167,7 +167,7 @@ class Board extends Component {
          * Find all the tasks which have sequence more than sourceTask
          * and increase them by one
          */
-        const tasks = sourceColumn.tasks
+        const tasks = destinationColumn.tasks
 
         tasks.forEach(task => {
           if (task.sequence >= sourceTask.sequence) {
@@ -197,6 +197,50 @@ class Board extends Component {
         /**
          * Handle cases for re-ordering tasks within different lists
          */
+        const sourceTask = sourceColumn.tasks[source.index]
+        const sequenceOfSourceTask = sourceTask.sequence
+        const destinationTask = destinationColumn.tasks[destination.index]
+        const sequenceOfDestinationTask = !!destinationTask
+          ? destinationTask.sequence
+          : 1
+        const columnIdOfDestinationTask = destinationColumn.id
+
+        /**
+         * Find the sourceTask update its sequence and column_id
+         */
+        sourceTask.sequence = sequenceOfDestinationTask
+        sourceTask.column_id = columnIdOfDestinationTask
+
+        /**
+         * Find all the tasks which have sequence more than sourceTask
+         * and increase them by one
+         */
+        const tasks = destinationColumn.tasks
+
+        tasks.forEach(task => {
+          if (task.sequence >= sourceTask.sequence) {
+            update_tasks({
+              variables: {
+                id: task.id,
+                content: task.content,
+                sequence: task.sequence + 1,
+                column_id: task.column_id,
+              },
+            })
+          }
+        })
+
+        /**
+         * Save all the updated columns
+         */
+        update_tasks({
+          variables: {
+            id: sourceTask.id,
+            content: sourceTask.content,
+            sequence: sourceTask.sequence,
+            column_id: sourceTask.column_id,
+          },
+        })
       }
     }
   }
