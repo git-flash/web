@@ -133,12 +133,10 @@ class Board extends Component {
           sequence: destinationColumn.sequence,
         },
       })
-    }
-
-    /**
-     * Handle cases for re-ordering tasks
-     */
-    if (type === 'task') {
+    } else if (type === 'task') {
+      /**
+       * Handle cases for re-ordering tasks
+       */
       /**
        * Find the source and destination column
        */
@@ -155,6 +153,46 @@ class Board extends Component {
         /**
          * Handle cases for re-ordering tasks within the same list
          */
+        const sourceTask = sourceColumn.tasks[source.index]
+        const sequenceOfSourceTask = sourceTask.sequence
+        const destinationTask = destinationColumn.tasks[destination.index]
+        const sequenceOfDestinationTask = destinationTask.sequence
+
+        /**
+         * Find the sourceTask update its sequence
+         */
+        sourceTask.sequence = sequenceOfDestinationTask
+
+        /**
+         * Find all the tasks which have sequence more than sourceTask
+         * and increase them by one
+         */
+        const tasks = sourceColumn.tasks
+
+        tasks.forEach(task => {
+          if (task.sequence >= sourceTask.sequence) {
+            update_tasks({
+              variables: {
+                id: task.id,
+                content: task.content,
+                sequence: task.sequence + 1,
+                column_id: task.column_id,
+              },
+            })
+          }
+        })
+
+        /**
+         * Save all the updated columns
+         */
+        update_tasks({
+          variables: {
+            id: sourceTask.id,
+            content: sourceTask.content,
+            sequence: sourceTask.sequence,
+            column_id: sourceTask.column_id,
+          },
+        })
       } else {
         /**
          * Handle cases for re-ordering tasks within different lists
