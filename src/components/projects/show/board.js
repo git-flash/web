@@ -215,15 +215,34 @@ class Board extends Component {
          * Find all the tasks which have sequence more than sourceTask
          * and increase them by one
          */
-        const tasks = destinationColumn.tasks
+        const destinationTasks = destinationColumn.tasks
 
-        tasks.forEach(task => {
+        destinationTasks.forEach(task => {
           if (task.sequence >= sourceTask.sequence) {
             update_tasks({
               variables: {
                 id: task.id,
                 content: task.content,
                 sequence: task.sequence + 1,
+                column_id: task.column_id,
+              },
+            })
+          }
+        })
+
+        /**
+         * Find all the tasks which have sequence more than sourceTask
+         * and decrease them by one
+         */
+        const sourceTasks = sourceColumn.tasks
+
+        sourceTasks.forEach(task => {
+          if (task.sequence > sourceTask.sequence) {
+            update_tasks({
+              variables: {
+                id: task.id,
+                content: task.content,
+                sequence: task.sequence - 1,
                 column_id: task.column_id,
               },
             })
