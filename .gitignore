@@ -50,4 +50,4 @@ typings/
 .next
 
 # netlify build folder
-/src/out
+/out

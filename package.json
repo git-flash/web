@@ -2,9 +2,9 @@
   "name": "web",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node src/server.js",
-    "build": "next build src",
-    "start": "node src/server.js",
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "node server.js",
     "heroku-postbuild": "yarn build"
   },
   "dependencies": {

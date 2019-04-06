@@ -7,4 +7,8 @@ if (typeof require !== 'undefined') {
   require.extensions['.css'] = file => {}
 }
 
-module.exports = withImages(withCss())
+module.exports = withImages(
+  withCss({
+    target: 'serverless',
+  })
+)

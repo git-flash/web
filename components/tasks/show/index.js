@@ -11,7 +11,7 @@ import ProjectsShow from '../../projects/show'
 import initialData from '../../projects/show/initial-data'
 
 const TASK_QUERY = gql`
-  query TASK_QUERY($id: ID!) {
+  query TASK_QUERY($id: uuid!) {
     tasks_by_pk(id: $id) {
       id
       content

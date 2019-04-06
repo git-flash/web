@@ -9,7 +9,7 @@ import Link from 'next/link'
 import Board from './board'
 
 const PROJECT_SUBSCRIPTION = gql`
-  subscription PROJECT_SUBSCRIPTION($id: ID!) {
+  subscription PROJECT_SUBSCRIPTION($id: uuid!) {
     projects_by_pk(id: $id) {
       id
       title
