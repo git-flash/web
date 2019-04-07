@@ -1,18 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
+import { Subscription } from 'react-apollo'
 import { Card, Col, Row, Icon, Button } from 'antd'
 import styled from 'styled-components'
 import Link from 'next/link'
 
-const PROJECTS_QUERY = gql`
-  query PROJECTS_QUERY {
+const PROJECTS_SUBSCRIPTION = gql`
+  subscription PROJECTS_SUBSCRIPTION {
     projects {
       id
       title
       content
       admin {
+        id
         email
       }
     }
@@ -25,9 +26,9 @@ const StyledHeader = styled.div`
 `
 const StyledMeta = styled.div``
 const StyledTitle = styled.div`
-  margin: 24px 0;
+  margin: 48px 0;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
 `
 const StyledLoader = styled.div`
   height: 100vh;
@@ -36,11 +37,15 @@ const StyledLoader = styled.div`
   justify-content: center;
   align-items: center;
 `
+const StyledCard = styled(Card)`
+  height: 128px;
+  margin-bottom: 48px;
+`
 
 class Projects extends Component {
   render() {
     return (
-      <Query query={PROJECTS_QUERY}>
+      <Subscription subscription={PROJECTS_SUBSCRIPTION}>
         {({ data, error, loading }) => {
           if (loading)
             return (
@@ -57,14 +62,11 @@ class Projects extends Component {
                   <StyledHeader>
                     <StyledTitle>Projects</StyledTitle>
                     <StyledMeta>
-                      <Button
-                        type="primary"
-                        shape="round"
-                        icon="plus"
-                        size="large"
-                      >
-                        New Project
-                      </Button>
+                      <Link href={`/projects/new`} as={`/projects/new`}>
+                        <Button type="primary" icon="plus" size="large">
+                          New Project
+                        </Button>
+                      </Link>
                     </StyledMeta>
                   </StyledHeader>
                 </Col>
@@ -77,14 +79,14 @@ class Projects extends Component {
                       as={`/projects/${project.id}`}
                     >
                       <a>
-                        <Card
+                        <StyledCard
                           key={project.id}
                           title={project.title}
                           extra={<Icon type="setting" />}
                           hoverable
                         >
                           {project.content}
-                        </Card>
+                        </StyledCard>
                       </a>
                     </Link>
                   </Col>
@@ -93,7 +95,7 @@ class Projects extends Component {
             </Fragment>
           )
         }}
-      </Query>
+      </Subscription>
     )
   }
 }

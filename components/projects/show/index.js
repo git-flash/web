@@ -15,6 +15,7 @@ const PROJECT_SUBSCRIPTION = gql`
       title
       content
       admin {
+        id
         email
       }
       columns(order_by: { sequence: asc }) {

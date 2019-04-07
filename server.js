@@ -14,6 +14,12 @@ app
       app.render(req, res, '/projects')
     })
 
+    server.get('/projects/new', (req, res) => {
+      app.render(req, res, '/projects/new', {
+        id: req.params.id,
+      })
+    })
+
     server.get('/projects/:id', (req, res) => {
       app.render(req, res, '/projects/show', {
         id: req.params.id,
