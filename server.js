@@ -15,9 +15,7 @@ app
     })
 
     server.get('/projects/new', (req, res) => {
-      app.render(req, res, '/projects/new', {
-        id: req.params.id,
-      })
+      app.render(req, res, '/projects/new')
     })
 
     server.get('/projects/:id', (req, res) => {
