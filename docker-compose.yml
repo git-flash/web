@@ -1,8 +1,8 @@
 version: "3"
+
 services:
-  web:
+  perfy.web:
     build: .
-    container_name: web
     command: yarn dev
     volumes:
       - .:/app

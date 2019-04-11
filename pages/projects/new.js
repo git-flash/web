@@ -8,7 +8,7 @@ import ProjectNew from '../../components/projects/new'
 
 class New extends Component {
   render() {
-    return <ProjectNew adminId="4ca52a82-cf2f-4905-8f5d-004236c94525" />
+    return <ProjectNew />
   }
 }
 
