@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd'
-import styled from 'styled-components'
 
 const { Content } = Layout
-const StyledContent = styled(Content)`
-  padding: 0 48px;
-  max-width: 100vw;
-`
 
 class ContentComponent extends Component {
   render() {
-    return <StyledContent>{this.props.children}</StyledContent>
+    return (
+      <div className="m-8">
+        <div className="min-h-screen bg-white p-8 border border-solid border-gray-300 rounded">
+          {this.props.children}
+        </div>
+      </div>
+    )
   }
 }
 

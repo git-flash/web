@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from 'antd'
-import styled from 'styled-components'
 
-import HeaderComponent from './header'
 import ContentComponent from './content'
+import SiderComponent from './sider'
+import HeaderComponent from './header'
 
-const StyledGlobalLayout = styled(Layout)`
-  min-height: 100vh;
-`
-const StyledContentLayout = styled(Layout)`
-  flex-direction: row;
-`
+const { Content } = Layout
 
 class LayoutComponent extends Component {
   render() {
     return (
-      <StyledGlobalLayout>
-        <HeaderComponent />
-        <StyledContentLayout>
+      <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
+        <SiderComponent />
+        <Layout>
+          <HeaderComponent />
           <ContentComponent>{this.props.children}</ContentComponent>
-        </StyledContentLayout>
-      </StyledGlobalLayout>
+        </Layout>
+      </Layout>
     )
   }
 }

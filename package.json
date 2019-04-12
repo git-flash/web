@@ -36,7 +36,7 @@
     "lint-staged": "^8.1.5",
     "postcss-easy-import": "^3.0.0",
     "prettier": "^1.16.4",
-    "tailwindcss": "^0.7.4"
+    "tailwindcss": "^1.0.0-beta.4"
   },
   "husky": {
     "hooks": {

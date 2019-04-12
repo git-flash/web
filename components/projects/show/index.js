@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
-import { Card, Col, Row, Icon, Avatar } from 'antd'
+import { graphql, withApollo, Query } from 'react-apollo'
+import { Form, Button, Input } from 'antd'
 import styled from 'styled-components'
+import Router from 'next/router'
 import Link from 'next/link'
 
-const projectQuery = gql`
-  query PROJECT_QUERY($id: ID!) {
+const fetchProjectQuery = gql`
+  query($id: ID!) {
     project(id: $id) {
       _id
+      name
       users {
         _id
         username
@@ -17,28 +18,83 @@ const projectQuery = gql`
     }
   }
 `
+const updateProjectMutation = gql`
+  mutation($name: String, $id: ID!) {
+    updateProject(input: { where: { id: $id }, data: { name: $name } }) {
+      project {
+        _id
+        name
+        users {
+          _id
+        }
+      }
+    }
+  }
+`
 
-class Projects extends Component {
+class ProjectsShow extends Component {
+  handleSubmit = () => {
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        await this.props.client.mutate({
+          mutation: updateProjectMutation,
+          variables: {
+            id: this.props.id,
+            name: values.name,
+          },
+        })
+
+        Router.push('/projects')
+      }
+    })
+  }
+
   render() {
+    const { getFieldDecorator } = this.props.form
+
     return (
-      <Query query={projectQuery} variables={{ id: this.props.id }}>
+      <Query
+        query={fetchProjectQuery}
+        variables={{ id: this.props.id }}
+        fetchPolicy="network-only"
+      >
         {({ data, error, loading }) => {
           if (loading) return <p>Loading</p>
 
           if (error) return <p>Error: {error.message}</p>
 
-          const { _id } = data.project
+          const { name } = data.project
 
           return (
-            <Row gutter={48}>
-              <Col span={48}>
-                <Link href={`/projects`} as={`/projects`}>
-                  <a>
-                    <Icon type="arrow-left" />
-                  </a>
-                </Link>
-              </Col>
-            </Row>
+            <div className="flex justify-center flex-col ml-auto mr-auto">
+              <Form layout="vertical" onSubmit={this.handleSubmit}>
+                <Form.Item label="Name">
+                  {getFieldDecorator('name', {
+                    rules: [{ required: true, message: 'Please enter name!' }],
+                    initialValue: name,
+                  })(<Input placeholder="Please enter name" size="large" />)}
+                </Form.Item>
+              </Form>
+              <div className="flex justify-end">
+                <div className="mr-4">
+                  <Link href={`/projects`} as={`/projects`}>
+                    <Button loading={loading} size="large" icon="close-circle">
+                      Cancel
+                    </Button>
+                  </Link>
+                </div>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={this.handleSubmit}
+                  loading={loading}
+                  size="large"
+                  icon="check-circle"
+                >
+                  Update
+                </Button>
+              </div>
+            </div>
           )
         }}
       </Query>
@@ -46,4 +102,4 @@ class Projects extends Component {
   }
 }
 
-export default Projects
+export default withApollo(Form.create()(ProjectsShow))

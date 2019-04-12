@@ -1,16 +1,16 @@
-import React, { Component, PureComponent, Fragment } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
-import { graphql } from 'react-apollo'
+import { graphql, withApollo, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Mutation } from 'react-apollo'
-import { Form, Button, Col, Row, Input } from 'antd'
+import { Form, Button, Input } from 'antd'
 import Router from 'next/router'
+import Link from 'next/link'
 
-const createProject = gql`
-  mutation CREATE_PROJECT($name: String) {
+const createProjectMutation = gql`
+  mutation($name: String) {
     createProject(input: { data: { name: $name } }) {
       project {
         _id
@@ -23,18 +23,13 @@ const createProject = gql`
   }
 `
 
-class ProjectNew extends Component {
-  onClose = () => {
-    Router.push('/projects')
-  }
-
-  handleSubmit = createProject => {
+class ProjectsNew extends Component {
+  handleSubmit = () => {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        await createProject({
-          variables: {
-            name: values.name,
-          },
+        await this.props.client.mutate({
+          mutation: createProjectMutation,
+          variables: { name: values.name },
         })
 
         Router.push('/projects')
@@ -46,33 +41,46 @@ class ProjectNew extends Component {
     const { getFieldDecorator } = this.props.form
 
     return (
-      <Mutation mutation={createProject}>
-        {(createProject, { loading, error }) => {
-          if (loading) return <p>Loading</p>
+      <Mutation mutation={createProjectMutation}>
+        {({ loading, error }) => {
+          if (loading)
+            return (
+              <p className="flex justify-center items-center min-h-screen">
+                Loading...
+              </p>
+            )
 
           if (error) return <p>Error: {error.message}</p>
 
           return (
-            <Fragment>
-              <Form
-                layout="vertical"
-                onSubmit={() => this.handleSubmit(createProject)}
-              >
+            <div className="flex justify-center flex-col ml-auto mr-auto">
+              <Form layout="vertical" onSubmit={this.handleSubmit}>
                 <Form.Item label="Name">
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: 'Please enter name!' }],
-                  })(<Input placeholder="Please enter name" />)}
+                  })(<Input placeholder="Please enter name" size="large" />)}
                 </Form.Item>
               </Form>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={() => this.handleSubmit(createProject)}
-                loading={loading}
-              >
-                Submit
-              </Button>
-            </Fragment>
+              <div className="flex justify-end">
+                <div className="mr-4">
+                  <Link href={`/projects`} as={`/projects`}>
+                    <Button loading={loading} size="large" icon="close-circle">
+                      Cancel
+                    </Button>
+                  </Link>
+                </div>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={this.handleSubmit}
+                  loading={loading}
+                  size="large"
+                  icon="check-circle"
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
           )
         }}
       </Mutation>
@@ -80,4 +88,4 @@ class ProjectNew extends Component {
   }
 }
 
-export default Form.create()(ProjectNew)
+export default withApollo(Form.create()(ProjectsNew))

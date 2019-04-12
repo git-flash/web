@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, withApollo, Query } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
-import { Card, Col, Row, Icon, Button } from 'antd'
-import styled from 'styled-components'
+import { Card, Col, Row, Icon, Button, Table } from 'antd'
 import Link from 'next/link'
 
-const projectsQuery = gql`
-  query PROJECTS_QUERY {
+const fetchProjectsQuery = gql`
+  query {
     projects {
       _id
       name
@@ -19,12 +17,67 @@ const projectsQuery = gql`
   }
 `
 
+const deleteProjectMutation = gql`
+  mutation($id: ID!) {
+    deleteProject(input: { where: { id: $id } }) {
+      project {
+        _id
+      }
+    }
+  }
+`
+
 class Projects extends Component {
+  columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      width: '90%',
+      render: (text, record) => (
+        <Link
+          href={`/projects/show?id=${record._id}`}
+          as={`/projects/${record._id}`}
+        >
+          <a>{record.name}</a>
+        </Link>
+      ),
+    },
+    {
+      key: 'actions',
+      width: '10%',
+      render: (text, record) => (
+        <Button
+          type="danger"
+          icon="delete"
+          onClick={async () => {
+            await this.props.client.mutate({
+              mutation: deleteProjectMutation,
+              variables: { id: record._id },
+            })
+
+            await this.props.client.query({
+              query: fetchProjectsQuery,
+              fetchPolicy: 'network-only',
+            })
+          }}
+        >
+          Delete
+        </Button>
+      ),
+    },
+  ]
+
   render() {
     return (
-      <Query query={projectsQuery}>
+      <Query query={fetchProjectsQuery} fetchPolicy="network-only">
         {({ data, error, loading }) => {
-          if (loading) return <p>Loading</p>
+          if (loading)
+            return (
+              <p className="flex justify-center items-center min-h-screen">
+                Loading...
+              </p>
+            )
 
           if (error) return <p>Error: {error.message}</p>
 
@@ -32,36 +85,21 @@ class Projects extends Component {
 
           return (
             <Fragment>
-              <Row gutter={48}>
-                <Col span={24}>
-                  <Link href={`/projects/new`} as={`/projects/new`}>
-                    <Button type="primary" icon="plus" size="large">
-                      New Project
-                    </Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Row gutter={48}>
-                {data.projects.map(project => (
-                  <Col span={6} key={project._id}>
-                    <Link
-                      href={`/projects/show?id=${project._id}`}
-                      as={`/projects/${project._id}`}
-                    >
-                      <a>
-                        <Card
-                          key={project._id}
-                          title={project.name}
-                          extra={<Icon type="setting" />}
-                          hoverable
-                        >
-                          {project.content}
-                        </Card>
-                      </a>
-                    </Link>
-                  </Col>
-                ))}
-              </Row>
+              <div className="flex flex-row-reverse">
+                <Link href={`/projects/new`} as={`/projects/new`}>
+                  <Button type="primary" icon="plus-circle" size="large">
+                    New Project
+                  </Button>
+                </Link>
+              </div>
+              <div className="mt-8">
+                <Table
+                  bordered
+                  dataSource={data.projects}
+                  columns={this.columns}
+                  rowKey="_id"
+                />
+              </div>
             </Fragment>
           )
         }}
@@ -70,4 +108,4 @@ class Projects extends Component {
   }
 }
 
-export default Projects
+export default withApollo(Projects)
