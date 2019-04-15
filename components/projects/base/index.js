@@ -27,7 +27,7 @@ const deleteProjectMutation = gql`
   }
 `
 
-class Projects extends Component {
+class ProjectsIndex extends Component {
   columns = [
     {
       title: 'Name',
@@ -108,4 +108,4 @@ class Projects extends Component {
   }
 }
 
-export default withApollo(Projects)
+export default withApollo(ProjectsIndex)

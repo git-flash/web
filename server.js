@@ -18,14 +18,14 @@ app
       app.render(req, res, '/projects/new')
     })
 
-    server.get('/projects/:id', (req, res) => {
-      app.render(req, res, '/projects/show', {
+    server.get('/projects/:id/edit', (req, res) => {
+      app.render(req, res, '/projects/edit', {
         id: req.params.id,
       })
     })
 
-    server.get('/tasks/:id', (req, res) => {
-      app.render(req, res, '/tasks/show', {
+    server.get('/projects/:id', (req, res) => {
+      app.render(req, res, '/projects/show', {
         id: req.params.id,
       })
     })

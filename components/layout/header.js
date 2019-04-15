@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Dropdown, Icon, Avatar } from 'antd'
+import Router from 'next/router'
+
+import LocalStore from '../../lib/local-store'
 
 const { Header } = Layout
 
 class HeaderComponent extends Component {
+  handleSingOut = () => {
+    LocalStore.clear()
+
+    Router.push('/auth/sign-in')
+  }
+
   render() {
     return (
       <Header style={{ background: '#fff', padding: 0 }}>
@@ -16,29 +25,11 @@ class HeaderComponent extends Component {
                 <Menu>
                   <Menu.Item>
                     <a
-                      target="_blank"
                       rel="noopener noreferrer"
-                      href="http://www.alipay.com/"
+                      href="javascript:"
+                      onClick={this.handleSingOut}
                     >
-                      1st menu item
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="http://www.taobao.com/"
-                    >
-                      2nd menu item
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="http://www.tmall.com/"
-                    >
-                      3rd menu item
+                      Sign Out
                     </a>
                   </Menu.Item>
                 </Menu>

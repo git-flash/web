@@ -1,12 +1,12 @@
 FROM node:10.8.0
 
-RUN mkdir /app
+RUN mkdir /web-app
 
-WORKDIR /app
+WORKDIR /web-app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /web-app/node_modules/.bin:$PATH
 
-COPY package.json /app/package.json
+COPY package.json /web-app/package.json
 
 RUN yarn install
 
