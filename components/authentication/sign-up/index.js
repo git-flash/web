@@ -29,6 +29,8 @@ class SignUp extends Component {
           document.cookie = `username=${data.user.username};path=/`
 
           Router.push('/projects')
+
+          window.location.reload()
         } catch (error) {
           console.error(error)
         }

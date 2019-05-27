@@ -26,6 +26,8 @@ class SignIn extends Component {
           document.cookie = `roleName=${data.user.role.name};path=/`
 
           Router.push('/projects')
+
+          window.location.reload()
         } catch (error) {
           console.error(error)
         }
