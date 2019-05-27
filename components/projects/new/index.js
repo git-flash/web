@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
 import { graphql, withApollo, Mutation } from 'react-apollo'
