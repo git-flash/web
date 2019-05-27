@@ -5,6 +5,7 @@ import { Layout } from 'antd'
 import ContentComponent from './content'
 import SiderComponent from './sider'
 import HeaderComponent from './header'
+import { withAuthentication } from '../../lib/with-authentication'
 
 const { Content } = Layout
 
@@ -26,4 +27,4 @@ LayoutComponent.propTypes = {
   children: PropTypes.node,
 }
 
-export default LayoutComponent
+export default withAuthentication(LayoutComponent)
