@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Query } from 'react-apollo'
-import { Form, Button, Input } from 'antd'
+import { Table, Drawer } from 'antd'
 import styled from 'styled-components'
 import Router from 'next/router'
 import Link from 'next/link'
+
+import AuditsTable from './audits-table'
 
 const fetchProjectQuery = gql`
   query($id: ID!) {
@@ -15,17 +17,13 @@ const fetchProjectQuery = gql`
         _id
         username
       }
-    }
-  }
-`
-const updateProjectMutation = gql`
-  mutation($name: String, $id: ID!) {
-    updateProject(input: { where: { id: $id }, data: { name: $name } }) {
-      project {
+      urls {
         _id
-        name
-        users {
+        link
+        audits {
           _id
+          categories
+          lighthouseVersion
         }
       }
     }
@@ -33,25 +31,83 @@ const updateProjectMutation = gql`
 `
 
 class ProjectsShow extends Component {
-  handleSubmit = () => {
-    this.props.form.validateFields(async (err, values) => {
-      if (!err) {
-        await this.props.client.mutate({
-          mutation: updateProjectMutation,
-          variables: {
-            id: this.props.id,
-            name: values.name,
-          },
-        })
+  state = {
+    visible: false,
+    selectedItemId: '',
+    audits: [],
+  }
 
-        Router.push('/projects')
-      }
+  columns = [
+    {
+      title: 'ID',
+      dataIndex: '_id',
+      key: '_id',
+      render: (text, records) => (
+        <a
+          href="javascript:;"
+          onClick={() =>
+            this.showDrawer({
+              id: records._id,
+              audits: records.audits,
+            })
+          }
+        >
+          {text}
+        </a>
+      ),
+    },
+    {
+      title: 'Link',
+      dataIndex: 'link',
+      key: 'link',
+      render: (text, records) => (
+        <a
+          href="javascript:;"
+          onClick={() =>
+            this.showDrawer({
+              id: records._id,
+              audits: records.audits,
+            })
+          }
+        >
+          {text}
+        </a>
+      ),
+    },
+  ]
+
+  showDrawer = ({ id, audits }) => {
+    this.setState({
+      visible: true,
+      selectedItemId: id,
+      audits,
     })
   }
 
-  render() {
-    const { getFieldDecorator } = this.props.form
+  onClose = () => {
+    this.setState({
+      visible: false,
+      selectedItemId: '',
+      audits: [],
+    })
+  }
 
+  drawerNode = () => {
+    return (
+      <Drawer
+        width={1000}
+        placement="right"
+        closable={false}
+        onClose={this.onClose}
+        visible={this.state.visible}
+        title="Audits"
+      >
+        <AuditsTable audits={this.state.audits} />
+      </Drawer>
+    )
+  }
+
+  render() {
     return (
       <Query
         query={fetchProjectQuery}
@@ -63,37 +119,12 @@ class ProjectsShow extends Component {
 
           if (error) return <p>Error: {error.message}</p>
 
-          const { name } = data.project
+          const { name, urls } = data.project
 
           return (
             <div className="flex justify-center flex-col ml-auto mr-auto">
-              <Form layout="vertical" onSubmit={this.handleSubmit}>
-                <Form.Item label="Name">
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: 'Please enter name!' }],
-                    initialValue: name,
-                  })(<Input placeholder="Please enter name" size="large" />)}
-                </Form.Item>
-              </Form>
-              <div className="flex justify-end">
-                <div className="mr-4">
-                  <Link href={`/projects`} as={`/projects`}>
-                    <Button loading={loading} size="large" icon="close-circle">
-                      Cancel
-                    </Button>
-                  </Link>
-                </div>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={this.handleSubmit}
-                  loading={loading}
-                  size="large"
-                  icon="check-circle"
-                >
-                  Update
-                </Button>
-              </div>
+              {this.drawerNode()}
+              <Table rowKey="_id" columns={this.columns} dataSource={urls} />
             </div>
           )
         }}
@@ -102,4 +133,4 @@ class ProjectsShow extends Component {
   }
 }
 
-export default withApollo(Form.create()(ProjectsShow))
+export default withApollo(ProjectsShow)
