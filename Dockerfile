@@ -4,6 +4,8 @@ RUN mkdir /web-app
 
 WORKDIR /web-app
 
+RUN apk update && apk upgrade && apk add --no-cache bash git
+
 ENV PATH /web-app/node_modules/.bin:$PATH
 
 COPY package.json /web-app/package.json
