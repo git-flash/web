@@ -9,15 +9,15 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
-    "antd": "^3.19.0",
-    "apollo-boost": "0.3.1",
+    "antd": "^3.19.2",
+    "apollo-boost": "0.4.1",
     "express": "^4.17.1",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
-    "next": "^8.0.3",
+    "next": "^8.1.0",
     "next-cookies": "^1.1.2",
     "next-images": "^1.1.1",
     "next-nprogress": "^1.4.0",
@@ -25,8 +25,8 @@
     "react": "^16.8.6",
     "react-apollo": "^2.5.6",
     "react-dom": "^16.8.6",
-    "styled-components": "^4.2.0",
-    "styled-jsx": "3.0.0"
+    "styled-components": "^4.2.1",
+    "styled-jsx": "3.2.1"
   },
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "@zeit/next-typescript": "^1.1.1",
-    "autoprefixer": "^9.5.1",
+    "autoprefixer": "^9.6.0",
     "babel-plugin-styled-components": "^1.10.0",
     "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
@@ -46,7 +46,7 @@
     "nodemon": "^1.19.1",
     "postcss-easy-import": "^3.0.0",
     "prettier": "^1.17.1",
-    "tailwindcss": "^1.0.2",
+    "tailwindcss": "^1.0.3",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.1"
   },
@@ -63,6 +63,6 @@
   },
   "heroku-run-build-script": true,
   "resolutions": {
-    "styled-jsx": "3.0.0"
+    "styled-jsx": "3.2.1"
   }
 }
