@@ -61,7 +61,6 @@
       "git add"
     ]
   },
-  "heroku-run-build-script": true,
   "resolutions": {
     "styled-jsx": "3.2.1"
   }
