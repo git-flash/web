@@ -10,6 +10,8 @@ ENV PATH /web-app/node_modules/.bin:$PATH
 
 COPY package.json /web-app/package.json
 
+RUN yarn global add nodemon ts-node typescript
+
 RUN yarn install
 
 CMD ["yarn", "dev"]

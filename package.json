@@ -2,9 +2,10 @@
   "name": "web",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "node server.js"
+    "dev": "nodemon",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -30,14 +31,24 @@
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/next": "^8.0.5",
+    "@types/node": "^12.0.4",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@zeit/next-typescript": "^1.1.1",
     "autoprefixer": "^9.5.1",
     "babel-plugin-styled-components": "^1.10.0",
+    "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
+    "nodemon": "^1.19.1",
     "postcss-easy-import": "^3.0.0",
     "prettier": "^1.17.1",
-    "tailwindcss": "^1.0.2"
+    "tailwindcss": "^1.0.2",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1"
   },
   "husky": {
     "hooks": {
