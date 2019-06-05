@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "paths": { "*": ["types/*"] },
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
@@ -19,5 +20,5 @@
     "preserveConstEnums": true,
     "sourceMap": true
   },
-  "exclude": ["dist", ".next", "out", "next.config.js"]
+  "exclude": ["dist", ".next", "out", "next.config.js", "node_modules"]
 }
