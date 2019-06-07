@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Query } from 'react-apollo'
 import { Table, Drawer } from 'antd'
-import styled from 'styled-components'
 import Router from 'next/router'
 import Link from 'next/link'
 
+import Loader from '../../common/loader'
 import AuditsTable from './audits-table'
 
 const fetchProjectQuery = gql`
@@ -115,7 +115,7 @@ class ProjectsShow extends Component {
         fetchPolicy="network-only"
       >
         {({ data, error, loading }) => {
-          if (loading) return <p>Loading</p>
+          if (loading) return <Loader />
 
           if (error) return <p>Error: {error.message}</p>
 

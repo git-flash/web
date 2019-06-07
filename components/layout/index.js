@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 
 import ContentComponent from './content'
-import SiderComponent from './sider'
 import HeaderComponent from './header'
 import { withAuthentication } from '../../lib/with-authentication'
 
@@ -13,7 +12,6 @@ class LayoutComponent extends Component {
   render() {
     return (
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
-        <SiderComponent />
         <Layout>
           <HeaderComponent />
           <ContentComponent>{this.props.children}</ContentComponent>
