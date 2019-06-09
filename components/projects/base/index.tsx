@@ -96,10 +96,10 @@ const ProjectsIndex = (props: any) => {
             </div>
             <div className="mt-8 min-h-screen bg-white border border-solid border-gray-300 rounded pt-8 px-8">
               <Table
+                rowKey="_id"
                 bordered
                 dataSource={data.projects}
                 columns={columns}
-                rowKey="_id"
               />
             </div>
           </Fragment>

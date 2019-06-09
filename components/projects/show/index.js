@@ -122,10 +122,20 @@ class ProjectsShow extends Component {
           const { name, urls } = data.project
 
           return (
-            <div className="flex justify-center flex-col ml-auto mr-auto">
-              {this.drawerNode()}
-              <Table rowKey="_id" columns={this.columns} dataSource={urls} />
-            </div>
+            <Fragment>
+              <div className="flex justify-between items-center">
+                <div className="text-3xl">{name}</div>
+              </div>
+              <div className="mt-8 min-h-screen bg-white border border-solid border-gray-300 rounded pt-8 px-8">
+                {this.drawerNode()}
+                <Table
+                  rowKey="_id"
+                  bordered
+                  columns={this.columns}
+                  dataSource={urls}
+                />
+              </div>
+            </Fragment>
           )
         }}
       </Query>
