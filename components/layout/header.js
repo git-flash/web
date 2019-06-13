@@ -11,7 +11,7 @@ class HeaderComponent extends Component {
   handleSingOut = () => {
     LocalStore.clear()
 
-    Router.push('/auth/sign-in')
+    Router.push('/authentication')
   }
 
   render() {

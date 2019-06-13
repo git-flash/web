@@ -1,15 +1,41 @@
 import React, { Component } from 'react'
+import { Card, Tabs } from 'antd'
+
+import Illustration from '../../../static/images/authentication-illustration.png'
+import SignIn from '../../authentication/sign-in'
+import SignUp from '../../authentication/sign-up'
 
 class ContentComponent extends Component {
   render() {
     return (
-      <div
-        className="flex items-center justify-center"
-        style={{
-          minHeight: '100vh',
-        }}
-      >
-        {this.props.children}
+      <div className="flex min-h-screen">
+        <div className="w-0 md:w-0 lg:w-2/3 flex items-center justify-center">
+          <img src={Illustration} className="max-w-full max-h-screen" />
+        </div>
+        <div className="w-full md:w-full lg:w-1/3">
+          <Card className="h-screen">
+            <div className="flex justify-center mt-32">
+              <div className="w-2/3">
+                <div className="text-3xl text-black font-bold mb-2">Perfy</div>
+                <div className="text-sm text-gray-500 mb-16">
+                  Monitor the performance of your application
+                </div>
+                <Tabs
+                  defaultActiveKey="signIn"
+                  onChange={key => console.log(key)}
+                >
+                  <Tabs.TabPane tab="Sign In" key="signIn">
+                    <SignIn />
+                  </Tabs.TabPane>
+                  <Tabs.TabPane tab="Sign Up" key="signUp">
+                    <SignUp />
+                  </Tabs.TabPane>
+                </Tabs>
+                {this.props.children}
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     )
   }

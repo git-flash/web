@@ -39,51 +39,50 @@ class SignIn extends Component {
     const { getFieldDecorator } = this.props.form
 
     return (
-      <div className="w-1/3">
-        <Card>
-          <Form layout="vertical" onSubmit={this.handleSubmit}>
-            <Form.Item label="Username">
-              {getFieldDecorator('identifier', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please enter identifier!',
-                  },
-                ],
-                initialValue: 'ghoshnirmalya',
-              })(
-                <Input
-                  placeholder="Please enter identifier"
-                  size="large"
-                  type="identifier"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="Password">
-              {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please enter password!' }],
-                initialValue: 'password',
-              })(
-                <Input
-                  placeholder="Please enter password"
-                  size="large"
-                  type="password"
-                />
-              )}
-            </Form.Item>
-          </Form>
-          <div className="flex justify-end">
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={this.handleSubmit}
-              size="large"
-              icon="check-circle"
-            >
-              Sign In
-            </Button>
-          </div>
-        </Card>
+      <div className="mt-4">
+        <Form layout="vertical" onSubmit={this.handleSubmit}>
+          <Form.Item label="Username">
+            {getFieldDecorator('identifier', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please enter identifier!',
+                },
+              ],
+              initialValue: 'ghoshnirmalya',
+            })(
+              <Input
+                placeholder="Please enter identifier"
+                size="large"
+                type="identifier"
+              />
+            )}
+          </Form.Item>
+          <Form.Item label="Password">
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: 'Please enter password!' }],
+              initialValue: 'password',
+            })(
+              <Input
+                placeholder="Please enter password"
+                size="large"
+                type="password"
+              />
+            )}
+          </Form.Item>
+        </Form>
+        <div className="flex justify-end mt-12">
+          <Button
+            type="primary"
+            htmlType="submit"
+            onClick={this.handleSubmit}
+            size="large"
+            icon="check-circle"
+            block
+          >
+            Sign In
+          </Button>
+        </div>
       </div>
     )
   }

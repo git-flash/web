@@ -30,12 +30,8 @@ app
       })
     })
 
-    server.get('/authentication/sign-in', (req: any, res: any) => {
-      app.render(req, res, '/authentication/sign-in')
-    })
-
-    server.get('/authentication/sign-up', (req: any, res: any) => {
-      app.render(req, res, '/authentication/sign-up')
+    server.get('/authentication', (req: any, res: any) => {
+      app.render(req, res, '/authentication')
     })
 
     server.get('*', (req: any, res: any) => {
