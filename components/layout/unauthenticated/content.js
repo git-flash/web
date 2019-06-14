@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Tabs } from 'antd'
 
 import Illustration from '../../../static/images/authentication-illustration.png'
+import Logo from '../../../static/images/logo.png'
 import SignIn from '../../authentication/sign-in'
 import SignUp from '../../authentication/sign-up'
 
@@ -14,9 +15,11 @@ class ContentComponent extends Component {
         </div>
         <div className="w-full md:w-full lg:w-1/3">
           <Card className="h-screen">
-            <div className="flex justify-center mt-32">
+            <div className="flex justify-center mt-16">
               <div className="w-2/3">
-                <div className="text-3xl text-black font-bold mb-2">Perfy</div>
+                <div className="text-3xl text-black font-bold mb-2">
+                  <img src={Logo} className="w-20" />
+                </div>
                 <div className="text-sm text-gray-500 mb-16">
                   Monitor the performance of your application
                 </div>
