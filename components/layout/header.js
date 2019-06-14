@@ -23,18 +23,20 @@ class HeaderComponent extends Component {
           <div className="mx-4 flex">
             <div className="px-4">
               <Link href={`/dashboard`} as={`/dashboard`}>
-                <img
-                  src={Logo}
-                  className="p-2"
-                  alt="Perfy"
-                  width="60px"
-                  height="60px"
-                />
+                <a>
+                  <img
+                    src={Logo}
+                    className="p-2"
+                    alt="Perfy"
+                    width="60px"
+                    height="60px"
+                  />
+                </a>
               </Link>
             </div>
             <div className="px-4">
               <Link href={`/projects`} as={`/projects`}>
-                Projects
+                <a>Projects</a>
               </Link>
             </div>
           </div>
