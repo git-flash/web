@@ -11,7 +11,7 @@ if (typeof require !== 'undefined') {
 module.exports = withTypescript(
   withImages(
     withCss({
-      target: 'serverless',
+      target: 'server',
     })
   )
 )
