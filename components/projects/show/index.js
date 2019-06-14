@@ -126,7 +126,7 @@ class ProjectsShow extends Component {
               <div className="flex justify-between items-center">
                 <div className="text-3xl">{name}</div>
               </div>
-              <div className="mt-8 min-h-screen bg-white border border-solid border-gray-300 rounded pt-8 px-8">
+              <div className="mt-8 bg-white border border-solid border-gray-300 rounded pt-8 px-8">
                 {this.drawerNode()}
                 <Table
                   rowKey="_id"

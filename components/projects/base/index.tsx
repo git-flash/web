@@ -94,7 +94,7 @@ const ProjectsIndex = (props: any) => {
                 </Button>
               </Link>
             </div>
-            <div className="mt-8 min-h-screen bg-white border border-solid border-gray-300 rounded pt-8 px-8">
+            <div className="mt-8 bg-white border border-solid border-gray-300 rounded pt-8 px-8">
               <Table
                 rowKey="_id"
                 bordered
