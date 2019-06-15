@@ -5,35 +5,65 @@ import Router from 'next/router'
 const SignIn = props => {
   const [isLoading, setIsLoading] = useState(false)
   const { getFieldDecorator } = props.form
+  const fetchToken = async values => {
+    try {
+      const response = await fetch('http://localhost:3030/authentication', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          strategy: 'local',
+          email: values.email,
+          password: values.password,
+        }),
+      })
+      const data = await response.json()
+
+      document.cookie = `token=${data.accessToken};path=/`
+
+      Router.push('/projects')
+
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+
+      console.error(error)
+    }
+  }
+
   const handleSubmit = () => {
     props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoading(true)
 
         try {
-          const response = await fetch('http://localhost:1337/auth/local', {
+          const response = await fetch('http://localhost:3030/user', {
             method: 'post',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              identifier: values.identifier,
+              email: values.email,
               password: values.password,
+              role: 'user',
             }),
           })
           const data = await response.json()
 
-          document.cookie = `token=${data.jwt};path=/`
-          document.cookie = `email=${data.user.email};path=/`
-          document.cookie = `identifier=${data.user.username};path=/`
-          document.cookie = `roleName=${data.user.role.name};path=/`
+          document.cookie = `email=${data.email};path=/`
+          document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
+          document.cookie = `x-hasura-user-id=${
+            data['x-hasura-user-id']
+          };path=/`
 
-          Router.push('/projects')
-
-          setIsLoading(false)
-
-          window.location.reload()
+          if ([200, 201].indexOf(response.status) > -1) {
+            await fetchToken(values)
+          } else {
+            setIsLoading(false)
+          }
         } catch (error) {
           setIsLoading(false)
 
@@ -46,21 +76,17 @@ const SignIn = props => {
   return (
     <div className="mt-4">
       <Form layout="vertical" onSubmit={handleSubmit}>
-        <Form.Item label="Username">
-          {getFieldDecorator('identifier', {
+        <Form.Item label="Email">
+          {getFieldDecorator('email', {
             rules: [
               {
                 required: true,
-                message: 'Please enter identifier!',
+                message: 'Please enter email!',
               },
             ],
-            initialValue: 'ghoshnirmalya',
+            initialValue: 'admin@admin.com',
           })(
-            <Input
-              placeholder="Please enter identifier"
-              size="large"
-              type="identifier"
-            />
+            <Input placeholder="Please enter email" size="large" type="email" />
           )}
         </Form.Item>
         <Form.Item label="Password">

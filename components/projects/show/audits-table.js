@@ -14,14 +14,14 @@ class AuditsTable extends Component {
   columns = [
     {
       title: 'ID',
-      dataIndex: '_id',
-      key: '_id',
+      dataIndex: 'id',
+      key: 'id',
       render: (text, records) => (
         <a
           href="javascript:;"
           onClick={() =>
             this.showDrawer({
-              id: records._id,
+              id: records.id,
               categories: toArray(records.categories),
             })
           }
@@ -39,7 +39,7 @@ class AuditsTable extends Component {
           href="javascript:;"
           onClick={() =>
             this.showDrawer({
-              id: records._id,
+              id: records.id,
               categories: toArray(records.categories),
             })
           }
@@ -87,7 +87,7 @@ class AuditsTable extends Component {
     return (
       <Fragment>
         {this.drawerNode()}
-        <Table rowKey="_id" columns={this.columns} dataSource={audits} />
+        <Table rowKey="id" columns={this.columns} dataSource={audits} />
       </Fragment>
     )
   }

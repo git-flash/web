@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Query } from 'react-apollo'
-import { Table, Drawer } from 'antd'
+import { Table, Drawer, Button } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -9,21 +9,16 @@ import Loader from '../../common/loader'
 import AuditsTable from './audits-table'
 
 const fetchProjectQuery = gql`
-  query($id: ID!) {
-    project(id: $id) {
-      _id
+  query($id: uuid!) {
+    project_by_pk(id: $id) {
+      id
       name
-      users {
-        _id
-        username
-      }
       urls {
-        _id
-        link
+        id
         audits {
-          _id
+          id
           categories
-          lighthouseVersion
+          lighthouse_version
         }
       }
     }
@@ -40,14 +35,14 @@ class ProjectsShow extends Component {
   columns = [
     {
       title: 'ID',
-      dataIndex: '_id',
-      key: '_id',
+      dataIndex: 'id',
+      key: 'id',
       render: (text, records) => (
         <a
           href="javascript:;"
           onClick={() =>
             this.showDrawer({
-              id: records._id,
+              id: records.id,
               audits: records.audits,
             })
           }
@@ -65,7 +60,7 @@ class ProjectsShow extends Component {
           href="javascript:;"
           onClick={() =>
             this.showDrawer({
-              id: records._id,
+              id: records.id,
               audits: records.audits,
             })
           }
@@ -119,20 +114,29 @@ class ProjectsShow extends Component {
 
           if (error) return <p>Error: {error.message}</p>
 
-          const { name, urls } = data.project
+          const { id, name, urls } = data.project_by_pk
 
           return (
             <Fragment>
               <div className="flex justify-between items-center">
                 <div className="text-3xl">{name}</div>
+                <Link
+                  href={`/projects/edit?id=${id}`}
+                  as={`/projects/${id}/edit`}
+                >
+                  <Button type="default" icon="plus-circle" size="large">
+                    Edit Project
+                  </Button>
+                </Link>
               </div>
-              <div className="mt-8 bg-white border border-solid border-gray-300 rounded pt-8 px-8">
+              <div className="mt-8 bg-white rounded">
                 {this.drawerNode()}
                 <Table
-                  rowKey="_id"
+                  rowKey="id"
                   bordered
                   columns={this.columns}
                   dataSource={urls}
+                  pagination={false}
                 />
               </div>
             </Fragment>

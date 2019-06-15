@@ -8,41 +8,34 @@ import Loader from '../../common/loader'
 
 const fetchProjectsQuery = gql`
   query {
-    projects {
-      _id
+    project {
+      id
       name
       users {
-        _id
-        username
+        user {
+          id
+        }
       }
     }
   }
 `
-const deleteProjectMutation = gql`
-  mutation($id: ID!) {
-    deleteProject(input: { where: { id: $id } }) {
-      project {
-        _id
-      }
-    }
-  }
-`
-const ProjectsIndex = (props: any) => {
+
+const ProjectsIndex = () => {
   const columns: any = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       width: '70%',
-      render: (_: string, record: { name: string; _id: number }) => (
+      render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
-            href={`/projects/show?id=${record._id}`}
-            as={`/projects/${record._id}`}
+            href={`/projects/show?id=${record.id}`}
+            as={`/projects/${record.id}`}
           >
             <a className="font-semibold">{record.name}</a>
           </Link>
-          <div className="text-xs text-gray-500">{record._id}</div>
+          <div className="text-xs text-gray-500">{record.id}</div>
         </Fragment>
       ),
     },
@@ -51,7 +44,7 @@ const ProjectsIndex = (props: any) => {
       dataIndex: 'users',
       key: 'users',
       width: '20%',
-      render: (_: string, record: { users: []; _id: number }) => (
+      render: (_: string, record: { users: []; id: number }) => (
         <Fragment>
           <span className="text-base">
             {record.users ? record.users.length : 0}
@@ -62,27 +55,6 @@ const ProjectsIndex = (props: any) => {
             showInfo={false}
           />
         </Fragment>
-      ),
-    },
-    {
-      key: 'actions',
-      width: '10%',
-      render: (_: string, record: { _id: number }) => (
-        <Button
-          type="danger"
-          icon="delete"
-          onClick={async () => {
-            await props.client.mutate({
-              mutation: deleteProjectMutation,
-              variables: { id: record._id },
-            })
-
-            await props.client.query({
-              query: fetchProjectsQuery,
-              fetchPolicy: 'network-only',
-            })
-          }}
-        />
       ),
     },
   ]
@@ -106,9 +78,9 @@ const ProjectsIndex = (props: any) => {
             </div>
             <div className="mt-8 bg-white rounded">
               <Table
-                rowKey="_id"
+                rowKey="id"
                 bordered
-                dataSource={data.projects}
+                dataSource={data.project}
                 columns={columns}
                 pagination={false}
               />

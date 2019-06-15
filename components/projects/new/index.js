@@ -7,16 +7,15 @@ import gql from 'graphql-tag'
 import { Form, Button, Input } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
+import { Cookies } from 'js-cookie'
 
 const createProjectMutation = gql`
-  mutation($name: String) {
-    createProject(input: { data: { name: $name } }) {
-      project {
-        _id
-        name
-        users {
-          _id
-        }
+  mutation($name: String, $user_id: uuid) {
+    insert_project(
+      objects: { name: $name, users: { data: { user_id: $user_id } } }
+    ) {
+      returning {
+        id
       }
     }
   }
@@ -28,7 +27,10 @@ class ProjectsNew extends Component {
       if (!err) {
         await this.props.client.mutate({
           mutation: createProjectMutation,
-          variables: { name: values.name },
+          variables: {
+            name: values.name,
+            user_id: this.props.serverState.userId,
+          },
         })
 
         Router.push('/projects')

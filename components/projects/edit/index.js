@@ -7,26 +7,22 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 const fetchProjectQuery = gql`
-  query($id: ID!) {
-    project(id: $id) {
-      _id
+  query($id: uuid!) {
+    project_by_pk(id: $id) {
+      id
       name
       users {
-        _id
-        username
+        id
       }
     }
   }
 `
 const updateProjectMutation = gql`
-  mutation($name: String, $id: ID!) {
-    updateProject(input: { where: { id: $id }, data: { name: $name } }) {
-      project {
-        _id
+  mutation($name: String, $id: uuid!) {
+    update_project(where: { id: { _eq: $id } }, _set: { name: $name }) {
+      returning {
+        id
         name
-        users {
-          _id
-        }
       }
     }
   }
@@ -63,7 +59,7 @@ class ProjectsEdit extends Component {
 
           if (error) return <p>Error: {error.message}</p>
 
-          const { name } = data.project
+          const { name } = data.project_by_pk
 
           return (
             <div className="flex justify-center flex-col ml-auto mr-auto">

@@ -7,7 +7,7 @@ import ProjectNew from '../../components/projects/new'
 
 class New extends Component {
   render() {
-    return <ProjectNew />
+    return <ProjectNew {...this.props} />
   }
 }
 
