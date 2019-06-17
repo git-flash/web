@@ -1,4 +1,4 @@
-import withLayout from '../../lib/with-unauthenticated-layout'
+import withLayout from '../../lib/with-authentication-layout'
 
 export default withLayout(() => {
   return <div />

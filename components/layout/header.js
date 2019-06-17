@@ -10,7 +10,7 @@ import Logo from '../../static/images/logo.png'
 const { Header } = Layout
 
 class HeaderComponent extends Component {
-  handleSingOut = () => {
+  handleSignOut = () => {
     LocalStore.clear()
 
     Router.push('/authentication')
@@ -40,36 +40,34 @@ class HeaderComponent extends Component {
               </Link>
             </div>
           </div>
-          <div className="mx-4">
-            <Dropdown
-              placement="bottomRight"
-              overlay={
-                <Menu>
-                  <Menu.Item>
-                    <a
-                      rel="noopener noreferrer"
-                      href="javascript:"
-                      onClick={this.handleSingOut}
-                    >
-                      Sign Out
-                    </a>
-                  </Menu.Item>
-                </Menu>
-              }
-            >
-              <a className="ant-dropdown-link block h-16" href="#">
-                <Avatar icon="user" />
-              </a>
-            </Dropdown>
+          <div className="mx-4 flex">
+            <div className="px-4">
+              <Dropdown
+                placement="bottomRight"
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <a
+                        rel="noopener noreferrer"
+                        href="javascript:"
+                        onClick={this.handleSignOut}
+                      >
+                        Sign Out
+                      </a>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <a className="ant-dropdown-link block h-16" href="#">
+                  <Avatar icon="user" />
+                </a>
+              </Dropdown>
+            </div>
           </div>
         </div>
       </Header>
     )
   }
-}
-
-HeaderComponent.propTypes = {
-  children: PropTypes.node,
 }
 
 export default HeaderComponent
