@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
-import { graphql, withApollo, Query } from 'react-apollo'
+import { graphql, withApollo, Subscription } from 'react-apollo'
 import { Table, Drawer, Button } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
@@ -9,8 +9,8 @@ import Loader from '../../common/loader'
 import AuditsTable from './audits-table'
 import AddLinkModal from './add-link-modal'
 
-const fetchProjectQuery = gql`
-  query($id: uuid!) {
+const fetchProjectSubscription = gql`
+  subscription($id: uuid!) {
     project_by_pk(id: $id) {
       id
       name
@@ -106,8 +106,8 @@ class ProjectsShow extends Component {
 
   render() {
     return (
-      <Query
-        query={fetchProjectQuery}
+      <Subscription
+        subscription={fetchProjectSubscription}
         variables={{ id: this.props.id }}
         fetchPolicy="network-only"
       >
@@ -147,7 +147,7 @@ class ProjectsShow extends Component {
             </Fragment>
           )
         }}
-      </Query>
+      </Subscription>
     )
   }
 }

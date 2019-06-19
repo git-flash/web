@@ -25,6 +25,8 @@ const handleSubmit = props => {
           project_id: props.projectId,
         },
       })
+
+      props.form.resetFields()
     }
   })
 }
