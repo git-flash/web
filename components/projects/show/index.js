@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 import Loader from '../../common/loader'
 import AuditsTable from './audits-table'
+import AddLinkModal from './add-link-modal'
 
 const fetchProjectQuery = gql`
   query($id: uuid!) {
@@ -15,6 +16,7 @@ const fetchProjectQuery = gql`
       name
       urls {
         id
+        link
         audits {
           id
           categories
@@ -120,14 +122,17 @@ class ProjectsShow extends Component {
             <Fragment>
               <div className="flex justify-between items-center">
                 <div className="text-3xl">{name}</div>
-                <Link
-                  href={`/projects/edit?id=${id}`}
-                  as={`/projects/${id}/edit`}
-                >
-                  <Button type="default" icon="plus-circle" size="large">
-                    Edit Project
-                  </Button>
-                </Link>
+                <div>
+                  <AddLinkModal projectId={id} />
+                  <Link
+                    href={`/projects/edit?id=${id}`}
+                    as={`/projects/${id}/edit`}
+                  >
+                    <Button type="default" icon="plus-circle" size="large">
+                      Edit Project
+                    </Button>
+                  </Link>
+                </div>
               </div>
               <div className="mt-8 bg-white rounded">
                 {this.drawerNode()}
