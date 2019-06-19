@@ -8,7 +8,7 @@ const SignUp = props => {
   const { getFieldDecorator } = props.form
   const fetchToken = async values => {
     try {
-      const response = await fetch('http://localhost:3030/authentication', {
+      const response = await fetch(`${process.env.AUTH_URL}/authentication`, {
         method: 'post',
         headers: {
           Accept: 'application/json',
@@ -40,7 +40,7 @@ const SignUp = props => {
         setIsLoading(true)
 
         try {
-          const response = await fetch('http://localhost:3030/user', {
+          const response = await fetch(`${process.env.AUTH_URL}/user`, {
             method: 'post',
             headers: {
               Accept: 'application/json',
