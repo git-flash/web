@@ -54,18 +54,35 @@ class ProjectsNew extends Component {
           if (error) return <p>Error: {error.message}</p>
 
           return (
-            <div className="flex justify-center flex-col ml-auto mr-auto">
-              <Form layout="vertical" onSubmit={this.handleSubmit}>
-                <Form.Item label="Name">
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: 'Please enter name!' }],
-                  })(<Input placeholder="Please enter name" size="large" />)}
-                </Form.Item>
-              </Form>
-              <div className="flex justify-end">
+            <div className="flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
+              <div className="p-8 border-0 border-b border-solid border-gray-300">
+                <h2 className="text-3xl mb-1 text-gray-700">
+                  Create new Project
+                </h2>
+                <p className="text-sm mb-0 text-gray-500">
+                  You can add a new project by providing the necessary details
+                </p>
+              </div>
+              <div className="p-8 border-0 border-b border-solid border-gray-300">
+                <Form layout="vertical" onSubmit={this.handleSubmit}>
+                  <Form.Item label="Name">
+                    {getFieldDecorator('name', {
+                      rules: [
+                        { required: true, message: 'Please enter name!' },
+                      ],
+                    })(<Input placeholder="Please enter name" size="large" />)}
+                  </Form.Item>
+                </Form>
+              </div>
+              <div className="flex justify-end p-8 bg-gray-100">
                 <div className="mr-4">
                   <Link href={`/projects`} as={`/projects`}>
-                    <Button loading={loading} size="large" icon="close-circle">
+                    <Button
+                      loading={loading}
+                      size="large"
+                      icon="close-circle"
+                      type="danger"
+                    >
                       Cancel
                     </Button>
                   </Link>
@@ -78,7 +95,7 @@ class ProjectsNew extends Component {
                   size="large"
                   icon="check-circle"
                 >
-                  Submit
+                  Save
                 </Button>
               </div>
             </div>

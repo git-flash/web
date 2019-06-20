@@ -128,7 +128,7 @@ class ProjectsShow extends Component {
                     href={`/projects/edit?id=${id}`}
                     as={`/projects/${id}/edit`}
                   >
-                    <Button type="default" icon="plus-circle" size="large">
+                    <Button type="default" icon="highlight" size="large">
                       Edit Project
                     </Button>
                   </Link>

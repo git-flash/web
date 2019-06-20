@@ -69,10 +69,10 @@ const ProjectsIndex = () => {
         return (
           <Fragment>
             <div className="flex justify-between items-center">
-              <div className="text-3xl">Projects</div>
+              <h2 className="text-3xl mb-0 text-gray-700"> Projects</h2>
               <Link href={`/projects/new`} as={`/projects/new`}>
                 <Button type="primary" icon="plus-circle" size="large">
-                  New Project
+                  Create new Project
                 </Button>
               </Link>
             </div>

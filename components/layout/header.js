@@ -36,7 +36,9 @@ class HeaderComponent extends Component {
             </div>
             <div className="px-4">
               <Link href={`/projects`} as={`/projects`}>
-                <a>Projects</a>
+                <a>
+                  <Icon type="profile" /> Projects
+                </a>
               </Link>
             </div>
           </div>

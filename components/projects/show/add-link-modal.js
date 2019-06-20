@@ -50,12 +50,12 @@ const AddLinkModal = props => {
         return (
           <Fragment>
             <Button
-              type="primary"
               onClick={() => setVisibility(true)}
               size="large"
               className="mr-4"
+              icon="plus-circle"
             >
-              Add a new Link
+              Add new Link
             </Button>
             <Modal
               title="Add a new link"
