@@ -32,8 +32,8 @@ class AuditsTable extends Component {
     },
     {
       title: 'Lighthouse Version',
-      dataIndex: 'lighthouseVersion',
-      key: 'lighthouseVersion',
+      dataIndex: 'lighthouse_version',
+      key: 'lighthouse_version',
       render: (text, records) => (
         <a
           href="javascript:;"
@@ -87,7 +87,13 @@ class AuditsTable extends Component {
     return (
       <Fragment>
         {this.drawerNode()}
-        <Table rowKey="id" columns={this.columns} dataSource={audits} />
+        <Table
+          rowKey="id"
+          bordered
+          columns={this.columns}
+          dataSource={audits}
+          pagination={false}
+        />
       </Fragment>
     )
   }

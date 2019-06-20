@@ -22,6 +22,9 @@ const SignIn = props => {
       const data = await response.json()
 
       document.cookie = `token=${data.accessToken};path=/`
+      document.cookie = `email=${values.email};path=/`
+      document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
+      document.cookie = `x-hasura-user-id=${data['x-hasura-user-id']};path=/`
 
       Router.push('/projects')
 
@@ -38,37 +41,7 @@ const SignIn = props => {
       if (!err) {
         setIsLoading(true)
 
-        try {
-          const response = await fetch(`${process.env.AUTH_URL}/user`, {
-            method: 'post',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: values.email,
-              password: values.password,
-              role: 'user',
-            }),
-          })
-          const data = await response.json()
-
-          document.cookie = `email=${data.email};path=/`
-          document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
-          document.cookie = `x-hasura-user-id=${
-            data['x-hasura-user-id']
-          };path=/`
-
-          if ([200, 201].indexOf(response.status) > -1) {
-            await fetchToken(values)
-          } else {
-            setIsLoading(false)
-          }
-        } catch (error) {
-          setIsLoading(false)
-
-          console.error(error)
-        }
+        fetchToken(values)
       }
     })
   }
@@ -84,7 +57,7 @@ const SignIn = props => {
                 message: 'Please enter email!',
               },
             ],
-            initialValue: 'admin@admin.com',
+            initialValue: 'admin1@admin.com',
           })(
             <Input placeholder="Please enter email" size="large" type="email" />
           )}

@@ -18,7 +18,15 @@ class CategoriesTable extends Component {
   render() {
     const { categories } = this.props
 
-    return <Table rowKey="id" columns={this.columns} dataSource={categories} />
+    return (
+      <Table
+        rowKey="id"
+        bordered
+        columns={this.columns}
+        dataSource={categories}
+        pagination={false}
+      />
+    )
   }
 }
 
