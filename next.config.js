@@ -7,7 +7,6 @@ const withTypescript = require('@zeit/next-typescript')
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
 const withOffline = require('next-offline')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 // fix: prevents error when .css files are required by node
 if (typeof require !== 'undefined') {
@@ -29,16 +28,6 @@ module.exports = withOffline(
             new Dotenv({
               path: path.join(__dirname, '.env'),
               systemvars: true,
-            }),
-            new SWPrecacheWebpackPlugin({
-              verbose: true,
-              staticFileGlobsIgnorePatterns: [/\.next\//],
-              runtimeCaching: [
-                {
-                  handler: 'networkFirst',
-                  urlPattern: /^https?.*/,
-                },
-              ],
             }),
           ]
 

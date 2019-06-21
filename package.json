@@ -32,8 +32,7 @@
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.1",
     "styled-jsx": "3.0.0",
-    "subscriptions-transport-ws": "^0.9.16",
-    "sw-precache-webpack-plugin": "^0.11.5"
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",

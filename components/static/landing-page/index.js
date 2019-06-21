@@ -50,20 +50,26 @@ class LandingPage extends Component {
                 </p>
                 <Row gutter={16}>
                   <Col sm={24} md={12} lg={8}>
-                    <Card title={<div className="text-lg">Audits</div>}>
-                      Run performance audits on schedule and generate
-                      benchmarking data
-                    </Card>
+                    <div className="mb-8">
+                      <Card title={<div className="text-lg">Audits</div>}>
+                        Run performance audits on schedule and generate
+                        benchmarking data
+                      </Card>
+                    </div>
                   </Col>
                   <Col sm={24} md={12} lg={8}>
-                    <Card title={<div className="text-lg">Reports</div>}>
-                      Generate reports from the audits, store and analyze them
-                    </Card>
+                    <div className="mb-8">
+                      <Card title={<div className="text-lg">Reports</div>}>
+                        Generate reports from the audits, store and analyze them
+                      </Card>
+                    </div>
                   </Col>
                   <Col sm={24} md={12} lg={8}>
-                    <Card title={<div className="text-lg">Screenshots</div>}>
-                      See screenshots to check when your page is rendering
-                    </Card>
+                    <div className="mb-8">
+                      <Card title={<div className="text-lg">Screenshots</div>}>
+                        See screenshots to check when your page is rendering
+                      </Card>
+                    </div>
                   </Col>
                 </Row>
               </Col>
