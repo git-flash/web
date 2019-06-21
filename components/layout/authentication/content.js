@@ -11,7 +11,11 @@ class ContentComponent extends Component {
     return (
       <div className="flex min-h-screen">
         <div className="w-0 md:w-0 lg:w-2/3 flex items-center justify-center">
-          <img src={Illustration} className="max-w-full max-h-screen" />
+          <img
+            src={Illustration}
+            className="max-w-full max-h-screen"
+            alt="Illustration"
+          />
         </div>
         <div className="w-full md:w-full lg:w-1/3">
           <Card className="h-screen">

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Card } from 'antd'
 
-import Illustration from '../../../static/images/authentication-illustration.png'
-
 const { Content } = Layout
 
 class ContentComponent extends Component {

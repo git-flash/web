@@ -33,6 +33,7 @@ class LandingPage extends Component {
                 marginLeft: '-100px',
                 maxWidth: '950px',
               }}
+              alt="Illustration"
             />
           </Row>
         </section>
