@@ -1,5 +1,6 @@
 import next from 'next'
 import express from 'express'
+import compression from 'compression'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -9,6 +10,10 @@ app
   .prepare()
   .then(() => {
     const server = express()
+
+    if (process.env.NODE_ENV === 'production') {
+      server.use(compression())
+    }
 
     server.get('/projects', (req: any, res: any) => {
       app.render(req, res, '/projects')
