@@ -5,7 +5,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import LocalStore from '../../lib/local-store'
-import Logo from '../../static/images/logo.png'
+import Logo from '../../static/images/logo.svg'
 
 const { Header } = Layout
 

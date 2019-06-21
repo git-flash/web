@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Tabs } from 'antd'
 
 import Illustration from '../../../static/images/authentication-illustration.png'
-import Logo from '../../../static/images/logo.png'
+import Logo from '../../../static/images/logo.svg'
 import SignIn from '../../authentication/sign-in'
 import SignUp from '../../authentication/sign-up'
 

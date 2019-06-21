@@ -4,7 +4,7 @@ import { Layout, Menu, Dropdown, Icon, Avatar, Button } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
-import Logo from '../../../static/images/logo.png'
+import Logo from '../../../static/images/logo.svg'
 
 const { Header } = Layout
 
