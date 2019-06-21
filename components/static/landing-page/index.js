@@ -7,9 +7,9 @@ class LandingPage extends Component {
   render() {
     return (
       <Fragment>
-        <section className="py-32 max-w-6xl my-0 mx-auto pb-48">
+        <section className="pt-32 pb-48 px-16 max-w-6xl my-0 mx-auto">
           <Row>
-            <Col span={10}>
+            <Col sm={24} md={12}>
               <h1 className="text-4xl text-black font-bold mb-2">
                 Log. Measure. Optimize.
               </h1>
@@ -26,6 +26,7 @@ class LandingPage extends Component {
               </Button>
             </Col>
             <img
+              className="w-0 md:w-auto lg:w-auto"
               src={Illustration}
               style={{
                 position: 'absolute',
@@ -38,7 +39,7 @@ class LandingPage extends Component {
           </Row>
         </section>
         <section className="py-32 bg-gray-100">
-          <div className="max-w-6xl my-0 mx-auto">
+          <div className="max-w-6xl my-0 mx-auto px-16">
             <Row type="flex" justify="center">
               <Col span={24}>
                 <h1 className="text-2xl text-black font-semibold mb-2 text-center">
@@ -48,18 +49,18 @@ class LandingPage extends Component {
                   Perfy uses Google Lighthouse to generate performance reports
                 </p>
                 <Row gutter={16}>
-                  <Col span={8}>
+                  <Col sm={24} md={12} lg={8}>
                     <Card title={<div className="text-lg">Audits</div>}>
                       Run performance audits on schedule and generate
                       benchmarking data
                     </Card>
                   </Col>
-                  <Col span={8}>
+                  <Col sm={24} md={12} lg={8}>
                     <Card title={<div className="text-lg">Reports</div>}>
                       Generate reports from the audits, store and analyze them
                     </Card>
                   </Col>
-                  <Col span={8}>
+                  <Col sm={24} md={12} lg={8}>
                     <Card title={<div className="text-lg">Screenshots</div>}>
                       See screenshots to check when your page is rendering
                     </Card>
@@ -69,11 +70,11 @@ class LandingPage extends Component {
             </Row>
           </div>
         </section>
-        <section className="py-8 bg-black">
+        <section className="py-8 px-16 bg-black">
           <div className="max-w-6xl my-0 mx-auto">
             <Row type="flex" justify="space-between">
               <Col span={20}>
-                <p className="text-white font-semibold">Perfy</p>
+                <p className="text-white font-semibold mb-0">Perfy</p>
               </Col>
               <Col span={4}>Help</Col>
             </Row>

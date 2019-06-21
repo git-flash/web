@@ -99,7 +99,7 @@ export default class MyDocument extends Document<Props> {
           content="/static/images/ms-icon-144x144.png"
         />
         <meta name="theme-color" content="#1890ff" />
-        <body className="bg-gray-100">
+        <body className="bg-gray-100 overflow-x-hidden">
           <Main />
           <NextScript />
         </body>
