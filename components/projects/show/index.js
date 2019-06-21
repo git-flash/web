@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Subscription } from 'react-apollo'
-import { Table, Drawer, Button } from 'antd'
+import { Table, Drawer, Button, Progress } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -39,39 +39,115 @@ class ProjectsShow extends Component {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      render: (text, records) => (
+      render: (text, record) => (
         <a
           href="javascript:;"
           onClick={() =>
             this.showDrawer({
-              id: records.id,
-              audits: records.audits,
+              id: record.id,
+              audits: record.audits,
             })
           }
         >
-          {text}
+          {record.link}
         </a>
       ),
     },
     {
-      title: 'Link',
-      dataIndex: 'link',
-      key: 'link',
-      render: (text, records) => (
-        <a
-          href="javascript:;"
-          onClick={() =>
-            this.showDrawer({
-              id: records.id,
-              audits: records.audits,
-            })
-          }
-        >
-          {text}
-        </a>
-      ),
+      title: 'Performance',
+      dataIndex: 'performance',
+      key: 'performance',
+      render: (text, record) => {
+        const lastAuditDetails =
+          record.audits[record.audits.length - 1].categories
+
+        return this.calculateProgress(lastAuditDetails.performance)
+      },
+    },
+    {
+      title: 'Accessibility',
+      dataIndex: 'accessibility',
+      key: 'accessibility',
+      render: (text, record) => {
+        const lastAuditDetails =
+          record.audits[record.audits.length - 1].categories
+
+        return this.calculateProgress(lastAuditDetails.accessibility)
+      },
+    },
+    {
+      title: 'Best Practices',
+      dataIndex: 'bestPractices',
+      key: 'bestPractices',
+      render: (text, record) => {
+        const lastAuditDetails =
+          record.audits[record.audits.length - 1].categories
+
+        return this.calculateProgress(lastAuditDetails['best-practices'])
+      },
+    },
+    {
+      title: 'SEO',
+      dataIndex: 'seo',
+      key: 'seo',
+      render: (text, record) => {
+        const lastAuditDetails =
+          record.audits[record.audits.length - 1].categories
+
+        return this.calculateProgress(lastAuditDetails.seo)
+      },
+    },
+    {
+      title: 'PWA',
+      dataIndex: 'pwa',
+      key: 'pwa',
+      render: (text, record) => {
+        const lastAuditDetails =
+          record.audits[record.audits.length - 1].categories
+
+        return this.calculateProgress(lastAuditDetails.pwa)
+      },
     },
   ]
+
+  calculateProgress = record => {
+    const score = record.score * 100
+
+    if (score <= 49) {
+      return (
+        <Progress
+          type="circle"
+          percent={score}
+          format={percent => `${percent}`}
+          width={30}
+          strokeWidth={10}
+          status="exception"
+        />
+      )
+    } else if (score <= 89) {
+      return (
+        <Progress
+          type="circle"
+          percent={score}
+          format={percent => `${percent}`}
+          width={30}
+          strokeWidth={10}
+          status="normal"
+        />
+      )
+    } else {
+      return (
+        <Progress
+          type="circle"
+          percent={score}
+          format={percent => `${percent}`}
+          width={30}
+          strokeWidth={10}
+          status="success"
+        />
+      )
+    }
+  }
 
   showDrawer = ({ id, audits }) => {
     this.setState({
