@@ -71,7 +71,7 @@ class ProjectsEdit extends Component {
                     <h2 className="text-3xl mb-0 text-gray-700">Edit {name}</h2>
                   }
                 >
-                  <p className="text-sm mb-0 text-gray-500">
+                  <p className="text-sm mb-0 text-gray-700">
                     You can add a new project by providing the necessary details
                   </p>
                 </PageHeader>

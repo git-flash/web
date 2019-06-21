@@ -13,7 +13,7 @@ class LandingPage extends Component {
               <h1 className="text-4xl text-black font-bold mb-2">
                 Log. Measure. Optimize.
               </h1>
-              <p className="text-lg text-gray-500 mb-8">
+              <p className="text-lg text-gray-700 mb-8">
                 Monitor the performance of your application
               </p>
               <p className="text-base text-gray-700 mb-12">
@@ -43,7 +43,7 @@ class LandingPage extends Component {
                 <h1 className="text-2xl text-black font-semibold mb-2 text-center">
                   Packed with important Features
                 </h1>
-                <p className="text-base text-gray-500 mb-16 text-center">
+                <p className="text-base text-gray-700 mb-16 text-center">
                   Perfy uses Google Lighthouse to generate performance reports
                 </p>
                 <Row gutter={16}>

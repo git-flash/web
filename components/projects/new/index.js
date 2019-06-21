@@ -59,7 +59,7 @@ class ProjectsNew extends Component {
                     </h2>
                   }
                 >
-                  <p className="text-sm mb-0 text-gray-500">
+                  <p className="text-sm mb-0 text-gray-700">
                     You can add a new project by providing the necessary details
                   </p>
                 </PageHeader>

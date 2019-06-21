@@ -35,7 +35,7 @@ const ProjectsIndex = () => {
           >
             <a className="font-semibold">{record.name}</a>
           </Link>
-          <div className="text-xs text-gray-500">{record.id}</div>
+          <div className="text-xs text-gray-700">{record.id}</div>
         </Fragment>
       ),
     },
@@ -49,7 +49,7 @@ const ProjectsIndex = () => {
           <span className="text-base">
             {record.users ? record.users.length : 0}
           </span>
-          <span className="text-xs text-gray-500"> /10</span>
+          <span className="text-xs text-gray-700"> /10</span>
           <Progress
             percent={record.users ? record.users.length * 10 : 0}
             showInfo={false}

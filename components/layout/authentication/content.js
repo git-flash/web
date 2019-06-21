@@ -20,7 +20,7 @@ class ContentComponent extends Component {
                 <div className="text-3xl text-black font-bold mb-2">
                   <img src={Logo} className="w-20" />
                 </div>
-                <div className="text-sm text-gray-500 mb-16">
+                <div className="text-sm text-gray-700 mb-16">
                   Monitor the performance of your application
                 </div>
                 <Tabs
