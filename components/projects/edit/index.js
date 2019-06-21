@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Query } from 'react-apollo'
-import { Form, Button, Input, PageHeader } from 'antd'
+import { Form, Button, Input, PageHeader, Typography, Card } from 'antd'
 import styled from 'styled-components'
 import Router from 'next/router'
 import Link from 'next/link'
@@ -77,7 +77,7 @@ class ProjectsEdit extends Component {
                 </PageHeader>
               </div>
               <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
-                <div className="p-8 border-0 border-b border-solid border-gray-300">
+                <Card title="Details" bordered={false}>
                   <Form layout="vertical" onSubmit={this.handleSubmit}>
                     <Form.Item label="Name">
                       {getFieldDecorator('name', {
@@ -90,8 +90,8 @@ class ProjectsEdit extends Component {
                       )}
                     </Form.Item>
                   </Form>
-                </div>
-                <div className="flex justify-end p-8 bg-gray-100">
+                </Card>
+                <div className="flex justify-end p-6 bg-gray-100">
                   <div className="mr-4">
                     <Link href={`/projects`} as={`/projects`}>
                       <Button
