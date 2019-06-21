@@ -1,0 +1,21 @@
+{
+  "short_name": "Perfy",
+  "name": "Perfy",
+  "icons": [
+    {
+      "src": "/static/images/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/images/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#f7fafc",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#1890ff"
+}

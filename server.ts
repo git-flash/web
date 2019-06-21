@@ -1,6 +1,8 @@
 import next from 'next'
 import express from 'express'
 import compression from 'compression'
+import { join } from 'path'
+import { parse } from 'url'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -40,7 +42,15 @@ app
     })
 
     server.get('*', (req: any, res: any) => {
-      return handle(req, res)
+      const parsedUrl = parse(req.url, true)
+      const { pathname } = parsedUrl
+
+      if (pathname === '/service-worker.js') {
+        const filePath = join(__dirname, '.next', pathname)
+        app.serveStatic(req, res, filePath)
+      } else {
+        handle(req, res, parsedUrl)
+      }
     })
 
     server.listen(process.env.PORT || 3000, () => {

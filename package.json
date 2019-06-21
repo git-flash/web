@@ -25,13 +25,15 @@
     "next-cookies": "^1.1.2",
     "next-images": "^1.1.2",
     "next-nprogress": "^1.4.0",
+    "next-offline": "^4.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-apollo": "^2.5.6",
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.1",
     "styled-jsx": "3.0.0",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "sw-precache-webpack-plugin": "^0.11.5"
   },
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",
