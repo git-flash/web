@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 type Props = {
@@ -17,13 +17,17 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <html>
+      <Html lang="en">
         <Head>{this.props.styleTags}</Head>
+        <meta
+          name="Description"
+          content="A tool to help you optimize your application"
+        />
         <body className="bg-gray-100">
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }
