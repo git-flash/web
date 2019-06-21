@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Subscription } from 'react-apollo'
-import { Table, Drawer, Button, Progress, PageHeader } from 'antd'
+import { Table, Drawer, Button, Progress, PageHeader, Icon } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -58,65 +58,56 @@ class ProjectsShow extends Component {
       dataIndex: 'performance',
       key: 'performance',
       width: '10%',
-      render: (text, record) => {
-        const lastAuditDetails =
-          record.audits[record.audits.length - 1].categories
-
-        return this.calculateProgress(lastAuditDetails.performance)
-      },
+      render: (text, record) =>
+        this.calculateProgress(record.audits, 'performance'),
     },
     {
       title: 'Accessibility',
       dataIndex: 'accessibility',
       key: 'accessibility',
       width: '10%',
-      render: (text, record) => {
-        const lastAuditDetails =
-          record.audits[record.audits.length - 1].categories
-
-        return this.calculateProgress(lastAuditDetails.accessibility)
-      },
+      render: (text, record) =>
+        this.calculateProgress(record.audits, 'accessibility'),
     },
     {
       title: 'Best Practices',
       dataIndex: 'bestPractices',
       key: 'bestPractices',
       width: '10%',
-      render: (text, record) => {
-        const lastAuditDetails =
-          record.audits[record.audits.length - 1].categories
-
-        return this.calculateProgress(lastAuditDetails['best-practices'])
-      },
+      render: (text, record) =>
+        this.calculateProgress(record.audits, 'best-practices'),
     },
     {
       title: 'SEO',
       dataIndex: 'seo',
       key: 'seo',
       width: '10%',
-      render: (text, record) => {
-        const lastAuditDetails =
-          record.audits[record.audits.length - 1].categories
-
-        return this.calculateProgress(lastAuditDetails.seo)
-      },
+      render: (text, record) => this.calculateProgress(record.audits, 'seo'),
     },
     {
       title: 'PWA',
       dataIndex: 'pwa',
       key: 'pwa',
       width: '10%',
-      render: (text, record) => {
-        const lastAuditDetails =
-          record.audits[record.audits.length - 1].categories
-
-        return this.calculateProgress(lastAuditDetails.pwa)
-      },
+      render: (text, record) => this.calculateProgress(record.audits, 'pwa'),
     },
   ]
 
-  calculateProgress = record => {
-    const score = record.score * 100
+  calculateProgress = (record, id) => {
+    if (!record[record.length - 1]) {
+      return (
+        <Progress
+          type="circle"
+          percent={100}
+          format={() => <Icon type="hourglass" />}
+          width={30}
+          strokeWidth={10}
+          status="exception"
+        />
+      )
+    }
+
+    const score = record[record.length - 1].categories[id].score * 100
 
     if (score <= 49) {
       return (
