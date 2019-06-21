@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Subscription } from 'react-apollo'
-import { Table, Drawer, Button, Progress } from 'antd'
+import { Table, Drawer, Button, Progress, PageHeader } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -57,6 +57,7 @@ class ProjectsShow extends Component {
       title: 'Performance',
       dataIndex: 'performance',
       key: 'performance',
+      width: '10%',
       render: (text, record) => {
         const lastAuditDetails =
           record.audits[record.audits.length - 1].categories
@@ -68,6 +69,7 @@ class ProjectsShow extends Component {
       title: 'Accessibility',
       dataIndex: 'accessibility',
       key: 'accessibility',
+      width: '10%',
       render: (text, record) => {
         const lastAuditDetails =
           record.audits[record.audits.length - 1].categories
@@ -79,6 +81,7 @@ class ProjectsShow extends Component {
       title: 'Best Practices',
       dataIndex: 'bestPractices',
       key: 'bestPractices',
+      width: '10%',
       render: (text, record) => {
         const lastAuditDetails =
           record.audits[record.audits.length - 1].categories
@@ -90,6 +93,7 @@ class ProjectsShow extends Component {
       title: 'SEO',
       dataIndex: 'seo',
       key: 'seo',
+      width: '10%',
       render: (text, record) => {
         const lastAuditDetails =
           record.audits[record.audits.length - 1].categories
@@ -101,6 +105,7 @@ class ProjectsShow extends Component {
       title: 'PWA',
       dataIndex: 'pwa',
       key: 'pwa',
+      width: '10%',
       render: (text, record) => {
         const lastAuditDetails =
           record.audits[record.audits.length - 1].categories
@@ -196,19 +201,25 @@ class ProjectsShow extends Component {
 
           return (
             <Fragment>
-              <div className="flex justify-between items-center">
-                <div className="text-3xl">{name}</div>
-                <div>
-                  <AddLinkModal projectId={id} />
-                  <Link
-                    href={`/projects/edit?id=${id}`}
-                    as={`/projects/${id}/edit`}
-                  >
-                    <Button type="default" icon="highlight" size="large">
-                      Edit Project
-                    </Button>
-                  </Link>
-                </div>
+              <div className="border border-solid border-gray-300">
+                <PageHeader
+                  title={
+                    <h2 className="text-3xl mb-0 text-gray-700">{name}</h2>
+                  }
+                  extra={
+                    <Fragment>
+                      <AddLinkModal projectId={id} />
+                      <Link
+                        href={`/projects/edit?id=${id}`}
+                        as={`/projects/${id}/edit`}
+                      >
+                        <Button type="default" icon="highlight" size="large">
+                          Edit Project
+                        </Button>
+                      </Link>
+                    </Fragment>
+                  }
+                />
               </div>
               <div className="mt-8 bg-white rounded">
                 {this.drawerNode()}

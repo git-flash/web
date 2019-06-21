@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, Query } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, Progress } from 'antd'
+import { Button, Table, Progress, PageHeader } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
@@ -68,13 +68,19 @@ const ProjectsIndex = () => {
 
         return (
           <Fragment>
-            <div className="flex justify-between items-center">
-              <h2 className="text-3xl mb-0 text-gray-700"> Projects</h2>
-              <Link href={`/projects/new`} as={`/projects/new`}>
-                <Button type="primary" icon="plus-circle" size="large">
-                  Create new Project
-                </Button>
-              </Link>
+            <div className="border border-solid border-gray-300">
+              <PageHeader
+                title={
+                  <h2 className="text-3xl mb-0 text-gray-700">Projects</h2>
+                }
+                extra={
+                  <Link href={`/projects/new`} as={`/projects/new`}>
+                    <Button type="primary" icon="plus-circle" size="large">
+                      Create new Project
+                    </Button>
+                  </Link>
+                }
+              />
             </div>
             <div className="mt-8 bg-white rounded">
               <Table
