@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "nodemon",
+    "build:analyze": "ANALYZE=true next build && tsc --project tsconfig.server.json",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "next build && NODE_ENV=production ts-node --project tsconfig.server.json server.ts",
     "type-check": "tsc"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^8.1.0",
     "@types/compression": "^0.0.36",
     "@zeit/next-css": "^1.0.1",
     "antd": "^3.19.3",
