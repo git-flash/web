@@ -4,6 +4,7 @@ import compression from 'compression'
 import { join } from 'path'
 import { parse } from 'url'
 
+const Sentry = require('@sentry/node')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
@@ -14,6 +15,9 @@ app
     const server = express()
 
     if (process.env.NODE_ENV === 'production') {
+      Sentry.init({ dsn: process.env.SENTRY_PUBLIC_DSN })
+
+      server.use(Sentry.Handlers.requestHandler())
       server.use(compression())
     }
 
