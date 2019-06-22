@@ -26,7 +26,7 @@ class HeaderComponent extends Component {
                 <a>
                   <img
                     src={Logo}
-                    className="p-2"
+                    className="px-2"
                     alt="Perfy"
                     width="60px"
                     height="60px"
