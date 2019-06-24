@@ -19,7 +19,6 @@ const fetchProjectQuery = gql`
       password_field_selector
       password_field_value
       submit_button_selector
-      cookies
       users {
         id
       }
@@ -27,7 +26,16 @@ const fetchProjectQuery = gql`
   }
 `
 const updateProjectMutation = gql`
-  mutation($name: String, $id: uuid!) {
+  mutation(
+    $name: String
+    $login_url: String
+    $username_or_email_address_field_selector: String
+    $username_or_email_address_field_value: String
+    $password_field_selector: String
+    $password_field_value: String
+    $submit_button_selector: String
+    $id: uuid!
+  ) {
     update_project(
       where: { id: { _eq: $id } }
       _set: {
@@ -38,7 +46,6 @@ const updateProjectMutation = gql`
         password_field_selector: $password_field_selector
         password_field_value: $password_field_value
         submit_button_selector: $submit_button_selector
-        cookies: $cookies
       }
     ) {
       returning {
@@ -50,7 +57,6 @@ const updateProjectMutation = gql`
         password_field_selector
         password_field_value
         submit_button_selector
-        cookies
       }
     }
   }
@@ -77,7 +83,10 @@ class ProjectsEdit extends Component {
           },
         })
 
-        Router.push('/projects')
+        Router.push(
+          `/projects/show?id=${this.props.id}`,
+          `/projects/${this.props.id}`
+        )
       }
     })
   }
@@ -263,72 +272,6 @@ class ProjectsEdit extends Component {
                         />
                       )}
                     </Form.Item>
-                  </Form>
-                </Card>
-                <div className="flex justify-end p-6 bg-gray-100">
-                  <div className="mr-4">
-                    <Link href={`/projects`} as={`/projects`}>
-                      <Button
-                        loading={loading}
-                        size="large"
-                        icon="close-circle"
-                        type="danger"
-                      >
-                        Cancel
-                      </Button>
-                    </Link>
-                  </div>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    onClick={this.handleSubmit}
-                    loading={loading}
-                    size="large"
-                    icon="check-circle"
-                  >
-                    Save
-                  </Button>
-                </div>
-              </div>
-              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
-                <Card title="Cookies" bordered={false}>
-                  <Form layout="vertical" onSubmit={this.handleSubmit}>
-                    {cookies.map((cookie, index) => {
-                      return (
-                        <Fragment key={index}>
-                          <Form.Item label="Key">
-                            {getFieldDecorator(`cookie_key_${index}`, {
-                              rules: [
-                                {
-                                  message: 'Please enter cookie key!',
-                                },
-                              ],
-                              initialValue: cookie.key,
-                            })(
-                              <Input
-                                placeholder="Please enter cookie key"
-                                size="large"
-                              />
-                            )}
-                          </Form.Item>
-                          <Form.Item label="Value">
-                            {getFieldDecorator(`cookie_value_${index}`, {
-                              rules: [
-                                {
-                                  message: 'Please enter cookie value!',
-                                },
-                              ],
-                              initialValue: cookie.value,
-                            })(
-                              <Input
-                                placeholder="Please enter cookie value"
-                                size="large"
-                              />
-                            )}
-                          </Form.Item>
-                        </Fragment>
-                      )
-                    })}
                   </Form>
                 </Card>
                 <div className="flex justify-end p-6 bg-gray-100">

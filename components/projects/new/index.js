@@ -269,64 +269,6 @@ class ProjectsNew extends Component {
                   </Button>
                 </div>
               </div>
-              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
-                <Card title="Cookies" bordered={false}>
-                  <Form layout="vertical" onSubmit={this.handleSubmit}>
-                    <Form.Item label="Key">
-                      {getFieldDecorator('cookieKey', {
-                        rules: [
-                          {
-                            message: 'Please enter cookie key!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter cookie key"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Value">
-                      {getFieldDecorator('cookieValue', {
-                        rules: [
-                          {
-                            message: 'Please enter cookie value!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter cookie value"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                  </Form>
-                </Card>
-                <div className="flex justify-end p-6 bg-gray-100">
-                  <div className="mr-4">
-                    <Link href={`/projects`} as={`/projects`}>
-                      <Button
-                        loading={loading}
-                        size="large"
-                        icon="close-circle"
-                        type="danger"
-                      >
-                        Cancel
-                      </Button>
-                    </Link>
-                  </div>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    onClick={this.handleSubmit}
-                    loading={loading}
-                    size="large"
-                    icon="check-circle"
-                  >
-                    Save
-                  </Button>
-                </div>
-              </div>
             </Fragment>
           )
         }}
