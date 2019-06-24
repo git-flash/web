@@ -13,6 +13,13 @@ const fetchProjectQuery = gql`
     project_by_pk(id: $id) {
       id
       name
+      login_url
+      username_or_email_address_field_selector
+      username_or_email_address_field_value
+      password_field_selector
+      password_field_value
+      submit_button_selector
+      cookies
       users {
         id
       }
@@ -21,10 +28,29 @@ const fetchProjectQuery = gql`
 `
 const updateProjectMutation = gql`
   mutation($name: String, $id: uuid!) {
-    update_project(where: { id: { _eq: $id } }, _set: { name: $name }) {
+    update_project(
+      where: { id: { _eq: $id } }
+      _set: {
+        name: $name
+        login_url: $login_url
+        username_or_email_address_field_selector: $username_or_email_address_field_selector
+        username_or_email_address_field_value: $username_or_email_address_field_value
+        password_field_selector: $password_field_selector
+        password_field_value: $password_field_value
+        submit_button_selector: $submit_button_selector
+        cookies: $cookies
+      }
+    ) {
       returning {
         id
         name
+        login_url
+        username_or_email_address_field_selector
+        username_or_email_address_field_value
+        password_field_selector
+        password_field_value
+        submit_button_selector
+        cookies
       }
     }
   }
@@ -39,6 +65,15 @@ class ProjectsEdit extends Component {
           variables: {
             id: this.props.id,
             name: values.name,
+            login_url: values.login_url,
+            username_or_email_address_field_selector:
+              values.username_or_email_address_field_selector,
+            username_or_email_address_field_value:
+              values.username_or_email_address_field_value,
+            password_field_selector: values.password_field_selector,
+            password_field_value: values.password_field_value,
+            submit_button_selector: values.submit_button_selector,
+            cookies: values.cookies,
           },
         })
 
@@ -61,14 +96,25 @@ class ProjectsEdit extends Component {
 
           if (error) return <p>Error: {error.message}</p>
 
-          const { name } = data.project_by_pk
+          const {
+            name,
+            login_url,
+            username_or_email_address_field_selector,
+            username_or_email_address_field_value,
+            password_field_selector,
+            password_field_value,
+            submit_button_selector,
+            cookies,
+          } = data.project_by_pk
 
           return (
             <Fragment>
               <div className="border border-solid border-gray-300">
                 <PageHeader
                   title={
-                    <h2 className="text-3xl mb-0 text-gray-700">Edit {name}</h2>
+                    <h2 className="text-3xl mb-0 text-gray-700">
+                      Create new Project
+                    </h2>
                   }
                 >
                   <p className="text-sm mb-0 text-gray-700">
@@ -89,6 +135,200 @@ class ProjectsEdit extends Component {
                         <Input placeholder="Please enter name" size="large" />
                       )}
                     </Form.Item>
+                  </Form>
+                </Card>
+                <div className="flex justify-end p-6 bg-gray-100">
+                  <div className="mr-4">
+                    <Link href={`/projects`} as={`/projects`}>
+                      <Button
+                        loading={loading}
+                        size="large"
+                        icon="close-circle"
+                        type="danger"
+                      >
+                        Cancel
+                      </Button>
+                    </Link>
+                  </div>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={this.handleSubmit}
+                    loading={loading}
+                    size="large"
+                    icon="check-circle"
+                  >
+                    Save
+                  </Button>
+                </div>
+              </div>
+              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
+                <Card title="Authentication" bordered={false}>
+                  <Form layout="vertical" onSubmit={this.handleSubmit}>
+                    <Form.Item label="Login URL">
+                      {getFieldDecorator('login_url', {
+                        rules: [
+                          {
+                            message: 'Please enter login URL!',
+                          },
+                        ],
+                        initialValue: login_url,
+                      })(
+                        <Input
+                          placeholder="Please enter login URL"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="Username or Email Address field selector">
+                      {getFieldDecorator(
+                        'username_or_email_address_field_selector',
+                        {
+                          rules: [
+                            {
+                              message:
+                                'Please enter Username or Email Address field selector!',
+                            },
+                          ],
+                          initialValue: username_or_email_address_field_selector,
+                        }
+                      )(
+                        <Input
+                          placeholder="Please enter Username or Email Address field selector"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="Username or Email Address field value">
+                      {getFieldDecorator(
+                        'username_or_email_address_field_value',
+                        {
+                          rules: [
+                            {
+                              message:
+                                'Please enter Username or Email Address field value!',
+                            },
+                          ],
+                          initialValue: username_or_email_address_field_value,
+                        }
+                      )(
+                        <Input
+                          placeholder="Please enter Username or Email Address field value"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="Password field selector">
+                      {getFieldDecorator('password_field_selector', {
+                        rules: [
+                          {
+                            message: 'Please enter Password field selector!',
+                          },
+                        ],
+                        initialValue: password_field_selector,
+                      })(
+                        <Input
+                          placeholder="Please enter Username or Email Address field selector"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="Password field value">
+                      {getFieldDecorator('password_field_value', {
+                        rules: [
+                          {
+                            message: 'Please enter Password field value!',
+                          },
+                        ],
+                        initialValue: password_field_value,
+                      })(
+                        <Input
+                          placeholder="Please enter Password field value"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                    <Form.Item label="Submit Button selector">
+                      {getFieldDecorator('submit_button_selector', {
+                        rules: [
+                          {
+                            message: 'Please enter Submit Button selector!',
+                          },
+                        ],
+                        initialValue: submit_button_selector,
+                      })(
+                        <Input
+                          placeholder="Please enter Submit Button selector"
+                          size="large"
+                        />
+                      )}
+                    </Form.Item>
+                  </Form>
+                </Card>
+                <div className="flex justify-end p-6 bg-gray-100">
+                  <div className="mr-4">
+                    <Link href={`/projects`} as={`/projects`}>
+                      <Button
+                        loading={loading}
+                        size="large"
+                        icon="close-circle"
+                        type="danger"
+                      >
+                        Cancel
+                      </Button>
+                    </Link>
+                  </div>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={this.handleSubmit}
+                    loading={loading}
+                    size="large"
+                    icon="check-circle"
+                  >
+                    Save
+                  </Button>
+                </div>
+              </div>
+              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
+                <Card title="Cookies" bordered={false}>
+                  <Form layout="vertical" onSubmit={this.handleSubmit}>
+                    {cookies.map((cookie, index) => {
+                      return (
+                        <Fragment key={index}>
+                          <Form.Item label="Key">
+                            {getFieldDecorator(`cookie_key_${index}`, {
+                              rules: [
+                                {
+                                  message: 'Please enter cookie key!',
+                                },
+                              ],
+                              initialValue: cookie.key,
+                            })(
+                              <Input
+                                placeholder="Please enter cookie key"
+                                size="large"
+                              />
+                            )}
+                          </Form.Item>
+                          <Form.Item label="Value">
+                            {getFieldDecorator(`cookie_value_${index}`, {
+                              rules: [
+                                {
+                                  message: 'Please enter cookie value!',
+                                },
+                              ],
+                              initialValue: cookie.value,
+                            })(
+                              <Input
+                                placeholder="Please enter cookie value"
+                                size="large"
+                              />
+                            )}
+                          </Form.Item>
+                        </Fragment>
+                      )
+                    })}
                   </Form>
                 </Card>
                 <div className="flex justify-end p-6 bg-gray-100">
