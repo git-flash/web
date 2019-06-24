@@ -114,7 +114,7 @@ class ProjectsShow extends Component {
         <Progress
           type="circle"
           percent={score}
-          format={percent => `${percent}`}
+          format={percent => Math.round(percent)}
           width={30}
           strokeWidth={10}
           status="exception"
@@ -125,7 +125,7 @@ class ProjectsShow extends Component {
         <Progress
           type="circle"
           percent={score}
-          format={percent => `${percent}`}
+          format={percent => Math.round(percent)}
           width={30}
           strokeWidth={10}
           status="normal"
@@ -136,7 +136,7 @@ class ProjectsShow extends Component {
         <Progress
           type="circle"
           percent={score}
-          format={percent => `${percent}`}
+          format={percent => Math.round(percent)}
           width={30}
           strokeWidth={10}
           status="success"
