@@ -36,9 +36,11 @@ class ProjectsShow extends Component {
 
   columns = [
     {
-      title: 'ID',
+      title: 'Link',
       dataIndex: 'id',
       key: 'id',
+      width: 100,
+      fixed: 'left',
       render: (text, record) => (
         <a
           href="javascript:;"
@@ -57,7 +59,7 @@ class ProjectsShow extends Component {
       title: 'Performance',
       dataIndex: 'performance',
       key: 'performance',
-      width: '10%',
+      width: '15%',
       render: (text, record) =>
         this.calculateProgress(record.audits, 'performance'),
     },
@@ -65,7 +67,7 @@ class ProjectsShow extends Component {
       title: 'Accessibility',
       dataIndex: 'accessibility',
       key: 'accessibility',
-      width: '10%',
+      width: '15%',
       render: (text, record) =>
         this.calculateProgress(record.audits, 'accessibility'),
     },
@@ -73,7 +75,7 @@ class ProjectsShow extends Component {
       title: 'Best Practices',
       dataIndex: 'bestPractices',
       key: 'bestPractices',
-      width: '10%',
+      width: '15%',
       render: (text, record) =>
         this.calculateProgress(record.audits, 'best-practices'),
     },
@@ -81,14 +83,14 @@ class ProjectsShow extends Component {
       title: 'SEO',
       dataIndex: 'seo',
       key: 'seo',
-      width: '10%',
+      width: '15%',
       render: (text, record) => this.calculateProgress(record.audits, 'seo'),
     },
     {
       title: 'PWA',
       dataIndex: 'pwa',
       key: 'pwa',
-      width: '10%',
+      width: '15%',
       render: (text, record) => this.calculateProgress(record.audits, 'pwa'),
     },
   ]
@@ -220,6 +222,7 @@ class ProjectsShow extends Component {
                   columns={this.columns}
                   dataSource={urls}
                   pagination={false}
+                  scroll={{ x: 800 }}
                 />
               </div>
             </Fragment>
