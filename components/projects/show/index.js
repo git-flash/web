@@ -39,8 +39,7 @@ class ProjectsShow extends Component {
       title: 'Link',
       dataIndex: 'id',
       key: 'id',
-      width: 100,
-      fixed: 'left',
+      width: 500,
       render: (text, record) => (
         <a
           href="javascript:;"
@@ -59,7 +58,7 @@ class ProjectsShow extends Component {
       title: 'Performance',
       dataIndex: 'performance',
       key: 'performance',
-      width: '15%',
+      width: 100,
       render: (text, record) =>
         this.calculateProgress(record.audits, 'performance'),
     },
@@ -67,7 +66,7 @@ class ProjectsShow extends Component {
       title: 'Accessibility',
       dataIndex: 'accessibility',
       key: 'accessibility',
-      width: '15%',
+      width: 100,
       render: (text, record) =>
         this.calculateProgress(record.audits, 'accessibility'),
     },
@@ -75,7 +74,7 @@ class ProjectsShow extends Component {
       title: 'Best Practices',
       dataIndex: 'bestPractices',
       key: 'bestPractices',
-      width: '15%',
+      width: 100,
       render: (text, record) =>
         this.calculateProgress(record.audits, 'best-practices'),
     },
@@ -83,14 +82,14 @@ class ProjectsShow extends Component {
       title: 'SEO',
       dataIndex: 'seo',
       key: 'seo',
-      width: '15%',
+      width: 100,
       render: (text, record) => this.calculateProgress(record.audits, 'seo'),
     },
     {
       title: 'PWA',
       dataIndex: 'pwa',
       key: 'pwa',
-      width: '15%',
+      width: 100,
       render: (text, record) => this.calculateProgress(record.audits, 'pwa'),
     },
   ]
