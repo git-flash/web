@@ -4,7 +4,16 @@ import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
 import { graphql, withApollo, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Form, Button, Input, PageHeader, Typography, Card } from 'antd'
+import {
+  Form,
+  Button,
+  Input,
+  PageHeader,
+  Typography,
+  Card,
+  Row,
+  Col,
+} from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -132,116 +141,119 @@ class ProjectsNew extends Component {
               <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
                 <Card title="Authentication" bordered={false}>
                   <Form layout="vertical" onSubmit={this.handleSubmit}>
-                    <Form.Item label="Login URL">
-                      {getFieldDecorator('login_url', {
-                        rules: [
-                          {
-                            message: 'Please enter login URL!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter login URL"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Username or Email Address field selector">
-                      {getFieldDecorator(
-                        'username_or_email_address_field_selector',
-                        {
-                          rules: [
+                    <Row>
+                      <Col sm={24} md={24}>
+                        <Form.Item label="Login URL">
+                          {getFieldDecorator('login_url', {
+                            rules: [
+                              {
+                                message: 'Please enter login URL!',
+                              },
+                            ],
+                          })(
+                            <Input
+                              placeholder="Please enter login URL"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={48}>
+                      <Col sm={24} md={12}>
+                        <Form.Item label="Username or Email Address field selector">
+                          {getFieldDecorator(
+                            'username_or_email_address_field_selector',
                             {
-                              message:
-                                'Please enter Username or Email Address field selector!',
-                            },
-                          ],
-                        }
-                      )(
-                        <Input
-                          placeholder="Please enter Username or Email Address field selector"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Username or Email Address field value">
-                      {getFieldDecorator(
-                        'username_or_email_address_field_value',
-                        {
-                          rules: [
+                              rules: [
+                                {
+                                  message:
+                                    'Please enter Username or Email Address field selector!',
+                                },
+                              ],
+                            }
+                          )(
+                            <Input
+                              placeholder="Please enter Username or Email Address field selector"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col sm={24} md={12}>
+                        <Form.Item label="Username or Email Address field value">
+                          {getFieldDecorator(
+                            'username_or_email_address_field_value',
                             {
-                              message:
-                                'Please enter Username or Email Address field value!',
-                            },
-                          ],
-                        }
-                      )(
-                        <Input
-                          placeholder="Please enter Username or Email Address field value"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Username or Email Address field selector">
-                      {getFieldDecorator(
-                        'username_or_email_address_field_selector',
-                        {
-                          rules: [
-                            {
-                              message:
-                                'Please enter Username or Email Address field selector!',
-                            },
-                          ],
-                        }
-                      )(
-                        <Input
-                          placeholder="Please enter Username or Email Address field selector"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Password field value">
-                      {getFieldDecorator('password_field_value', {
-                        rules: [
-                          {
-                            message: 'Please enter Password field value!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter Password field value"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Submit Button selector">
-                      {getFieldDecorator('submit_button_selector', {
-                        rules: [
-                          {
-                            message: 'Please enter Submit Button selector!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter Submit Button selector"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item label="Submit Button value">
-                      {getFieldDecorator('submit_button_value', {
-                        rules: [
-                          {
-                            message: 'Please enter Submit Button value!',
-                          },
-                        ],
-                      })(
-                        <Input
-                          placeholder="Please enter Submit Button value"
-                          size="large"
-                        />
-                      )}
-                    </Form.Item>
+                              rules: [
+                                {
+                                  message:
+                                    'Please enter Username or Email Address field value!',
+                                },
+                              ],
+                            }
+                          )(
+                            <Input
+                              placeholder="Please enter Username or Email Address field value"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={48}>
+                      <Col sm={24} md={12}>
+                        <Form.Item label="Password field selector">
+                          {getFieldDecorator('password_field_selector', {
+                            rules: [
+                              {
+                                message:
+                                  'Please enter Password field selector!',
+                              },
+                            ],
+                          })(
+                            <Input
+                              placeholder="Please enter Username or Email Address field selector"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col sm={24} md={12}>
+                        <Form.Item label="Password field value">
+                          {getFieldDecorator('password_field_value', {
+                            rules: [
+                              {
+                                message: 'Please enter Password field value!',
+                              },
+                            ],
+                          })(
+                            <Input
+                              placeholder="Please enter Password field value"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={48}>
+                      <Col sm={12} md={12}>
+                        <Form.Item label="Submit Button selector">
+                          {getFieldDecorator('submit_button_selector', {
+                            rules: [
+                              {
+                                message: 'Please enter Submit Button selector!',
+                              },
+                            ],
+                          })(
+                            <Input
+                              placeholder="Please enter Submit Button selector"
+                              size="large"
+                            />
+                          )}
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Form>
                 </Card>
                 <div className="flex justify-end p-6 bg-gray-100">
