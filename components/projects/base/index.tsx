@@ -1,16 +1,22 @@
 import React, { Fragment } from 'react'
-import { withApollo, Query } from 'react-apollo'
+import { withApollo, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, Progress, PageHeader } from 'antd'
+import { Button, Table, Progress, PageHeader, Icon } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
 
-const fetchProjectsQuery = gql`
-  query {
+const fetchProjectsSubscription = gql`
+  subscription {
     project {
       id
       name
+      login_url
+      urls_aggregate {
+        aggregate {
+          count
+        }
+      }
       users {
         user {
           id
@@ -40,6 +46,49 @@ const ProjectsIndex = () => {
       ),
     },
     {
+      title: 'Pages',
+      dataIndex: 'pages',
+      key: 'pages',
+      width: '10%',
+      render: (
+        _: string,
+        record: { urls_aggregate: { aggregate: { count: number } } }
+      ) => (
+        <span className="text-base">
+          {record.urls_aggregate.aggregate.count}
+          <span className="text-xs text-gray-700"> /50</span>
+          <Progress
+            percent={
+              record.urls_aggregate.aggregate.count
+                ? (record.urls_aggregate.aggregate.count / 5) * 10
+                : 0
+            }
+            showInfo={false}
+          />
+        </span>
+      ),
+    },
+    {
+      title: 'Authenticated',
+      dataIndex: 'authenticated',
+      key: 'authenticated',
+      width: '10%',
+      render: (_: string, record: { login_url: string }) =>
+        !!record.login_url ? (
+          <Icon
+            type="check-circle"
+            className="text-green-500 text-xl"
+            theme="filled"
+          />
+        ) : (
+          <Icon
+            type="close-circle"
+            className="text-red-500 text-xl"
+            theme="filled"
+          />
+        ),
+    },
+    {
       title: 'Users',
       dataIndex: 'users',
       key: 'users',
@@ -60,7 +109,10 @@ const ProjectsIndex = () => {
   ]
 
   return (
-    <Query query={fetchProjectsQuery} fetchPolicy="network-only">
+    <Subscription
+      subscription={fetchProjectsSubscription}
+      fetchPolicy="network-only"
+    >
       {({ data, error, loading }) => {
         if (loading) return <Loader />
 
@@ -94,7 +146,7 @@ const ProjectsIndex = () => {
           </Fragment>
         )
       }}
-    </Query>
+    </Subscription>
   )
 }
 
