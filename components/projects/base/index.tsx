@@ -32,7 +32,7 @@ const ProjectsIndex = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      width: '70%',
+      width: '60%',
       render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
@@ -49,7 +49,7 @@ const ProjectsIndex = () => {
       title: 'Pages',
       dataIndex: 'pages',
       key: 'pages',
-      width: '10%',
+      width: '20%',
       render: (
         _: string,
         record: { urls_aggregate: { aggregate: { count: number } } }
@@ -67,26 +67,6 @@ const ProjectsIndex = () => {
           />
         </span>
       ),
-    },
-    {
-      title: 'Authenticated',
-      dataIndex: 'authenticated',
-      key: 'authenticated',
-      width: '10%',
-      render: (_: string, record: { login_url: string }) =>
-        !!record.login_url ? (
-          <Icon
-            type="check-circle"
-            className="text-green-500 text-xl"
-            theme="filled"
-          />
-        ) : (
-          <Icon
-            type="close-circle"
-            className="text-red-500 text-xl"
-            theme="filled"
-          />
-        ),
     },
     {
       title: 'Users',
