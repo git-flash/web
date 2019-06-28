@@ -54,6 +54,7 @@ const AddLinkModal = props => {
               size="large"
               className="mr-4"
               icon="plus-circle"
+              type="primary"
             >
               Add new Link
             </Button>
