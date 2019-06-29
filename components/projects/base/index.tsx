@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, Progress, PageHeader, Icon } from 'antd'
+import { Button, Table, Progress, PageHeader, Icon, Badge } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
@@ -32,7 +32,7 @@ const ProjectsIndex = () => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      width: '60%',
+      width: '50%',
       render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
@@ -85,6 +85,22 @@ const ProjectsIndex = () => {
           />
         </Fragment>
       ),
+    },
+    {
+      title: 'Authentication',
+      dataIndex: 'authentication',
+      key: 'authentication',
+      width: '10%',
+      render: (_: string, record: { login_url: string }) =>
+        !!record.login_url ? (
+          <>
+            <Badge status="success" text="Enabled" title="Enabled" />
+          </>
+        ) : (
+          <>
+            <Badge status="error" text="Disabled" title="Disabled" />
+          </>
+        ),
     },
   ]
 
