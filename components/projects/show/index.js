@@ -17,7 +17,7 @@ const fetchProjectSubscription = gql`
       urls {
         id
         link
-        audits {
+        audits(limit: 1) {
           id
           categories
           lighthouse_version
