@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, Progress, PageHeader, Icon, Badge } from 'antd'
+import { Button, Table, Progress, PageHeader, Badge } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
@@ -54,19 +54,19 @@ const ProjectsIndex = () => {
         _: string,
         record: { urls_aggregate: { aggregate: { count: number } } }
       ) => (
-        <span className="text-base">
-          {record.urls_aggregate.aggregate.count}
-          <span className="text-xs text-gray-700"> /50</span>
-          <Progress
-            percent={
-              record.urls_aggregate.aggregate.count
-                ? (record.urls_aggregate.aggregate.count / 5) * 10
-                : 0
-            }
-            showInfo={false}
-          />
-        </span>
-      ),
+          <span className="text-base">
+            {record.urls_aggregate.aggregate.count}
+            <span className="text-xs text-gray-700"> /50</span>
+            <Progress
+              percent={
+                record.urls_aggregate.aggregate.count
+                  ? (record.urls_aggregate.aggregate.count / 5) * 10
+                  : 0
+              }
+              showInfo={false}
+            />
+          </span>
+        ),
     },
     {
       title: 'Users',
@@ -97,10 +97,10 @@ const ProjectsIndex = () => {
             <Badge status="success" text="Enabled" title="Enabled" />
           </>
         ) : (
-          <>
-            <Badge status="error" text="Disabled" title="Disabled" />
-          </>
-        ),
+            <>
+              <Badge status="error" text="Disabled" title="Disabled" />
+            </>
+          ),
     },
   ]
 
