@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Dropdown, Icon, Avatar, Button } from 'antd'
-import Router from 'next/router'
 import Link from 'next/link'
 
 import Logo from '../../../static/images/logo.svg'
@@ -12,14 +11,14 @@ class HeaderComponent extends Component {
   render() {
     return (
       <Header style={{ background: '#fff', padding: 0 }}>
-        <div className="flex justify-between h-full px-4">
-          <div className="mx-4 flex">
-            <div className="px-4">
+        <div className="flex justify-between h-full max-w-6xl my-0 mx-auto">
+          <div className="flex">
+            <div className="pr-4">
               <Link href={`/dashboard`} as={`/dashboard`}>
                 <a>
                   <img
                     src={Logo}
-                    className="px-2"
+                    className="pr-2"
                     alt="Perfy"
                     width="60px"
                     height="60px"
@@ -27,18 +26,33 @@ class HeaderComponent extends Component {
                 </a>
               </Link>
             </div>
+            <div className="px-4 text-black font-bold">
+              <Link href={`/pricing`} as={`/pricing`}>
+                Pricing
+              </Link>
+            </div>
+            <div className="px-4 text-black font-bold">
+              <Link href={`/product`} as={`/product`}>
+                Product
+              </Link>
+            </div>
+            <div className="px-4 text-black font-bold">
+              <Link href={`/features`} as={`/authentication`}>
+                Features
+              </Link>
+            </div>
           </div>
           <div className="mx-4 flex">
             <div className="px-4">
               <Link href={`/authentication`} as={`/authentication`}>
-                <Button type="dashed" icon="login">
+                <Button type="secondary" size="large">
                   Sign In
                 </Button>
               </Link>
             </div>
             <div className="px-4">
               <Link href={`/authentication`} as={`/authentication`}>
-                <Button type="primary" icon="thunderbolt">
+                <Button type="primary" size="large">
                   Sign Up
                 </Button>
               </Link>
