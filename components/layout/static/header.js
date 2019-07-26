@@ -11,7 +11,7 @@ class HeaderComponent extends Component {
   render() {
     return (
       <Header style={{ background: '#fff', padding: 0 }}>
-        <div className="flex justify-between h-full max-w-6xl my-0 mx-auto">
+        <div className="px-16 flex justify-between h-full max-w-6xl my-0 mx-auto">
           <div className="flex">
             <div className="pr-4">
               <Link href={`/dashboard`} as={`/dashboard`}>
@@ -42,7 +42,7 @@ class HeaderComponent extends Component {
               </Link>
             </div>
           </div>
-          <div className="mx-4 flex">
+          <div className="ml-4 flex">
             <div className="px-4">
               <Link href={`/authentication`} as={`/authentication`}>
                 <Button type="secondary" size="large">
@@ -50,7 +50,7 @@ class HeaderComponent extends Component {
                 </Button>
               </Link>
             </div>
-            <div className="px-4">
+            <div className="pl-4">
               <Link href={`/authentication`} as={`/authentication`}>
                 <Button type="primary" size="large">
                   Sign Up

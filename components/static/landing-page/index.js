@@ -9,7 +9,7 @@ class LandingPage extends Component {
   render() {
     return (
       <Fragment>
-        <section className="pt-16 pb-48 max-w-6xl my-0 mx-auto">
+        <section className="px-16 pt-16 pb-48 max-w-6xl my-0 mx-auto">
           <Row>
             <Col sm={24} md={14}>
               <h1 className="text-5xl text-black font-bold mb-2">
@@ -40,7 +40,7 @@ class LandingPage extends Component {
             />
           </Row>
         </section>
-        <section className="py-32 bg-gray-100">
+        <section className="px-16 py-32 bg-gray-100">
           <div className="max-w-6xl my-0 mx-auto">
             <Row type="flex" justify="center">
               <Col span={24}>
@@ -54,8 +54,13 @@ class LandingPage extends Component {
                   <Col sm={24} md={12} lg={12}>
                     <div className="mb-8">
                       <Card>
-                        <Row type="flex" justify="space-around" align="middle">
-                          <Col sm={2} md={2} lg={4}>
+                        <Row
+                          type="flex"
+                          justify="space-around"
+                          align="middle"
+                          gutter={32}
+                        >
+                          <Col sm={4} md={4} lg={4}>
                             <div>
                               <Icon
                                 type="security-scan"
@@ -64,7 +69,7 @@ class LandingPage extends Component {
                               />
                             </div>
                           </Col>
-                          <Col sm={22} md={22} lg={20}>
+                          <Col sm={20} md={20} lg={20}>
                             <div className="text-lg font-semibold text-black">
                               Run audits on your app
                             </div>
@@ -80,8 +85,13 @@ class LandingPage extends Component {
                   <Col sm={24} md={12} lg={12}>
                     <div className="mb-8">
                       <Card>
-                        <Row type="flex" justify="space-around" align="middle">
-                          <Col sm={2} md={2} lg={4}>
+                        <Row
+                          type="flex"
+                          justify="space-around"
+                          align="middle"
+                          gutter={32}
+                        >
+                          <Col sm={4} md={4} lg={4}>
                             <div>
                               <Icon
                                 type="file-markdown"
@@ -90,7 +100,7 @@ class LandingPage extends Component {
                               />
                             </div>
                           </Col>
-                          <Col sm={22} md={22} lg={20}>
+                          <Col sm={20} md={20} lg={20}>
                             <div className="text-lg font-semibold text-black">
                               Generate reports
                             </div>
@@ -108,8 +118,13 @@ class LandingPage extends Component {
                   <Col sm={24} md={12} lg={12}>
                     <div className="mb-8">
                       <Card>
-                        <Row type="flex" justify="space-around" align="middle">
-                          <Col sm={2} md={2} lg={4}>
+                        <Row
+                          type="flex"
+                          justify="space-around"
+                          align="middle"
+                          gutter={32}
+                        >
+                          <Col sm={4} md={4} lg={4}>
                             <div>
                               <Icon
                                 type="reconciliation"
@@ -118,7 +133,7 @@ class LandingPage extends Component {
                               />
                             </div>
                           </Col>
-                          <Col sm={22} md={22} lg={20}>
+                          <Col sm={20} md={20} lg={20}>
                             <div className="text-lg font-semibold text-black">
                               Visualize with screenshots
                             </div>
@@ -134,8 +149,13 @@ class LandingPage extends Component {
                   <Col sm={24} md={12} lg={12}>
                     <div className="mb-8">
                       <Card>
-                        <Row type="flex" justify="space-around" align="middle">
-                          <Col sm={2} md={2} lg={4}>
+                        <Row
+                          type="flex"
+                          justify="space-around"
+                          align="middle"
+                          gutter={32}
+                        >
+                          <Col sm={4} md={4} lg={4}>
                             <div>
                               <Icon
                                 type="build"
@@ -144,7 +164,7 @@ class LandingPage extends Component {
                               />
                             </div>
                           </Col>
-                          <Col sm={22} md={22} lg={20}>
+                          <Col sm={20} md={20} lg={20}>
                             <div className="text-lg font-semibold text-black">
                               Compare audits
                             </div>
@@ -162,7 +182,7 @@ class LandingPage extends Component {
             </Row>
           </div>
         </section>
-        <section className="py-32 max-w-6xl my-0 mx-auto">
+        <section className="px-16 py-32 max-w-6xl my-0 mx-auto">
           <Row type="flex" justify="end">
             <img
               className="w-0 md:w-auto lg:w-auto"
@@ -215,10 +235,10 @@ class LandingPage extends Component {
             </Col>
           </Row>
         </section>
-        <section className="py-32 bg-gray-100">
+        <section className="px-16 py-32 bg-gray-100">
           <div className="max-w-6xl my-0 mx-auto">
-            <Row type="flex" justify="start">
-              <Col sm={24} md={12}>
+            <Row type="flex" justify="start" gutter={32}>
+              <Col sm={24} md={12} className="pb-16">
                 <h2 className="text-4xl text-black font-base mb-2">
                   100% Open Source
                 </h2>
@@ -232,8 +252,13 @@ class LandingPage extends Component {
               </Col>
               <Col sm={24} md={12}>
                 <Card className="mb-8">
-                  <Row type="flex" justify="space-around" align="middle">
-                    <Col sm={2} md={2} lg={4}>
+                  <Row
+                    type="flex"
+                    justify="space-around"
+                    align="middle"
+                    gutter={32}
+                  >
+                    <Col sm={4} md={4} lg={4}>
                       <div>
                         <Icon
                           type="trophy"
@@ -242,7 +267,7 @@ class LandingPage extends Component {
                         />
                       </div>
                     </Col>
-                    <Col sm={22} md={22} lg={20}>
+                    <Col sm={20} md={20} lg={20}>
                       <div className="text-lg font-semibold text-black">
                         Available on Github
                       </div>
@@ -254,8 +279,13 @@ class LandingPage extends Component {
                   </Row>
                 </Card>
                 <Card>
-                  <Row type="flex" justify="space-around" align="middle">
-                    <Col sm={2} md={2} lg={4}>
+                  <Row
+                    type="flex"
+                    justify="space-around"
+                    align="middle"
+                    gutter={32}
+                  >
+                    <Col sm={4} md={4} lg={4}>
                       <div>
                         <Icon
                           type="flag"
@@ -264,7 +294,7 @@ class LandingPage extends Component {
                         />
                       </div>
                     </Col>
-                    <Col sm={22} md={22} lg={20}>
+                    <Col sm={20} md={20} lg={20}>
                       <div className="text-lg font-semibold text-black">
                         MIT Licence
                       </div>
@@ -279,7 +309,7 @@ class LandingPage extends Component {
             </Row>
           </div>
         </section>
-        <section className="py-16 bg-black">
+        <section className="px-16 py-16 bg-black">
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto mb-12">
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/about`} as={`/about`}>
