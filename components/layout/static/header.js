@@ -10,8 +10,8 @@ const { Header } = Layout
 class HeaderComponent extends Component {
   render() {
     return (
-      <Header style={{ background: '#fff', padding: 0 }}>
-        <div className="px-16 flex justify-between h-full max-w-6xl my-4 mx-auto">
+      <Header style={{ background: '#fff', padding: '0', height: '100px' }}>
+        <div className="px-4 flex justify-between h-full max-w-6xl my-4 mx-auto">
           <div className="flex">
             <div className="pr-4">
               <Link href={`/dashboard`} as={`/dashboard`}>

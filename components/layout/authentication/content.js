@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Tabs } from 'antd'
+import Link from 'next/link'
 
 import Illustration from '../../../static/images/authentication-illustration.png'
 import Logo from '../../../static/images/logo.svg'
@@ -18,13 +19,17 @@ class ContentComponent extends Component {
           />
         </div>
         <div className="w-full md:w-full lg:w-1/3">
-          <Card className="h-screen">
+          <Card className="h-screen overflow-y-scroll">
             <div className="flex justify-center mt-16">
               <div className="w-2/3">
-                <div className="text-3xl text-black font-bold mb-2">
-                  <img src={Logo} className="w-20" />
+                <div className="mb-2">
+                  <Link href={`/`} as={`/`}>
+                    <a>
+                      <img src={Logo} className="w-20" />
+                    </a>
+                  </Link>
                 </div>
-                <div className="text-sm text-gray-700 mb-16">
+                <div className="text-2xl text-gray-700 mb-8">
                   Monitor the performance of your application
                 </div>
                 <Tabs
