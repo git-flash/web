@@ -11,7 +11,7 @@ class HeaderComponent extends Component {
   render() {
     return (
       <Header style={{ background: '#fff', padding: 0 }}>
-        <div className="px-16 flex justify-between h-full max-w-6xl my-0 mx-auto">
+        <div className="px-16 flex justify-between h-full max-w-6xl my-4 mx-auto">
           <div className="flex">
             <div className="pr-4">
               <Link href={`/dashboard`} as={`/dashboard`}>
@@ -26,19 +26,19 @@ class HeaderComponent extends Component {
                 </a>
               </Link>
             </div>
-            <div className="px-4 text-black font-bold">
+            <div className="px-4 text-black">
               <Link href={`/pricing`} as={`/pricing`}>
-                Pricing
+                <a>Pricing</a>
               </Link>
             </div>
-            <div className="px-4 text-black font-bold">
+            <div className="px-4 text-black">
               <Link href={`/product`} as={`/product`}>
-                Product
+                <a>Product</a>
               </Link>
             </div>
-            <div className="px-4 text-black font-bold">
+            <div className="px-4 text-black">
               <Link href={`/features`} as={`/authentication`}>
-                Features
+                <a>Features</a>
               </Link>
             </div>
           </div>

@@ -313,32 +313,32 @@ class LandingPage extends Component {
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto mb-12">
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/about`} as={`/about`}>
-                About
+                <a>About</a>
               </Link>
             </div>
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/privacy`} as={`/privacy`}>
-                Privacy
+                <a>Privacy</a>
               </Link>
             </div>
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/legal`} as={`/legal`}>
-                Legal
+                <a>Legal</a>
               </Link>
             </div>
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/security`} as={`/security`}>
-                Security
+                <a>Security</a>
               </Link>
             </div>
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/developers`} as={`/developers`}>
-                Developers
+                <a>Developers</a>
               </Link>
             </div>
             <div className="px-4 text-black font-bold uppercase">
               <Link href={`/support`} as={`/support`}>
-                Support
+                <a>Support</a>
               </Link>
             </div>
           </div>
