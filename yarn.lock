@@ -779,7 +779,7 @@
     "@babel/plugin-transform-react-jsx-self" "^7.0.0"
     "@babel/plugin-transform-react-jsx-source" "^7.0.0"
 
-"@babel/preset-typescript@7.3.3", "@babel/preset-typescript@^7.0.0":
+"@babel/preset-typescript@7.3.3":
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.3.3.tgz#88669911053fa16b2b276ea2ede2ca603b3f307a"
   integrity sha512-mzMVuIP4lqtn4du2ynEfdO0+RYcslwrZiJHXu4MGaC1ctJiW2fyaeDrtjJGs7R/KebZ1sgowcIoWf4uRpEfKEg==
@@ -1178,17 +1178,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
-  version "16.8.10"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.10.tgz#1ccb6fde17f71a62ef055382ec68bdc379d4d8d9"
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^2.2.0"
-
-"@types/react@^16.8.23":
-  version "16.8.23"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.23.tgz#ec6be3ceed6353a20948169b6cb4c97b65b97ad2"
-  integrity sha512-abkEOIeljniUN9qB5onp++g0EY38h7atnDHxwKUFz1r3VH1+yG1OKi2sNPTyObL40goBmfKFpdii2lEzwLX1cA==
+"@types/react@*", "@types/react@^16.8.24":
+  version "16.8.24"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.24.tgz#8d1ea1fcbfa214220da3d3c04e506f1077b0deac"
+  integrity sha512-VpFHUoD37YNY2+lr/+c7qL/tZsIU/bKuskUF3tmGUArbxIcQdb5j3zvo4cuuzu2A6UaVmVn7sJ4PgWYNFEBGzg==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -1417,13 +1410,6 @@
     ignore-loader "0.1.2"
     mini-css-extract-plugin "0.4.3"
     postcss-loader "3.0.0"
-
-"@zeit/next-typescript@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@zeit/next-typescript/-/next-typescript-1.1.1.tgz#0b0ddfbb13ca04cde52ac2718473f1b9c40ba0ee"
-  integrity sha512-EUcHCASftz1Bc80djkf3cKJrFgvFQyODOH1kty7ShVLLdXMaZpRLj+z7RxrCoNo1bP06w0vtXEDU0cKa0HmGgg==
-  dependencies:
-    "@babel/preset-typescript" "^7.0.0"
 
 abbrev@1:
   version "1.1.1"
@@ -2310,7 +2296,7 @@ caller-path@^2.0.0:
 
 callsites@^2.0.0:
   version "2.0.0"
-  resolved "http://registry.npmjs.org/callsites/-/callsites-2.0.0.tgz#06eb84f00eea413da86affefacbffb36093b3c50"
+  resolved "https://registry.npmjs.org/callsites/-/callsites-2.0.0.tgz#06eb84f00eea413da86affefacbffb36093b3c50"
 
 camelcase-css@^2.0.1:
   version "2.0.1"
@@ -4431,7 +4417,7 @@ is-number@^7.0.0:
 
 is-obj@^1.0.0, is-obj@^1.0.1:
   version "1.0.1"
-  resolved "http://registry.npmjs.org/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
+  resolved "https://registry.npmjs.org/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
 
 is-observable@^1.1.0:
   version "1.1.0"
@@ -7542,7 +7528,7 @@ slash@^3.0.0:
 
 slice-ansi@0.0.4:
   version "0.0.4"
-  resolved "http://registry.npmjs.org/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
+  resolved "https://registry.npmjs.org/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -7791,7 +7777,7 @@ strip-comments@^1.0.2:
 
 strip-eof@^1.0.0:
   version "1.0.0"
-  resolved "http://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
+  resolved "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
 strip-final-newline@^2.0.0:
   version "2.0.0"
