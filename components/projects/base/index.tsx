@@ -109,7 +109,7 @@ const ProjectsIndex = () => {
       subscription={fetchProjectsSubscription}
       fetchPolicy="network-only"
     >
-      {({ data, error, loading }) => {
+      {({ data, error, loading }: any) => {
         if (loading) return <Loader />
 
         if (error) return <p>Error: {error.message}</p>
