@@ -34,7 +34,7 @@
     "react-apollo": "^3.0.0",
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.2",
-    "styled-jsx": "3.0.0",
+    "styled-jsx": "3.2.1",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "author": "nirmalya.email@gmail.com",
@@ -71,6 +71,6 @@
     ]
   },
   "resolutions": {
-    "styled-jsx": "3.0.0"
+    "styled-jsx": "3.2.1"
   }
 }
