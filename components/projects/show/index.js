@@ -108,40 +108,31 @@ class ProjectsShow extends Component {
       )
     }
 
-    const score = record[record.length - 1].categories[id].score * 100
+    const score = parseInt(
+      record[record.length - 1].categories[id].score * 100,
+      10
+    )
 
     if (score <= 49) {
       return (
-        <Progress
-          type="circle"
-          percent={score}
-          format={percent => Math.round(percent)}
-          width={30}
-          strokeWidth={10}
-          status="exception"
-        />
+        <Fragment>
+          <span className="text-red-700 text-base">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </Fragment>
       )
     } else if (score <= 89) {
       return (
-        <Progress
-          type="circle"
-          percent={score}
-          format={percent => Math.round(percent)}
-          width={30}
-          strokeWidth={10}
-          status="normal"
-        />
+        <Fragment>
+          <span className="text-blue-700 text-base">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </Fragment>
       )
     } else {
       return (
-        <Progress
-          type="circle"
-          percent={score}
-          format={percent => Math.round(percent)}
-          width={30}
-          strokeWidth={10}
-          status="success"
-        />
+        <Fragment>
+          <span className="text-green-700 text-base">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </Fragment>
       )
     }
   }
