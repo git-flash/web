@@ -5,7 +5,9 @@ import Router from 'next/router'
 
 const SignUp = props => {
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
+
   const fetchToken = async values => {
     try {
       const response = await fetch(`${process.env.AUTH_URL}/authentication`, {
@@ -20,14 +22,20 @@ const SignUp = props => {
           password: values.password,
         }),
       })
-      const data = await response.json()
 
-      document.cookie = `token=${data.accessToken};path=/`
+      if ([200, 201].indexOf(response.status) > -1) {
+        const data = await response.json()
 
-      Router.push('/projects')
+        document.cookie = `token=${data.accessToken};path=/`
+
+        setError('')
+
+        Router.push('/projects')
+      }
 
       setIsLoading(false)
     } catch (error) {
+      setError(error)
       setIsLoading(false)
 
       console.error(error)
@@ -61,8 +69,12 @@ const SignUp = props => {
           };path=/`
 
           if ([200, 201].indexOf(response.status) > -1) {
+            setError('')
+
             await fetchToken(values)
           } else {
+            setError(response.statusText)
+
             setIsLoading(false)
           }
         } catch (error) {
@@ -77,7 +89,11 @@ const SignUp = props => {
   return (
     <div className="mt-4">
       <Form layout="vertical" onSubmit={handleSubmit}>
-        <Form.Item label="Email">
+        <Form.Item
+          label="Email"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
           {getFieldDecorator('email', {
             rules: [
               {
@@ -90,7 +106,11 @@ const SignUp = props => {
             <Input placeholder="Please enter email" size="large" type="email" />
           )}
         </Form.Item>
-        <Form.Item label="Password">
+        <Form.Item
+          label="Password"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please enter password!' }],
             initialValue: 'password',

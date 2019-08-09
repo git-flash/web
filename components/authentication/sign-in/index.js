@@ -4,7 +4,9 @@ import Router from 'next/router'
 
 const SignIn = props => {
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
+
   const fetchToken = async values => {
     try {
       const response = await fetch(`${process.env.AUTH_URL}/authentication`, {
@@ -19,17 +21,25 @@ const SignIn = props => {
           password: values.password,
         }),
       })
-      const data = await response.json()
 
-      document.cookie = `token=${data.accessToken};path=/`
-      document.cookie = `email=${values.email};path=/`
-      document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
-      document.cookie = `x-hasura-user-id=${data['x-hasura-user-id']};path=/`
+      if ([200, 201].indexOf(response.status) > -1) {
+        const data = await response.json()
 
-      Router.push('/projects')
+        document.cookie = `token=${data.accessToken};path=/`
+        document.cookie = `email=${values.email};path=/`
+        document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
+        document.cookie = `x-hasura-user-id=${data['x-hasura-user-id']};path=/`
+
+        setError('')
+
+        Router.push('/projects')
+      }
+
+      setError(response.statusText)
 
       setIsLoading(false)
     } catch (error) {
+      setError(error)
       setIsLoading(false)
 
       console.error(error)
@@ -49,7 +59,11 @@ const SignIn = props => {
   return (
     <div className="mt-4">
       <Form layout="vertical" onSubmit={handleSubmit}>
-        <Form.Item label="Email">
+        <Form.Item
+          label="Email"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
           {getFieldDecorator('email', {
             rules: [
               {
@@ -62,7 +76,11 @@ const SignIn = props => {
             <Input placeholder="Please enter email" size="large" type="email" />
           )}
         </Form.Item>
-        <Form.Item label="Password">
+        <Form.Item
+          label="Password"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please enter password!' }],
             initialValue: 'password',
