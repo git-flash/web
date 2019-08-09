@@ -1293,7 +1293,7 @@ html {
   border: 1px solid #91d5ff;
 }
 .ant-alert-info .ant-alert-icon {
-  color: #1890ff;
+  color: #2337a4;
 }
 .ant-alert-warning {
   background-color: #fffbe6;
@@ -1756,7 +1756,7 @@ html {
 }
 .ant-badge-status-processing {
   position: relative;
-  background-color: #1890ff;
+  background-color: #2337a4;
 }
 .ant-badge-status-processing::after {
   position: absolute;
@@ -1764,7 +1764,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid #1890ff;
+  border: 1px solid #2337a4;
   border-radius: 50%;
   animation: antStatusProcessing 1.2s infinite ease-in-out;
   content: '';
@@ -1809,7 +1809,7 @@ html {
   background: #52c41a;
 }
 .ant-badge-status-blue {
-  background: #1890ff;
+  background: #2337a4;
 }
 .ant-badge-status-geekblue {
   background: #2f54eb;
@@ -14367,7 +14367,7 @@ textarea.ant-mentions {
 }
 .ant-message-info .anticon,
 .ant-message-loading .anticon {
-  color: #1890ff;
+  color: #2337a4;
 }
 .ant-message .anticon {
   position: relative;
@@ -14610,7 +14610,7 @@ textarea.ant-mentions {
   color: #faad14;
 }
 .ant-modal-confirm-info .ant-modal-confirm-body > .anticon {
-  color: #1890ff;
+  color: #2337a4;
 }
 .ant-modal-confirm-success .ant-modal-confirm-body > .anticon {
   color: #52c41a;
@@ -14703,7 +14703,7 @@ textarea.ant-mentions {
   color: #52c41a;
 }
 .anticon.ant-notification-notice-icon-info {
-  color: #1890ff;
+  color: #2337a4;
 }
 .anticon.ant-notification-notice-icon-warning {
   color: #faad14;
@@ -15602,12 +15602,12 @@ textarea.ant-pagination-options-quick-jumper input {
 }
 .ant-progress-circle-path {
   animation: ant-progress-appear 0.3s;
-  stroke: #1890ff;
+  stroke: #2337a4;
 }
 .ant-progress-success-bg,
 .ant-progress-bg {
   position: relative;
-  background-color: #1890ff;
+  background-color: #2337a4;
   border-radius: 100px;
   transition: all 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 }
@@ -16084,7 +16084,7 @@ span.ant-radio + * {
   color: #f5222d;
 }
 .ant-result-info .ant-result-icon > .anticon {
-  color: #1890ff;
+  color: #2337a4;
 }
 .ant-result-warning .ant-result-icon > .anticon {
   color: #faad14;
@@ -20168,14 +20168,14 @@ tr.ant-table-expanded-row td > .ant-table-wrapper {
   border-color: #52c41a;
 }
 .ant-tag-blue {
-  color: #1890ff;
+  color: #2337a4;
   background: #e6f7ff;
   border-color: #91d5ff;
 }
 .ant-tag-blue-inverse {
   color: #fff;
-  background: #1890ff;
-  border-color: #1890ff;
+  background: #2337a4;
+  border-color: #2337a4;
 }
 .ant-tag-geekblue {
   color: #2f54eb;
