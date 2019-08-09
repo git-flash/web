@@ -15,15 +15,20 @@ class LandingPage extends Component {
               <h1 className="text-5xl text-black font-bold mb-2">
                 Log. Measure. Optimize.
               </h1>
-              <p className="text-2xl text-gray-700 mb-8">
+              <p className="text-xl text-gray-700 mb-4">
                 Monitor the performance of your application
               </p>
-              <p className="text-lg text-gray-700 mb-12">
+              <p className="text-base text-gray-600 mb-12">
                 Measure the performance of your app over time. Act upon the data
                 provided in our beautiful dashboard. Iterate and enhance your
                 application.
               </p>
-              <Button type="primary" icon="file-done" size="large">
+              <Button
+                type="primary"
+                icon="file-done"
+                size="large"
+                className="uppercase text-sm font-semibold"
+              >
                 Know More
               </Button>
             </Col>
@@ -47,7 +52,7 @@ class LandingPage extends Component {
                 <h1 className="text-4xl text-black font-base mb-2 text-center">
                   Packed with important Features
                 </h1>
-                <p className="text-2xl mb-16 text-center">
+                <p className="text-xl mb-16 text-center">
                   Perfy uses Google Lighthouse to generate performance reports
                 </p>
                 <Row gutter={16}>
@@ -64,13 +69,14 @@ class LandingPage extends Component {
                             <div>
                               <Icon
                                 type="security-scan"
-                                theme="twoTone"
                                 style={{ fontSize: '50px' }}
+                                twoToneColor="#2337a4"
+                                theme="twoTone"
                               />
                             </div>
                           </Col>
                           <Col sm={20} md={20} lg={20}>
-                            <div className="text-lg font-semibold text-black">
+                            <div className="text-lg font-semibold text-black mb-2">
                               Run audits on your app
                             </div>
                             <div className="text-base">
@@ -95,13 +101,14 @@ class LandingPage extends Component {
                             <div>
                               <Icon
                                 type="file-markdown"
+                                twoToneColor="#2337a4"
                                 theme="twoTone"
                                 style={{ fontSize: '50px' }}
                               />
                             </div>
                           </Col>
                           <Col sm={20} md={20} lg={20}>
-                            <div className="text-lg font-semibold text-black">
+                            <div className="text-lg font-semibold text-black mb-2">
                               Generate reports
                             </div>
                             <div className="text-base">
@@ -128,13 +135,14 @@ class LandingPage extends Component {
                             <div>
                               <Icon
                                 type="reconciliation"
-                                theme="twoTone"
                                 style={{ fontSize: '50px' }}
+                                twoToneColor="#2337a4"
+                                theme="twoTone"
                               />
                             </div>
                           </Col>
                           <Col sm={20} md={20} lg={20}>
-                            <div className="text-lg font-semibold text-black">
+                            <div className="text-lg font-semibold text-black mb-2">
                               Visualize with screenshots
                             </div>
                             <div className="text-base">
@@ -159,13 +167,14 @@ class LandingPage extends Component {
                             <div>
                               <Icon
                                 type="build"
-                                theme="twoTone"
                                 style={{ fontSize: '50px' }}
+                                twoToneColor="#2337a4"
+                                theme="twoTone"
                               />
                             </div>
                           </Col>
                           <Col sm={20} md={20} lg={20}>
-                            <div className="text-lg font-semibold text-black">
+                            <div className="text-lg font-semibold text-black mb-2">
                               Compare audits
                             </div>
                             <div className="text-base">
@@ -200,36 +209,44 @@ class LandingPage extends Component {
               <h2 className="text-4xl text-black font-base mb-2">
                 Measure performance logs
               </h2>
-              <p className="text-2xl mb-16">
+              <p className="text-xl mb-16">
                 Create on-demand or schedule generation of audits for your app
               </p>
               <div className="mb-12">
                 <p className="text-base">
                   <Icon
                     type="check-circle"
-                    theme="twoTone"
                     style={{ marginRight: '10px' }}
+                    twoToneColor="#2337a4"
+                    theme="twoTone"
                   />
                   Create a project with pages
                 </p>
                 <p className="text-base">
                   <Icon
                     type="check-circle"
-                    theme="twoTone"
                     style={{ marginRight: '10px' }}
+                    twoToneColor="#2337a4"
+                    theme="twoTone"
                   />
                   Schedule the generation of audits
                 </p>
                 <p className="text-base">
                   <Icon
                     type="check-circle"
-                    theme="twoTone"
                     style={{ marginRight: '10px' }}
+                    twoToneColor="#2337a4"
+                    theme="twoTone"
                   />
                   Compare the performance of pages over time
                 </p>
               </div>
-              <Button type="primary" icon="file-done" size="large">
+              <Button
+                type="primary"
+                icon="file-done"
+                size="large"
+                className="uppercase text-sm font-semibold"
+              >
                 Know More
               </Button>
             </Col>
@@ -242,11 +259,16 @@ class LandingPage extends Component {
                 <h2 className="text-4xl text-black font-base mb-2">
                   100% Open Source
                 </h2>
-                <p className="text-2xl mb-16">
+                <p className="text-xl mb-16">
                   We believe that the best software is the one which is built
                   together
                 </p>
-                <Button type="primary" icon="file-done" size="large">
+                <Button
+                  type="primary"
+                  icon="file-done"
+                  size="large"
+                  className="uppercase text-sm font-semibold"
+                >
                   Know More
                 </Button>
               </Col>
@@ -262,13 +284,14 @@ class LandingPage extends Component {
                       <div>
                         <Icon
                           type="trophy"
-                          theme="twoTone"
                           style={{ fontSize: '50px' }}
+                          twoToneColor="#2337a4"
+                          theme="twoTone"
                         />
                       </div>
                     </Col>
                     <Col sm={20} md={20} lg={20}>
-                      <div className="text-lg font-semibold text-black">
+                      <div className="text-lg font-semibold text-black mb-2">
                         Available on Github
                       </div>
                       <div className="text-base">
@@ -290,12 +313,13 @@ class LandingPage extends Component {
                         <Icon
                           type="flag"
                           style={{ fontSize: '50px' }}
+                          twoToneColor="#2337a4"
                           theme="twoTone"
                         />
                       </div>
                     </Col>
                     <Col sm={20} md={20} lg={20}>
-                      <div className="text-lg font-semibold text-black">
+                      <div className="text-lg font-semibold text-black mb-2">
                         MIT Licence
                       </div>
                       <div className="text-base">
