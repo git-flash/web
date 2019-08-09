@@ -20,8 +20,8 @@ class HeaderComponent extends Component {
                     src={Logo}
                     className="pr-2"
                     alt="Perfy"
-                    width="60px"
-                    height="60px"
+                    width="40px"
+                    height="40px"
                   />
                 </a>
               </Link>

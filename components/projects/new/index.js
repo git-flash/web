@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import styled from 'styled-components'
 import find from 'lodash/find'
 import findIndex from 'lodash/findIndex'
 import { graphql, withApollo, Mutation } from 'react-apollo'

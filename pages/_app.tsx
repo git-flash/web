@@ -1,8 +1,8 @@
 import App from 'next/app'
-import withNProgress from 'next-nprogress'
 import * as Sentry from '@sentry/browser'
 
 import '../static/styles/tailwind.css'
+import '../static/styles/ant.css'
 
 class Perfy extends App {
   constructor(args: any) {
@@ -25,4 +25,4 @@ class Perfy extends App {
   }
 }
 
-export default withNProgress(300, { showSpinner: false })(Perfy)
+export default Perfy
