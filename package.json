@@ -39,7 +39,7 @@
     "react-apollo": "^3.0.0",
     "react-dom": "^16.9.0",
     "subscriptions-transport-ws": "^0.9.16",
-    "webpack": "^4.39.1"
+    "webpack": "^4.39.2"
   },
   "author": "nirmalya.email@gmail.com",
   "license": "MIT",
