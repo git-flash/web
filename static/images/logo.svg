@@ -9,7 +9,7 @@
             <stop stop-color="#114D94" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="1.60925033%" y1="2.29065534%" x2="100%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#2337a4" offset="0%"></stop>
+            <stop stop-color="#2196f3" offset="0%"></stop>
             <stop stop-color="#021891" offset="100%"></stop>
         </linearGradient>
     </defs>

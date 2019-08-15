@@ -15,11 +15,12 @@ class HeaderComponent extends Component {
           background: '#fff',
           padding: '0',
           height: '100px',
-          borderBottom: '1px solid #e8e8e8',
+          zIndex: '1',
+          boxShadow: '0 10px 40px 0 #f7fafc',
         }}
       >
         <div className="px-4 flex justify-between h-full max-w-6xl my-4 mx-auto">
-          <div className="flex">
+          <div className="flex uppercase text-sm">
             <div className="pr-4">
               <Link href={`/dashboard`} as={`/dashboard`}>
                 <a>
@@ -52,7 +53,9 @@ class HeaderComponent extends Component {
           <div className="ml-4 flex">
             <div className="px-4">
               <Link href={`/authentication`} as={`/authentication`}>
-                <Button type="link">Sign In</Button>
+                <Button type="link" className="uppercase text-sm">
+                  Sign In
+                </Button>
               </Link>
             </div>
             <div>
@@ -60,6 +63,7 @@ class HeaderComponent extends Component {
                 <Button
                   type="primary"
                   size="large"
+                  icon="login"
                   className="w-40 uppercase text-sm font-semibold"
                 >
                   Sign Up

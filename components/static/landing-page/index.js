@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Row, Col, Button, Card, Icon } from 'antd'
 import Link from 'next/link'
 
-import Illustration from '../../../static/images/landing-page-illustration.png'
+import Illustration1 from '../../../static/images/landing-page-illustration-1.png'
+import Illustration2 from '../../../static/images/landing-page-illustration-2.png'
 import Logo from '../../../static/images/logo.svg'
 
 class LandingPage extends Component {
@@ -27,14 +28,14 @@ class LandingPage extends Component {
                 type="primary"
                 icon="file-done"
                 size="large"
-                className="uppercase text-sm font-semibold"
+                className="w-40 uppercase text-sm font-semibold"
               >
                 Know More
               </Button>
             </Col>
             <img
               className="w-0 md:w-auto lg:w-auto"
-              src={Illustration}
+              src={Illustration1}
               style={{
                 position: 'absolute',
                 marginTop: '-150px',
@@ -70,7 +71,7 @@ class LandingPage extends Component {
                               <Icon
                                 type="security-scan"
                                 style={{ fontSize: '50px' }}
-                                twoToneColor="#2337a4"
+                                twoToneColor="#2196f3"
                                 theme="twoTone"
                               />
                             </div>
@@ -101,7 +102,7 @@ class LandingPage extends Component {
                             <div>
                               <Icon
                                 type="file-markdown"
-                                twoToneColor="#2337a4"
+                                twoToneColor="#2196f3"
                                 theme="twoTone"
                                 style={{ fontSize: '50px' }}
                               />
@@ -136,7 +137,7 @@ class LandingPage extends Component {
                               <Icon
                                 type="reconciliation"
                                 style={{ fontSize: '50px' }}
-                                twoToneColor="#2337a4"
+                                twoToneColor="#2196f3"
                                 theme="twoTone"
                               />
                             </div>
@@ -168,7 +169,7 @@ class LandingPage extends Component {
                               <Icon
                                 type="build"
                                 style={{ fontSize: '50px' }}
-                                twoToneColor="#2337a4"
+                                twoToneColor="#2196f3"
                                 theme="twoTone"
                               />
                             </div>
@@ -195,7 +196,7 @@ class LandingPage extends Component {
           <Row type="flex" justify="end">
             <img
               className="w-0 md:w-auto lg:w-auto"
-              src={Illustration}
+              src={Illustration2}
               style={{
                 position: 'absolute',
                 left: 0,
@@ -217,7 +218,7 @@ class LandingPage extends Component {
                   <Icon
                     type="check-circle"
                     style={{ marginRight: '10px' }}
-                    twoToneColor="#2337a4"
+                    twoToneColor="#2196f3"
                     theme="twoTone"
                   />
                   Create a project with pages
@@ -226,7 +227,7 @@ class LandingPage extends Component {
                   <Icon
                     type="check-circle"
                     style={{ marginRight: '10px' }}
-                    twoToneColor="#2337a4"
+                    twoToneColor="#2196f3"
                     theme="twoTone"
                   />
                   Schedule the generation of audits
@@ -235,7 +236,7 @@ class LandingPage extends Component {
                   <Icon
                     type="check-circle"
                     style={{ marginRight: '10px' }}
-                    twoToneColor="#2337a4"
+                    twoToneColor="#2196f3"
                     theme="twoTone"
                   />
                   Compare the performance of pages over time
@@ -245,7 +246,7 @@ class LandingPage extends Component {
                 type="primary"
                 icon="file-done"
                 size="large"
-                className="uppercase text-sm font-semibold"
+                className="w-40 uppercase text-sm font-semibold"
               >
                 Know More
               </Button>
@@ -267,7 +268,7 @@ class LandingPage extends Component {
                   type="primary"
                   icon="file-done"
                   size="large"
-                  className="uppercase text-sm font-semibold"
+                  className="w-40 uppercase text-sm font-semibold"
                 >
                   Know More
                 </Button>
@@ -285,7 +286,7 @@ class LandingPage extends Component {
                         <Icon
                           type="trophy"
                           style={{ fontSize: '50px' }}
-                          twoToneColor="#2337a4"
+                          twoToneColor="#2196f3"
                           theme="twoTone"
                         />
                       </div>
@@ -313,7 +314,7 @@ class LandingPage extends Component {
                         <Icon
                           type="flag"
                           style={{ fontSize: '50px' }}
-                          twoToneColor="#2337a4"
+                          twoToneColor="#2196f3"
                           theme="twoTone"
                         />
                       </div>

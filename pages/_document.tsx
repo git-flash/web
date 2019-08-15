@@ -84,7 +84,7 @@ export default class MyDocument extends Document {
             name="msapplication-TileImage"
             content="/static/images/ms-icon-144x144.png"
           />
-          <meta name="theme-color" content="#2337a4" />
+          <meta name="theme-color" content="#2196f3" />
         </Head>
         <body className="bg-gray-100 overflow-x-hidden">
           <Main />
