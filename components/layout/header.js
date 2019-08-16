@@ -22,7 +22,7 @@ class HeaderComponent extends Component {
         <div className="flex justify-between h-full px-4 border border-solid border-gray-300">
           <div className="mx-4 flex">
             <div className="px-4">
-              <Link href={`/dashboard`} as={`/dashboard`}>
+              <Link href={`/`} as={`/`}>
                 <a>
                   <img
                     src={Logo}

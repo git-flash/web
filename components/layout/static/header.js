@@ -22,7 +22,7 @@ class HeaderComponent extends Component {
         <div className="px-4 flex justify-between h-full max-w-6xl my-4 mx-auto">
           <div className="flex uppercase text-sm">
             <div className="pr-4">
-              <Link href={`/dashboard`} as={`/dashboard`}>
+              <Link href={`/`} as={`/`}>
                 <a>
                   <img
                     src={Logo}

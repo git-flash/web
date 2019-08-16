@@ -372,7 +372,7 @@ class LandingPage extends Component {
           </div>
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto">
             <div className="pr-4">
-              <Link href={`/dashboard`} as={`/dashboard`}>
+              <Link href={`/`} as={`/`}>
                 <a>
                   <img
                     src={Logo}
