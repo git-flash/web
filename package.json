@@ -36,7 +36,7 @@
     "next-offline": "^4.0.3",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
-    "react-apollo": "^3.0.0",
+    "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
     "subscriptions-transport-ws": "^0.9.16",
     "webpack": "^4.39.2"
