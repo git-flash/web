@@ -208,7 +208,6 @@ class ProjectsShow extends Component {
                 {this.drawerNode()}
                 <Table
                   rowKey="id"
-                  bordered
                   columns={this.columns}
                   dataSource={urls}
                   pagination={false}

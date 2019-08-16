@@ -133,7 +133,6 @@ const ProjectsIndex = () => {
             <div className="mt-8 bg-white rounded">
               <Table
                 rowKey="id"
-                bordered
                 dataSource={data.project}
                 columns={columns}
                 pagination={false}

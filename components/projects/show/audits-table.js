@@ -89,7 +89,6 @@ class AuditsTable extends Component {
         {this.drawerNode()}
         <Table
           rowKey="id"
-          bordered
           columns={this.columns}
           dataSource={audits}
           pagination={false}

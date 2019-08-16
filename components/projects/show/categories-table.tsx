@@ -22,7 +22,6 @@ const CategoriesTable = ({
   return (
     <Table
       rowKey="id"
-      bordered
       columns={columns}
       dataSource={categories}
       pagination={false}
