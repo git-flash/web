@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 
-import { Form, Button, Input, Card } from 'antd'
+import { Form, Button, Input } from 'antd'
 import Router from 'next/router'
 
 const SignUp = props => {
@@ -8,47 +8,13 @@ const SignUp = props => {
   const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
 
-  const fetchToken = async values => {
-    try {
-      const response = await fetch(`${process.env.AUTH_URL}/authentication`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          strategy: 'local',
-          email: values.email,
-          password: values.password,
-        }),
-      })
-
-      if ([200, 201].indexOf(response.status) > -1) {
-        const data = await response.json()
-
-        document.cookie = `token=${data.accessToken};path=/`
-
-        setError('')
-
-        Router.push('/projects')
-      }
-
-      setIsLoading(false)
-    } catch (error) {
-      setError(error)
-      setIsLoading(false)
-
-      console.error(error)
-    }
-  }
-
   const handleSubmit = () => {
     props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoading(true)
 
         try {
-          const response = await fetch(`${process.env.AUTH_URL}/user`, {
+          const response = await fetch(`${process.env.AUTH_URL}/signup`, {
             method: 'post',
             headers: {
               Accept: 'application/json',
@@ -57,27 +23,27 @@ const SignUp = props => {
             body: JSON.stringify({
               email: values.email,
               password: values.password,
-              role: 'user',
+              confirmPassword: values.password,
+              username: values.username,
             }),
           })
           const data = await response.json()
 
-          document.cookie = `email=${data.email};path=/`
-          document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
-          document.cookie = `x-hasura-user-id=${
-            data['x-hasura-user-id']
-          };path=/`
+          document.cookie = `userId=${data.id};path=/`
+          document.cookie = `username=${data.username};path=/`
+          document.cookie = `token=${data.token};path=/`
 
           if ([200, 201].indexOf(response.status) > -1) {
             setError('')
 
-            await fetchToken(values)
+            Router.push('/projects')
           } else {
             setError(response.statusText)
 
             setIsLoading(false)
           }
         } catch (error) {
+          setError(error)
           setIsLoading(false)
 
           console.error(error)
@@ -104,6 +70,22 @@ const SignUp = props => {
             initialValue: 'admin@admin.com',
           })(
             <Input placeholder="Please enter email" size="large" type="email" />
+          )}
+        </Form.Item>
+        <Form.Item
+          label="Username"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please enter username!' }],
+            initialValue: 'admin',
+          })(
+            <Input
+              placeholder="Please enter username"
+              size="large"
+              type="username"
+            />
           )}
         </Form.Item>
         <Form.Item

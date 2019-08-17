@@ -65,7 +65,7 @@ class ProjectsNew extends Component {
             password_field_selector: values.password_field_selector,
             password_field_value: values.password_field_value,
             submit_button_selector: values.submit_button_selector,
-            user_id: this.props.serverState.userId,
+            user_id: this.props.userId,
           },
         })
 

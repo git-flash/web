@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
-import { withApollo, Subscription } from 'react-apollo'
+import { withApollo, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Button, Table, Progress, PageHeader, Badge } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
 
-const fetchProjectsSubscription = gql`
-  subscription {
+const fetchProjectsQuery = gql`
+  query {
     project {
       id
       name
@@ -105,8 +105,8 @@ const ProjectsIndex = () => {
   ]
 
   return (
-    <Subscription
-      subscription={fetchProjectsSubscription}
+    <Query
+      query={fetchProjectsQuery}
       fetchPolicy="network-only"
     >
       {({ data, error, loading }: any) => {
@@ -141,7 +141,7 @@ const ProjectsIndex = () => {
           </Fragment>
         )
       }}
-    </Subscription>
+    </Query>
   )
 }
 

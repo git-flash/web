@@ -7,51 +7,47 @@ const SignIn = props => {
   const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
 
-  const fetchToken = async values => {
-    try {
-      const response = await fetch(`${process.env.AUTH_URL}/authentication`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          strategy: 'local',
-          email: values.email,
-          password: values.password,
-        }),
-      })
-
-      if ([200, 201].indexOf(response.status) > -1) {
-        const data = await response.json()
-
-        document.cookie = `token=${data.accessToken};path=/`
-        document.cookie = `email=${values.email};path=/`
-        document.cookie = `x-hasura-role=${data['x-hasura-role']};path=/`
-        document.cookie = `x-hasura-user-id=${data['x-hasura-user-id']};path=/`
-
-        setError('')
-
-        Router.push('/projects')
-      }
-
-      setError(response.statusText)
-
-      setIsLoading(false)
-    } catch (error) {
-      setError(error)
-      setIsLoading(false)
-
-      console.error(error)
-    }
-  }
-
   const handleSubmit = () => {
     props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoading(true)
 
-        fetchToken(values)
+        try {
+          const response = await fetch(`${process.env.AUTH_URL}/login`, {
+            method: 'post',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: values.email,
+              password: values.password,
+              confirmPassword: values.password,
+              username: values.username,
+            }),
+          })
+
+          if ([200, 201].indexOf(response.status) > -1) {
+            const data = await response.json()
+
+            document.cookie = `userId=${data.id};path=/`
+            document.cookie = `username=${data.username};path=/`
+            document.cookie = `token=${data.token};path=/`
+
+            setError('')
+
+            Router.push('/projects')
+          }
+
+          setError(response.statusText)
+
+          setIsLoading(false)
+        } catch (error) {
+          setError(error)
+          setIsLoading(false)
+
+          console.error(error)
+        }
       }
     })
   }
@@ -74,6 +70,22 @@ const SignIn = props => {
             initialValue: 'admin1@admin.com',
           })(
             <Input placeholder="Please enter email" size="large" type="email" />
+          )}
+        </Form.Item>
+        <Form.Item
+          label="Username"
+          validateStatus={error ? 'error' : ''}
+          help={error}
+        >
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please enter username!' }],
+            initialValue: 'admin1',
+          })(
+            <Input
+              placeholder="Please enter username"
+              size="large"
+              type="username"
+            />
           )}
         </Form.Item>
         <Form.Item
