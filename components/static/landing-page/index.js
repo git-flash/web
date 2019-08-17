@@ -335,55 +335,15 @@ class LandingPage extends Component {
           </div>
         </section>
         <section className="px-16 py-16 bg-black">
-          <div className="flex justify-center h-full max-w-6xl my-0 mx-auto mb-12">
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/about`} as={`/about`}>
-                <a>About</a>
-              </Link>
-            </div>
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/privacy`} as={`/privacy`}>
-                <a>Privacy</a>
-              </Link>
-            </div>
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/legal`} as={`/legal`}>
-                <a>Legal</a>
-              </Link>
-            </div>
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/security`} as={`/security`}>
-                <a>Security</a>
-              </Link>
-            </div>
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/developers`} as={`/developers`}>
-                <a>Developers</a>
-              </Link>
-            </div>
-            <div className="px-4 text-black font-bold uppercase">
-              <Link href={`/support`} as={`/support`}>
-                <a>Support</a>
-              </Link>
-            </div>
-          </div>
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto text-white mb-12">
             © 2019. All rights reserved.
           </div>
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto">
-            <div className="pr-4">
-              <Link href={`/`} as={`/`}>
-                <a>
-                  <img
-                    src={Logo}
-                    className="pr-2"
-                    alt="Perfy"
-                    width="40px"
-                    height="40px"
-                  />
-                </a>
-              </Link>
-            </div>
+            <Link href={`/`} as={`/`}>
+              <a>
+                <img src={Logo} alt="Perfy" width="40px" height="40px" />
+              </a>
+            </Link>
           </div>
         </section>
       </Fragment>
