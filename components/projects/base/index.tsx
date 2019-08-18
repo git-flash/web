@@ -18,9 +18,7 @@ const fetchProjectsQuery = gql`
         }
       }
       users {
-        user {
-          id
-        }
+        id
       }
     }
   }
