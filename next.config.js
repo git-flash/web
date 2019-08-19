@@ -33,6 +33,10 @@ module.exports = withBundleAnalyzer(
             }),
           ]
 
+          if (process.env.NODE_ENV === 'production') {
+            config.devtool = 'cheap-module-source-map'
+          }
+
           return config
         },
       })
