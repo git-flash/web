@@ -918,7 +918,7 @@
   dependencies:
     "@hapi/hoek" "8.x.x"
 
-"@next/bundle-analyzer@^9.0.4":
+"@next/bundle-analyzer@^9.0.3":
   version "9.0.4"
   resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-9.0.4.tgz#9198959c67a6caa933cc1850ee9570018b3b5a41"
   integrity sha512-0YZf0FZjDro/QcuxQoFxgzvQwLnL2omrPLv19y7HwBNCXfcgPE/nlo6eT/gdJLONr935kN8Nj74V7GbwfZUXLw==
@@ -953,7 +953,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sentry/browser@^5.6.2":
+"@sentry/browser@^5.6.1":
   version "5.6.2"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.6.2.tgz#f39e95c3aff2d4b4fd5d0d4aa7192af73f20d24e"
   integrity sha512-Nm/W/5ra6+OQCWQkdd86vHjcYUjHCVqCzQyPasd6HE7SNlWe5euGVfFfDuUFsiDrMAG5uKfGYw5u/AqoweiQkQ==
@@ -992,7 +992,7 @@
     "@sentry/types" "5.6.1"
     tslib "^1.9.3"
 
-"@sentry/node@^5.6.2":
+"@sentry/node@^5.6.1":
   version "5.6.2"
   resolved "https://registry.yarnpkg.com/@sentry/node/-/node-5.6.2.tgz#4b62f056031da65cad78220d48c546b8bfbfaed7"
   integrity sha512-A9CELco6SjF4zt8iS1pO3KdUVI2WVhtTGhSH6X04OVf2en1fimPR+Vs8YVY/04udwd7o+3mI6byT+rS9+/Qzow==
@@ -1134,7 +1134,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
 
-"@types/react-dom@^16.9.0":
+"@types/react-dom@^16.8.5":
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.0.tgz#ba6ddb00bf5de700b0eb91daa452081ffccbfdea"
   integrity sha512-OL2lk7LYGjxn4b0efW3Pvf2KBVP0y1v3wip1Bp7nA79NkOpElH98q3WdCEdDj93b2b0zaeBG9DvriuKjIK5xDA==
@@ -5333,7 +5333,7 @@ next-server@9.0.4:
     styled-jsx "3.2.1"
     url "0.11.0"
 
-next@^9.0.4:
+next@^9.0.3:
   version "9.0.4"
   resolved "https://registry.yarnpkg.com/next/-/next-9.0.4.tgz#d073e26b2b0a706dd502fb090529bdafcd45e504"
   integrity sha512-lH4Dz9ravRS0y+0iY97Iij7btVSz53tidd0Nx4YiQSU8c2+ZArZlFPBkfOhg6Ai5nSWemUGmzICwIoJ1OMclLA==
