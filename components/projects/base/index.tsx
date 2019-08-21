@@ -56,6 +56,7 @@ const ProjectsIndex = () => {
             {record.urls_aggregate.aggregate.count}
             <span className="text-gray-500 text-xs"> /50</span>
             <Progress
+              size='small'
               percent={
                 record.urls_aggregate.aggregate.count
                   ? (record.urls_aggregate.aggregate.count / 5) * 10
@@ -78,6 +79,7 @@ const ProjectsIndex = () => {
           </span>
           <span className="text-gray-500 text-xs"> /10</span>
           <Progress
+            size='small'
             percent={record.users ? record.users.length * 10 : 0}
             showInfo={false}
           />
@@ -132,6 +134,7 @@ const ProjectsIndex = () => {
           dataSource={data.project}
           columns={columns}
           pagination={false}
+          size="middle"
         />
       </div>
     </Fragment>
