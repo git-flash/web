@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
-import { withApollo, Query } from 'react-apollo'
+import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Button, Table, Progress, PageHeader, Badge } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
 
-const fetchProjectsQuery = gql`
-  query {
+const fetchProjectsSubscription = gql`
+  subscription {
     project {
       id
       name
@@ -102,44 +102,39 @@ const ProjectsIndex = () => {
     },
   ]
 
+  const { data, loading, error } = useSubscription(
+    fetchProjectsSubscription
+  );
+
+  if (loading) return <Loader />
+
+  if (error) return <p>Error: {error.message}</p>
+
   return (
-    <Query
-      query={fetchProjectsQuery}
-      fetchPolicy="network-only"
-    >
-      {({ data, error, loading }: any) => {
-        if (loading) return <Loader />
-
-        if (error) return <p>Error: {error.message}</p>
-
-        return (
-          <Fragment>
-            <div className="border border-solid border-gray-300">
-              <PageHeader
-                title={
-                  <h2 className="text-3xl mb-0 text-gray-700">Projects</h2>
-                }
-                extra={
-                  <Link href={`/projects/new`} as={`/projects/new`}>
-                    <Button type="primary" icon="plus-circle" size="large">
-                      Create new Project
-                    </Button>
-                  </Link>
-                }
-              />
-            </div>
-            <div className="mt-8 bg-white rounded">
-              <Table
-                rowKey="id"
-                dataSource={data.project}
-                columns={columns}
-                pagination={false}
-              />
-            </div>
-          </Fragment>
-        )
-      }}
-    </Query>
+    <Fragment>
+      <div className="border border-solid border-gray-300">
+        <PageHeader
+          title={
+            <h2 className="text-3xl mb-0 text-gray-700">Projects</h2>
+          }
+          extra={
+            <Link href={`/projects/new`} as={`/projects/new`}>
+              <Button type="primary" icon="plus-circle" size="large">
+                Create new Project
+              </Button>
+            </Link>
+          }
+        />
+      </div>
+      <div className="mt-8 bg-white rounded">
+        <Table
+          rowKey="id"
+          dataSource={data.project}
+          columns={columns}
+          pagination={false}
+        />
+      </div>
+    </Fragment>
   )
 }
 
