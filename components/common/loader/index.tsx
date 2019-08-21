@@ -1,11 +1,20 @@
 import React from 'react'
-import { Spin } from 'antd'
+import { Spin, Icon } from 'antd';
 
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <Spin tip="Loading..." size="large" />
-    </div>
+    <div
+      className="flex justify-center items-center"
+      style={{ height: 'calc(100vh - 165px)' }}
+    >
+      <Spin
+        tip="Loading..."
+        size="large"
+        indicator={
+          <Icon type="loading" style={{ fontSize: 30 }} spin />
+        }
+      />
+    </div >
   )
 }
 
