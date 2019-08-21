@@ -18,7 +18,7 @@ const fetchProjectsSubscription = gql`
         }
         nodes {
           id
-          audits {
+          audits(limit: 1) {
             categories
           }
         }
@@ -63,12 +63,7 @@ const ProjectsIndex = () => {
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && <>
-          <span className="text-sm">
-            {record.urls_aggregate.nodes[0].audits[0].categories.accessibility.score * 100}
-          </span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.accessibility.score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Best Practices</span>,
@@ -85,12 +80,7 @@ const ProjectsIndex = () => {
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && <>
-          <span className="text-sm">
-            {record.urls_aggregate.nodes[0].audits[0].categories['best-practices'].score * 100}
-          </span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories['best-practices'].score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Performance</span>,
@@ -107,12 +97,7 @@ const ProjectsIndex = () => {
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && <>
-          <span className="text-sm">
-            {record.urls_aggregate.nodes[0].audits[0].categories.performance.score * 100}
-          </span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.performance.score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>PWA</span>,
@@ -129,12 +114,7 @@ const ProjectsIndex = () => {
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && <>
-          <span className="text-sm">
-            {record.urls_aggregate.nodes[0].audits[0].categories.pwa.score * 100}
-          </span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.pwa.score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>SEO</span>,
@@ -151,12 +131,7 @@ const ProjectsIndex = () => {
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && <>
-          <span className="text-sm">
-            {record.urls_aggregate.nodes[0].audits[0].categories.seo.score * 100}
-          </span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.seo.score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Pages</span>,
@@ -204,6 +179,33 @@ const ProjectsIndex = () => {
           ),
     },
   ]
+
+  const calculateProgress = (record: number) => {
+    const score = record * 100
+
+    if (score <= 49) {
+      return (
+        <>
+          <span className="text-red-700 text-sm">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+      )
+    } else if (score <= 89) {
+      return (
+        <>
+          <span className="text-blue-700 text-sm">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <span className="text-green-700 text-sm">{score}</span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+      )
+    }
+  }
 
   const { data, loading, error } = useSubscription(
     fetchProjectsSubscription
