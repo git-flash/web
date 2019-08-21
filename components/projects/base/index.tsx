@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, Progress, PageHeader, Badge } from 'antd'
+import { Button, Table, PageHeader, Badge } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
@@ -16,6 +16,12 @@ const fetchProjectsSubscription = gql`
         aggregate {
           count
         }
+        nodes {
+          id
+          audits {
+            categories
+          }
+        }
       }
       users {
         id
@@ -27,67 +33,162 @@ const fetchProjectsSubscription = gql`
 const ProjectsIndex = () => {
   const columns: any = [
     {
-      title: 'Name',
+      title: () => <span className='text-xs uppercase text-gray-700'>Name</span>,
       dataIndex: 'name',
       key: 'name',
-      width: '50%',
+      width: '20%',
       render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
             href={`/projects/show?id=${record.id}`}
             as={`/projects/${record.id}`}
           >
-            <a className="font-semibold">{record.name}</a>
+            <a className="font-base w-full flex">{record.name}</a>
           </Link>
-          <div className="text-gray-500 text-xs">{record.id}</div>
         </Fragment>
       ),
     },
     {
-      title: 'Pages',
+      title: () => <span className='text-xs uppercase text-gray-700'>Accessibility</span>,
+      dataIndex: 'a11y',
+      key: 'a11y',
+      width: '10%',
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [{
+              audits: [{ categories: { accessibility: { score: number } } }]
+            }]
+          }
+        }
+      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
+        && <>
+          <span className="text-sm">
+            {record.urls_aggregate.nodes[0].audits[0].categories.accessibility.score * 100}
+          </span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+    },
+    {
+      title: () => <span className='text-xs uppercase text-gray-700'>Best Practices</span>,
+      dataIndex: 'bestPractices',
+      key: 'bestPractices',
+      width: '10%',
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [{
+              audits: [{ categories: { 'best-practices': { score: number } } }]
+            }]
+          }
+        }
+      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
+        && <>
+          <span className="text-sm">
+            {record.urls_aggregate.nodes[0].audits[0].categories['best-practices'].score * 100}
+          </span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+    },
+    {
+      title: () => <span className='text-xs uppercase text-gray-700'>Performance</span>,
+      dataIndex: 'performance',
+      key: 'performance',
+      width: '10%',
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [{
+              audits: [{ categories: { performance: { score: number } } }]
+            }]
+          }
+        }
+      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
+        && <>
+          <span className="text-sm">
+            {record.urls_aggregate.nodes[0].audits[0].categories.performance.score * 100}
+          </span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+    },
+    {
+      title: () => <span className='text-xs uppercase text-gray-700'>PWA</span>,
+      dataIndex: 'pwa',
+      key: 'pwa',
+      width: '10%',
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [{
+              audits: [{ categories: { pwa: { score: number } } }]
+            }]
+          }
+        }
+      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
+        && <>
+          <span className="text-sm">
+            {record.urls_aggregate.nodes[0].audits[0].categories.pwa.score * 100}
+          </span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+    },
+    {
+      title: () => <span className='text-xs uppercase text-gray-700'>SEO</span>,
+      dataIndex: 'seo',
+      key: 'seo',
+      width: '10%',
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [{
+              audits: [{ categories: { seo: { score: number } } }]
+            }]
+          }
+        }
+      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
+        && <>
+          <span className="text-sm">
+            {record.urls_aggregate.nodes[0].audits[0].categories.seo.score * 100}
+          </span>
+          <span className="text-gray-500 text-xs"> /100</span>
+        </>
+    },
+    {
+      title: () => <span className='text-xs uppercase text-gray-700'>Pages</span>,
       dataIndex: 'pages',
       key: 'pages',
-      width: '20%',
+      width: '10%',
       render: (
         _: string,
         record: { urls_aggregate: { aggregate: { count: number } } }
       ) => (
-          <span className="text-base">
+          <span className="text-sm">
             {record.urls_aggregate.aggregate.count}
             <span className="text-gray-500 text-xs"> /50</span>
-            <Progress
-              size='small'
-              percent={
-                record.urls_aggregate.aggregate.count
-                  ? (record.urls_aggregate.aggregate.count / 5) * 10
-                  : 0
-              }
-              showInfo={false}
-            />
           </span>
         ),
     },
     {
-      title: 'Users',
+      title: () => <span className='text-xs uppercase text-gray-700'>Users</span>,
       dataIndex: 'users',
       key: 'users',
-      width: '20%',
+      width: '10%',
       render: (_: string, record: { users: []; id: number }) => (
         <Fragment>
-          <span className="text-base">
+          <span className="text-sm">
             {record.users ? record.users.length : 0}
           </span>
           <span className="text-gray-500 text-xs"> /10</span>
-          <Progress
-            size='small'
-            percent={record.users ? record.users.length * 10 : 0}
-            showInfo={false}
-          />
         </Fragment>
       ),
     },
     {
-      title: 'Authentication',
+      title: () => <span className='text-xs uppercase text-gray-700'>Authentication</span>,
       dataIndex: 'authentication',
       key: 'authentication',
       width: '10%',
@@ -134,7 +235,7 @@ const ProjectsIndex = () => {
           dataSource={data.project}
           columns={columns}
           pagination={false}
-          size="middle"
+          bordered
         />
       </div>
     </Fragment>
