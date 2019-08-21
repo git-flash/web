@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, useState } from 'react'
 import gql from 'graphql-tag'
-import { graphql, withApollo, Query } from 'react-apollo'
+import { graphql, withApollo, useSubscription } from 'react-apollo'
 import { Table, Drawer, Button, Progress, PageHeader, Icon } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
@@ -9,8 +9,8 @@ import Loader from '../../common/loader'
 import AuditsTable from './audits-table'
 import AddLinkModal from './add-link-modal'
 
-const fetchProjectQuery = gql`
-  query($id: uuid!) {
+const fetchProjectSubscription = gql`
+  subscription($id: uuid!) {
     project_by_pk(id: $id) {
       id
       name
@@ -27,14 +27,12 @@ const fetchProjectQuery = gql`
   }
 `
 
-class ProjectsShow extends Component {
-  state = {
-    visible: false,
-    selectedItemId: '',
-    audits: [],
-  }
+const ProjectsShow = props => {
+  const [visible, setVisibility] = useState(false)
+  const [selectedItemId, setSelectedItemId] = useState('')
+  const [audits, setAudits] = useState([])
 
-  columns = [
+  const columns = [
     {
       title: 'Link',
       dataIndex: 'id',
@@ -44,7 +42,7 @@ class ProjectsShow extends Component {
         <a
           href="javascript:;"
           onClick={() =>
-            this.showDrawer({
+            showDrawer({
               id: record.id,
               audits: record.audits,
             })
@@ -59,8 +57,7 @@ class ProjectsShow extends Component {
       dataIndex: 'performance',
       key: 'performance',
       width: 100,
-      render: (text, record) =>
-        this.calculateProgress(record.audits, 'performance'),
+      render: (text, record) => calculateProgress(record.audits, 'performance'),
     },
     {
       title: 'Accessibility',
@@ -68,7 +65,7 @@ class ProjectsShow extends Component {
       key: 'accessibility',
       width: 100,
       render: (text, record) =>
-        this.calculateProgress(record.audits, 'accessibility'),
+        calculateProgress(record.audits, 'accessibility'),
     },
     {
       title: 'Best Practices',
@@ -76,25 +73,25 @@ class ProjectsShow extends Component {
       key: 'bestPractices',
       width: 100,
       render: (text, record) =>
-        this.calculateProgress(record.audits, 'best-practices'),
+        calculateProgress(record.audits, 'best-practices'),
     },
     {
       title: 'SEO',
       dataIndex: 'seo',
       key: 'seo',
       width: 100,
-      render: (text, record) => this.calculateProgress(record.audits, 'seo'),
+      render: (text, record) => calculateProgress(record.audits, 'seo'),
     },
     {
       title: 'PWA',
       dataIndex: 'pwa',
       key: 'pwa',
       width: 100,
-      render: (text, record) => this.calculateProgress(record.audits, 'pwa'),
+      render: (text, record) => calculateProgress(record.audits, 'pwa'),
     },
   ]
 
-  calculateProgress = (record, id) => {
+  const calculateProgress = (record, id) => {
     if (!record[record.length - 1]) {
       return (
         <Progress
@@ -137,89 +134,76 @@ class ProjectsShow extends Component {
     }
   }
 
-  showDrawer = ({ id, audits }) => {
-    this.setState({
-      visible: true,
-      selectedItemId: id,
-      audits,
-    })
+  const showDrawer = ({ id, audits }) => {
+    setVisibility(true)
+    setSelectedItemId(id)
+    setAudits(audits)
   }
 
-  onClose = () => {
-    this.setState({
-      visible: false,
-      selectedItemId: '',
-      audits: [],
-    })
+  const onClose = () => {
+    setVisibility(false)
+    setSelectedItemId('')
+    setAudits([])
   }
 
-  drawerNode = () => {
+  const drawerNode = () => {
     return (
       <Drawer
         width={1000}
         placement="right"
         closable={false}
-        onClose={this.onClose}
-        visible={this.state.visible}
+        onClose={onClose}
+        visible={visible}
         title="Audits"
       >
-        <AuditsTable audits={this.state.audits} />
+        <AuditsTable audits={audits} />
       </Drawer>
     )
   }
 
-  render() {
-    return (
-      <Query
-        query={fetchProjectQuery}
-        variables={{ id: this.props.id }}
-        fetchPolicy="network-only"
-      >
-        {({ data, error, loading }) => {
-          if (loading) return <Loader />
+  const { data, loading, error } = useSubscription(fetchProjectSubscription, {
+    variables: { id: props.id },
+    fetchPolicy: 'network-only',
+  })
 
-          if (error) return <p>Error: {error.message}</p>
+  if (loading) return <Loader />
 
-          const { id, name, urls } = data.project_by_pk
+  if (error) return <p>Error: {error.message}</p>
 
-          return (
+  const { id, name, urls } = data.project_by_pk
+
+  return (
+    <Fragment>
+      <div className="border border-solid border-gray-300">
+        <PageHeader
+          title={<h2 className="text-3xl mb-0 text-gray-700">{name}</h2>}
+          extra={
             <Fragment>
-              <div className="border border-solid border-gray-300">
-                <PageHeader
-                  title={
-                    <h2 className="text-3xl mb-0 text-gray-700">{name}</h2>
-                  }
-                  extra={
-                    <Fragment>
-                      <AddLinkModal projectId={id} />
-                      <Link
-                        href={`/projects/edit?id=${id}`}
-                        as={`/projects/${id}/edit`}
-                      >
-                        <Button type="default" icon="highlight" size="large">
-                          Edit Project
-                        </Button>
-                      </Link>
-                    </Fragment>
-                  }
-                />
-              </div>
-              <div className="mt-8 bg-white rounded">
-                {this.drawerNode()}
-                <Table
-                  rowKey="id"
-                  columns={this.columns}
-                  dataSource={urls}
-                  pagination={false}
-                  scroll={{ x: 800 }}
-                />
-              </div>
+              <AddLinkModal projectId={id} />
+              <Link
+                href={`/projects/edit?id=${id}`}
+                as={`/projects/${id}/edit`}
+              >
+                <Button type="default" icon="highlight" size="large">
+                  Edit Project
+                </Button>
+              </Link>
             </Fragment>
-          )
-        }}
-      </Query>
-    )
-  }
+          }
+        />
+      </div>
+      <div className="mt-8 bg-white rounded">
+        {drawerNode()}
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={urls}
+          pagination={false}
+          scroll={{ x: 800 }}
+        />
+      </div>
+    </Fragment>
+  )
 }
 
 export default withApollo(ProjectsShow)
