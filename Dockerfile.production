@@ -4,14 +4,14 @@ RUN mkdir /web-app
 
 WORKDIR /web-app
 
-RUN apk update && apk upgrade && apk add --no-cache bash git
+COPY package.json /web-app/package.json
 
-ENV PATH /web-app/node_modules/.bin:$PATH
+RUN yarn install
 
 COPY . /web-app/
 
-RUN yarn global add nodemon ts-node typescript
+RUN yarn build
 
-RUN yarn install
+EXPOSE 3000
 
 CMD ["yarn", "start"]
