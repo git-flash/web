@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { withRouter } from 'next/router'
 
@@ -10,17 +10,15 @@ type Props = {
   router: { query: { id: string } }
 }
 
-class Edit extends Component<Props> {
-  render() {
-    return (
-      <Fragment>
-        <Head>
-          <title>Edit project - Perfy</title>
-        </Head>
-        <Project id={this.props.router.query.id} />
-      </Fragment>
-    )
-  }
+const Edit = (props: Props) => {
+  return (
+    <Fragment>
+      <Head>
+        <title>Edit project - Perfy</title>
+      </Head>
+      <Project id={props.router.query.id} />
+    </Fragment>
+  )
 }
 
 export default withRouter(withApollo(withLayout(Edit)))
