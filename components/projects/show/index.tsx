@@ -240,7 +240,7 @@ const ProjectsShow = (props: any) => {
       )
     }
 
-    const score = record[record.length - 1].categories[id].score * 100
+    const score = Math.round(record[record.length - 1].categories[id].score * 100)
 
     if (score <= 49) {
       return (
