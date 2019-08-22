@@ -7,7 +7,7 @@ const Pricing = () => {
   return (
     <Fragment>
       <Head>
-        <title>Pricing | Perfy</title>
+        <title>Pricing - Perfy</title>
       </Head>
     </Fragment>
   )

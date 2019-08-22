@@ -1,5 +1,6 @@
+import React, { Fragment, Component } from 'react'
+import Head from 'next/head'
 import { withRouter } from 'next/router'
-import React, { Component } from 'react'
 
 import withApollo from '../../lib/with-apollo'
 import withLayout from '../../lib/with-layout'
@@ -11,7 +12,14 @@ type Props = {
 
 class Edit extends Component<Props> {
   render() {
-    return <Project id={this.props.router.query.id} />
+    return (
+      <Fragment>
+        <Head>
+          <title>Edit project - Perfy</title>
+        </Head>
+        <Project id={this.props.router.query.id} />
+      </Fragment>
+    )
   }
 }
 

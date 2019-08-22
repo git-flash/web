@@ -7,7 +7,7 @@ const Features = () => {
   return (
     <Fragment>
       <Head>
-        <title>Features | Perfy</title>
+        <title>Features - Perfy</title>
       </Head>
     </Fragment>
   )

@@ -7,7 +7,7 @@ const Product = () => {
   return (
     <Fragment>
       <Head>
-        <title>Product | Perfy</title>
+        <title>Product - Perfy</title>
       </Head>
     </Fragment>
   )
