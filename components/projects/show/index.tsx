@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Drawer, Button, Progress, PageHeader, Icon, Popover } from 'antd'
+import {
+  Table, Drawer, Button, Progress, PageHeader, Icon,
+
+} from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -26,7 +29,6 @@ const fetchProjectSubscription = gql`
           id
           categories
           created_at
-          audits
         }
       }
     }
@@ -109,120 +111,28 @@ const ProjectsShow = (props: any) => {
       ) => calculateProgress(record.audits, 'seo'),
     },
     {
-      title: (
-        <Popover
-          title="First Contentful Paint"
-          content="First Contentful Paint marks the time at which the first text or image is painted"
-        >
-          <span className="text-xs uppercase text-gray-700">FCP</span>
-        </Popover>
-      ),
-      dataIndex: 'firstContentfulPaint',
-      key: 'firstContentfulPaint',
+      title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
+      dataIndex: 'bestPractices',
+      key: 'bestPractices',
       width: '10%',
       render: (
         _: string,
         record: {
-          audits: [{
-            audits: {
-              'first-contentful-paint': { displayValue: string }
-            }
-          }],
+          audits: [{ categories: { seo: { score: number } } }],
         }
-      ) => record.audits.length
-        && <span className="text-sm">
-          {record.audits[record.audits.length - 1].audits['first-contentful-paint'].displayValue}
-        </span>
+      ) => calculateProgress(record.audits, 'best-practices'),
     },
     {
-      title: (
-        <Popover
-          title="First Meaningful Paint"
-          content="First Meaningful Paint measures when the primary content of a page is visible"
-        >
-          <span className="text-xs uppercase text-gray-700">FMP</span>
-        </Popover>
-      ),
-      dataIndex: 'firstMeaningfulPaint',
-      key: 'firstMeaningfulPaint',
+      title: <span className="text-xs uppercase text-gray-700">PWA</span>,
+      dataIndex: 'pwa',
+      key: 'pwa',
       width: '10%',
       render: (
         _: string,
         record: {
-          audits: [{
-            audits: {
-              'first-meaningful-paint': { displayValue: string }
-            }
-          }],
+          audits: [{ categories: { seo: { score: number } } }],
         }
-      ) => record.audits.length
-        && <span className="text-sm">
-          {record.audits[record.audits.length - 1].audits['first-meaningful-paint'].displayValue}
-        </span>
-    },
-    {
-      title: <span className="text-xs uppercase text-gray-700">Speed index</span>,
-      dataIndex: 'speedIndex',
-      key: 'speedIndex',
-      width: '10%',
-      render: (
-        _: string,
-        record: {
-          audits: [{
-            audits: {
-              'speed-index': { displayValue: string }
-            }
-          }],
-        }
-      ) => record.audits.length
-        && <span className="text-sm">
-          {record.audits[record.audits.length - 1].audits['speed-index'].displayValue}
-        </span>
-    },
-    {
-      title: <span className="text-xs uppercase text-gray-700">Screenshot thumbnails</span>,
-      dataIndex: 'screenshotThumbnails',
-      key: 'screenshotThumbnails',
-      width: '40%',
-      render: (
-        _: string,
-        record: {
-          audits: [{
-            audits: {
-              'screenshot-thumbnails': {
-                details: {
-                  items: [
-                    {
-                      data: string,
-                      timing: string
-                    }
-                  ]
-                }
-              }
-            }
-          }],
-        }
-      ) => record.audits.length
-        && <span className="flex">
-          {record.audits[record.audits.length - 1].audits['screenshot-thumbnails'].details
-            && record.audits[record.audits.length - 1].audits['screenshot-thumbnails']
-              .details.items.map((image: { data: string, timing: string }, index: number) => {
-                return (
-                  <div key={index} className="flex flex-col">
-                    <Popover
-                      content={
-                        <img src={image.data} className="shadow-md" width="100%" />
-                      }
-                      title={
-                        <div className="text-base text-gray-700 text-center">{image.timing} ms</div>
-                      }
-                    >
-                      <img src={image.data} className="mr-4 shadow-md" width="40" />
-                    </Popover>
-                  </div>
-                )
-              })}
-        </span>
+      ) => calculateProgress(record.audits, 'pwa'),
     },
   ]
 
