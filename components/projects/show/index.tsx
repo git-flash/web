@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import {
-  Table, Drawer, Button, Progress, PageHeader, Icon,
-
-} from 'antd'
+import { Table, Button, Progress, PageHeader, Icon, } from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import Loader from '../../common/loader'
-import AuditsTable from './audits-table'
 import AddLinkModal from './add-link-modal'
+import LinkDetails from './link-details'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -36,9 +33,6 @@ const fetchProjectSubscription = gql`
 `
 
 const ProjectsShow = (props: any) => {
-  const [visible, setVisibility] = useState(false)
-  const [audits, setAudits] = useState([])
-
   const columns: any = [
     {
       title: () => (
@@ -46,23 +40,14 @@ const ProjectsShow = (props: any) => {
       ),
       dataIndex: 'id',
       key: 'id',
-      width: '10%',
+      width: '25%',
       render: (_: string, record: {
         id: string,
         link: string,
         audits: [{ created_at: string }],
       }) => (
           <>
-            <a
-              href="javascript:;"
-              onClick={() =>
-                showDrawer({
-                  audits: record.audits,
-                })
-              }
-            >
-              <span className="font-base w-full flex">{record.link}</span>
-            </a>
+            <span className="font-base w-full flex">{record.link}</span>
             {record.audits.length
               ? <span className="text-xs text-gray-500 mt-1 flex">
                 Last audit was {dayjs(record.audits[record.audits.length - 1].created_at).fromNow()}
@@ -78,7 +63,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">Performance</span>,
       dataIndex: 'performance',
       key: 'performance',
-      width: '10%',
+      width: '15%',
       render: (
         _: string,
         record: {
@@ -90,7 +75,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
       dataIndex: 'accessibility',
       key: 'accessibility',
-      width: '10%',
+      width: '15%',
       render: (
         _: string,
         record: {
@@ -102,7 +87,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
-      width: '10%',
+      width: '15%',
       render: (
         _: string,
         record: {
@@ -114,7 +99,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
       dataIndex: 'bestPractices',
       key: 'bestPractices',
-      width: '10%',
+      width: '15%',
       render: (
         _: string,
         record: {
@@ -126,7 +111,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
-      width: '10%',
+      width: '15%',
       render: (
         _: string,
         record: {
@@ -176,31 +161,6 @@ const ProjectsShow = (props: any) => {
     }
   }
 
-  const showDrawer = ({ audits }: { audits: any }) => {
-    setVisibility(true)
-    setAudits(audits)
-  }
-
-  const onClose = () => {
-    setVisibility(false)
-    setAudits([])
-  }
-
-  const drawerNode = () => {
-    return (
-      <Drawer
-        width={1000}
-        placement="right"
-        closable={false}
-        onClose={onClose}
-        visible={visible}
-        title="Audits"
-      >
-        <AuditsTable audits={audits} />
-      </Drawer>
-    )
-  }
-
   const { data, loading, error } = useSubscription(fetchProjectSubscription, {
     variables: { id: props.id },
     fetchPolicy: 'network-only',
@@ -233,13 +193,16 @@ const ProjectsShow = (props: any) => {
         />
       </div>
       <div className="mt-8 bg-white rounded">
-        {drawerNode()}
         <Table
           rowKey="id"
           columns={columns}
           dataSource={urls}
           pagination={false}
           bordered
+          expandedRowRender={
+            (record: { audits: [{ id: string }] }) =>
+              <LinkDetails id={record.audits[record.audits.length - 1].id} />
+          }
         />
       </div>
     </>
