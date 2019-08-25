@@ -123,12 +123,14 @@ const LinkDetails = props => {
 
   const { audit_by_pk } = data
 
+  console.log(data)
+
   return (
     <div className="bg-white rounded">
       <Table
         rowKey="id"
         columns={columns}
-        dataSource={[audit_by_pk]}
+        dataSource={!!audit_by_pk ? audit_by_pk : []}
         pagination={false}
         bordered
       />
