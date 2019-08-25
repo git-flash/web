@@ -1,24 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
+import { Layout, Menu, Icon } from 'antd'
 
 import ContentComponent from './content'
 import HeaderComponent from './header'
+import SidebarComponent from './sidebar'
 import { withAuthentication } from '../../../lib/with-authentication'
 
-const { Content } = Layout
+const { Content, Sider } = Layout
 
-class AuthenticatedLayout extends Component {
-  render() {
-    return (
-      <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
+const AuthenticatedLayout = props => {
+  return (
+    <Layout>
+      <Layout
+        style={{
+          flexDirection: 'row',
+        }}
+      >
+        <SidebarComponent />
         <Layout>
           <HeaderComponent />
-          <ContentComponent>{this.props.children}</ContentComponent>
+          <ContentComponent>{props.children}</ContentComponent>
         </Layout>
       </Layout>
-    )
-  }
+    </Layout>
+  )
 }
 
 AuthenticatedLayout.propTypes = {

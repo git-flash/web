@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div
       className="flex justify-center items-center"
-      style={{ height: 'calc(100vh - 165px)' }}
+      style={{ height: 'calc(100vh - 130px)' }}
     >
       <Spin
         tip="Loading..."

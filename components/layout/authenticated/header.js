@@ -5,7 +5,6 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import LocalStore from '../../../lib/local-store'
-import Logo from '../../../static/images/logo.svg'
 
 const { Header } = Layout
 
@@ -20,28 +19,7 @@ class AuthenticatedLayoutHeader extends Component {
     return (
       <Header style={{ background: '#fff', padding: 0 }}>
         <div className="flex justify-between h-full px-4 border border-solid border-gray-300">
-          <div className="mx-4 flex">
-            <div className="px-4">
-              <Link href={`/`} as={`/`}>
-                <a>
-                  <img
-                    src={Logo}
-                    className="px-2"
-                    alt="Perfy"
-                    width="40px"
-                    height="40px"
-                  />
-                </a>
-              </Link>
-            </div>
-            <div className="px-4">
-              <Link href={`/projects`} as={`/projects`}>
-                <a>
-                  <Icon type="profile" /> Projects
-                </a>
-              </Link>
-            </div>
-          </div>
+          <div />
           <div className="mx-4 flex">
             <div className="px-4">
               <Dropdown

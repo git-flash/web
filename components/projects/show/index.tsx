@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Button, Progress, PageHeader, Icon, } from 'antd'
+import { Table, Button, Progress, PageHeader, Icon, Empty } from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -50,13 +50,16 @@ const ProjectsShow = (props: any) => {
       width: '25%',
       render: (_: string, record: {
         link: string,
-        created_at: string,
+        audits: [{
+          link: string,
+          created_at: string,
+        }]
       }) => (
           <>
             <span className="font-base w-full flex">{record.link}</span>
-            {!!record.created_at
+            {!!record.audits.length
               ? <span className="text-xs text-gray-500 mt-1 flex">
-                Last audit was {dayjs(record.created_at).fromNow()}
+                Last audit was {dayjs(record.audits[0].created_at).fromNow()}
               </span>
               : <span className="text-xs text-gray-500 mt-1 flex">
                 Link will be audited soon
@@ -73,12 +76,12 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: {
+          audits: [{
             created_at: string,
             categories_performance_score: number
-          }
+          }]
         }
-      ) => calculateProgress(record, record.audits.categories_performance_score),
+      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_performance_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
@@ -88,12 +91,12 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: {
+          audits: [{
             created_at: string,
             categories_accessibility_score: number
-          }
+          }]
         }
-      ) => calculateProgress(record, record.audits.categories_accessibility_score),
+      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_accessibility_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
@@ -103,12 +106,12 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: {
+          audits: [{
             created_at: string,
             categories_seo_score: number
-          }
+          }]
         }
-      ) => calculateProgress(record, record.audits.categories_seo_score),
+      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_seo_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
@@ -118,12 +121,12 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: {
+          audits: [{
             created_at: string,
             categories_best_practices_score: number
-          }
+          }]
         }
-      ) => calculateProgress(record, record.audits.categories_best_practices_score),
+      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_best_practices_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
@@ -133,17 +136,17 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: {
+          audits: [{
             created_at: string,
             categories_seo_score: number
-          }
+          }]
         }
-      ) => calculateProgress(record, record.audits.categories_seo_score),
+      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_seo_score),
     },
   ]
 
   const calculateProgress = (record: any, scoreInFloat: number) => {
-    if (!record.created_at) {
+    if (!record.audits.length) {
       return (
         <Progress
           type="circle"
@@ -221,7 +224,11 @@ const ProjectsShow = (props: any) => {
           pagination={false}
           bordered
           expandedRowRender={
-            (record: { id: string }) => <LinkDetails id={record.id} />
+            (record: {
+              audits: [{ id: string }]
+            }) => !!record.audits.length
+                ? <LinkDetails id={record.audits[0].id} />
+                : <Empty />
           }
         />
       </div>

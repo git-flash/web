@@ -100,7 +100,8 @@ const LinkDetails = props => {
                       <img
                         src={image.data}
                         className="mr-4 shadow-md"
-                        width="40"
+                        width="80"
+                        height="auto"
                       />
                     </Popover>
                   </div>
@@ -123,14 +124,12 @@ const LinkDetails = props => {
 
   const { audit_by_pk } = data
 
-  console.log(data)
-
   return (
     <div className="bg-white rounded">
       <Table
         rowKey="id"
         columns={columns}
-        dataSource={!!audit_by_pk ? audit_by_pk : []}
+        dataSource={!!audit_by_pk.id ? [audit_by_pk] : []}
         pagination={false}
         bordered
       />
