@@ -4,11 +4,11 @@ import { Layout } from 'antd'
 
 import ContentComponent from './content'
 import HeaderComponent from './header'
-import { withAuthentication } from '../../lib/with-authentication'
+import { withAuthentication } from '../../../lib/with-authentication'
 
 const { Content } = Layout
 
-class LayoutComponent extends Component {
+class AuthenticatedLayout extends Component {
   render() {
     return (
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
@@ -21,8 +21,8 @@ class LayoutComponent extends Component {
   }
 }
 
-LayoutComponent.propTypes = {
+AuthenticatedLayout.propTypes = {
   children: PropTypes.node,
 }
 
-export default withAuthentication(LayoutComponent)
+export default withAuthentication(AuthenticatedLayout)

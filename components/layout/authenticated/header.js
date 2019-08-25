@@ -4,12 +4,12 @@ import { Layout, Menu, Dropdown, Icon, Avatar } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
-import LocalStore from '../../lib/local-store'
-import Logo from '../../static/images/logo.svg'
+import LocalStore from '../../../lib/local-store'
+import Logo from '../../../static/images/logo.svg'
 
 const { Header } = Layout
 
-class HeaderComponent extends Component {
+class AuthenticatedLayoutHeader extends Component {
   handleSignOut = () => {
     LocalStore.clear()
 
@@ -72,4 +72,4 @@ class HeaderComponent extends Component {
   }
 }
 
-export default HeaderComponent
+export default AuthenticatedLayoutHeader

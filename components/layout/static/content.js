@@ -4,7 +4,7 @@ import { Layout, Card } from 'antd'
 
 const { Content } = Layout
 
-class ContentComponent extends Component {
+class StaticLayoutContent extends Component {
   render() {
     return (
       <div className="min-h-screen bg-white pt-16">{this.props.children}</div>
@@ -12,8 +12,8 @@ class ContentComponent extends Component {
   }
 }
 
-ContentComponent.propTypes = {
+StaticLayoutContent.propTypes = {
   children: PropTypes.node,
 }
 
-export default ContentComponent
+export default StaticLayoutContent

@@ -7,7 +7,7 @@ import HeaderComponent from './header'
 
 const { Content } = Layout
 
-class LayoutComponent extends Component {
+class StaticLayout extends Component {
   render() {
     return (
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
@@ -20,8 +20,8 @@ class LayoutComponent extends Component {
   }
 }
 
-LayoutComponent.propTypes = {
+StaticLayout.propTypes = {
   children: PropTypes.node,
 }
 
-export default LayoutComponent
+export default StaticLayout

@@ -7,7 +7,7 @@ import Logo from '../../../static/images/logo.svg'
 import SignIn from '../../authentication/sign-in'
 import SignUp from '../../authentication/sign-up'
 
-class ContentComponent extends Component {
+class NonAuthenticatedLayoutContent extends Component {
   render() {
     return (
       <div className="flex min-h-screen">
@@ -53,4 +53,4 @@ class ContentComponent extends Component {
   }
 }
 
-export default ContentComponent
+export default NonAuthenticatedLayoutContent

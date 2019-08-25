@@ -7,7 +7,7 @@ import Logo from '../../../static/images/logo.svg'
 
 const { Header } = Layout
 
-class HeaderComponent extends Component {
+class StaticLayoutHeader extends Component {
   render() {
     return (
       <Header
@@ -77,4 +77,4 @@ class HeaderComponent extends Component {
   }
 }
 
-export default HeaderComponent
+export default StaticLayoutHeader

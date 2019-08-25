@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 
 const { Content } = Layout
 
-class ContentComponent extends Component {
+class AuthenticatedLayoutContent extends Component {
   render() {
     return (
       <div className="m-8">
@@ -14,8 +14,8 @@ class ContentComponent extends Component {
   }
 }
 
-ContentComponent.propTypes = {
+AuthenticatedLayoutContent.propTypes = {
   children: PropTypes.node,
 }
 
-export default ContentComponent
+export default AuthenticatedLayoutContent

@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 
 import ContentComponent from './content'
 
-class LayoutComponent extends Component {
+class NonAuthenticatedLayout extends Component {
   render() {
     return (
       <Layout>
@@ -15,4 +15,4 @@ class LayoutComponent extends Component {
   }
 }
 
-export default LayoutComponent
+export default NonAuthenticatedLayout
