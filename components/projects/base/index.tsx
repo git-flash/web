@@ -19,7 +19,11 @@ const fetchProjectsSubscription = gql`
         nodes {
           id
           audits(limit: 1) {
-            categories
+            categories_accessibility_score
+            categories_best_practices_score
+            categories_performance_score
+            categories_pwa_score
+            categories_seo_score
           }
         }
       }
@@ -58,12 +62,12 @@ const ProjectsIndex = () => {
         record: {
           urls_aggregate: {
             nodes: [{
-              audits: [{ categories: { accessibility: { score: number } } }]
+              audits: [{ categories_accessibility_score: number }]
             }]
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.accessibility.score)
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_accessibility_score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Best Practices</span>,
@@ -75,12 +79,12 @@ const ProjectsIndex = () => {
         record: {
           urls_aggregate: {
             nodes: [{
-              audits: [{ categories: { 'best-practices': { score: number } } }]
+              audits: [{ categories_best_practices_score: number }]
             }]
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories['best-practices'].score)
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_best_practices_score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Performance</span>,
@@ -92,12 +96,12 @@ const ProjectsIndex = () => {
         record: {
           urls_aggregate: {
             nodes: [{
-              audits: [{ categories: { performance: { score: number } } }]
+              audits: [{ categories_performance_score: number }]
             }]
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.performance.score)
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_performance_score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>PWA</span>,
@@ -109,12 +113,12 @@ const ProjectsIndex = () => {
         record: {
           urls_aggregate: {
             nodes: [{
-              audits: [{ categories: { pwa: { score: number } } }]
+              audits: [{ categories_pwa_score: number }]
             }]
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.pwa.score)
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_pwa_score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>SEO</span>,
@@ -126,12 +130,12 @@ const ProjectsIndex = () => {
         record: {
           urls_aggregate: {
             nodes: [{
-              audits: [{ categories: { seo: { score: number } } }]
+              audits: [{ categories_seo_score: number }]
             }]
           }
         }
       ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories.seo.score)
+        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_seo_score)
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Pages</span>,

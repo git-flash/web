@@ -21,11 +21,17 @@ const fetchProjectSubscription = gql`
       name
       urls {
         id
-        link
         audits(limit: 1) {
           id
-          categories
           created_at
+          categories_accessibility_score
+          categories_best_practices_score
+          categories_performance_score
+          categories_pwa_score
+          categories_seo_score
+          url {
+            link
+          }
         }
       }
     }
@@ -42,15 +48,16 @@ const ProjectsShow = (props: any) => {
       key: 'id',
       width: '25%',
       render: (_: string, record: {
-        id: string,
-        link: string,
-        audits: [{ created_at: string }],
+        url: {
+          link: string,
+        },
+        created_at: string,
       }) => (
           <>
-            <span className="font-base w-full flex">{record.link}</span>
-            {record.audits.length
+            <span className="font-base w-full flex">{record.url.link}</span>
+            {!!record.created_at
               ? <span className="text-xs text-gray-500 mt-1 flex">
-                Last audit was {dayjs(record.audits[record.audits.length - 1].created_at).fromNow()}
+                Last audit was {dayjs(record.created_at).fromNow()}
               </span>
               : <span className="text-xs text-gray-500 mt-1 flex">
                 Link will be audited soon
@@ -67,9 +74,10 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{ categories: { performance: { score: number } } }],
+          created_at: string,
+          categories_performance_score: number
         }
-      ) => calculateProgress(record.audits, 'performance'),
+      ) => calculateProgress(record, record.categories_performance_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
@@ -79,9 +87,10 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{ categories: { accessibility: { score: number } } }],
+          created_at: string,
+          categories_accessibility_score: number
         }
-      ) => calculateProgress(record.audits, 'accessibility'),
+      ) => calculateProgress(record, record.categories_accessibility_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
@@ -91,9 +100,10 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{ categories: { seo: { score: number } } }],
+          created_at: string,
+          categories_seo_score: number
         }
-      ) => calculateProgress(record.audits, 'seo'),
+      ) => calculateProgress(record, record.categories_seo_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
@@ -103,9 +113,10 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{ categories: { seo: { score: number } } }],
+          created_at: string,
+          categories_best_practices_score: number
         }
-      ) => calculateProgress(record.audits, 'best-practices'),
+      ) => calculateProgress(record, record.categories_best_practices_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
@@ -115,14 +126,15 @@ const ProjectsShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{ categories: { seo: { score: number } } }],
+          created_at: string,
+          categories_seo_score: number
         }
-      ) => calculateProgress(record.audits, 'pwa'),
+      ) => calculateProgress(record, record.categories_seo_score),
     },
   ]
 
-  const calculateProgress = (record: any, id: string) => {
-    if (!record[record.length - 1]) {
+  const calculateProgress = (record: { created_at: string }, scoreInFloat: number) => {
+    if (!record.created_at) {
       return (
         <Progress
           type="circle"
@@ -135,7 +147,7 @@ const ProjectsShow = (props: any) => {
       )
     }
 
-    const score = Math.round(record[record.length - 1].categories[id].score * 100)
+    const score = Math.round(scoreInFloat * 100)
 
     if (score <= 49) {
       return (
@@ -196,12 +208,11 @@ const ProjectsShow = (props: any) => {
         <Table
           rowKey="id"
           columns={columns}
-          dataSource={urls}
+          dataSource={urls[0].audits}
           pagination={false}
           bordered
           expandedRowRender={
-            (record: { audits: [{ id: string }] }) =>
-              <LinkDetails id={record.audits[record.audits.length - 1].id} />
+            (record: { id: string }) => <LinkDetails id={record.id} />
           }
         />
       </div>

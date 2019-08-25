@@ -9,7 +9,10 @@ const fetchAuditSubscription = gql`
   subscription($id: uuid!) {
     audit_by_pk(id: $id) {
       id
-      audits
+      audit_first_contentful_paint_display_value
+      audit_first_meaningful_paint_display_value
+      audit_speed_index_display_value
+      audit_screenshot_thumbnails
     }
   }
 `
@@ -30,7 +33,7 @@ const LinkDetails = props => {
       width: '10%',
       render: (_, record) => (
         <span className="text-sm">
-          {record['first-contentful-paint'].displayValue}
+          {record.audit_first_contentful_paint_display_value}
         </span>
       ),
     },
@@ -48,7 +51,7 @@ const LinkDetails = props => {
       width: '10%',
       render: (_, record) => (
         <span className="text-sm">
-          {record['first-meaningful-paint'].displayValue}
+          {record.audit_first_meaningful_paint_display_value}
         </span>
       ),
     },
@@ -60,7 +63,9 @@ const LinkDetails = props => {
       key: 'speedIndex',
       width: '10%',
       render: (_, record) => (
-        <span className="text-sm">{record['speed-index'].displayValue}</span>
+        <span className="text-sm">
+          {record.audit_speed_index_display_value}
+        </span>
       ),
     },
     {
@@ -74,9 +79,8 @@ const LinkDetails = props => {
       width: '40%',
       render: (_, record) => (
         <span className="flex">
-          {record['screenshot-thumbnails'].details &&
-            record['screenshot-thumbnails'].details.items.map(
-              (image, index) => {
+          {record.audit_screenshot_thumbnails
+            ? record.audit_screenshot_thumbnails.items.map((image, index) => {
                 return (
                   <div key={index} className="flex flex-col">
                     <Popover
@@ -101,8 +105,8 @@ const LinkDetails = props => {
                     </Popover>
                   </div>
                 )
-              }
-            )}
+              })
+            : false}
         </span>
       ),
     },
@@ -117,14 +121,14 @@ const LinkDetails = props => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { id, audits } = data.audit_by_pk
+  const { audit_by_pk } = data
 
   return (
     <div className="bg-white rounded">
       <Table
         rowKey="id"
         columns={columns}
-        dataSource={[audits]}
+        dataSource={[audit_by_pk]}
         pagination={false}
         bordered
       />
