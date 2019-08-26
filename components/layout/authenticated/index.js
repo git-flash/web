@@ -12,6 +12,7 @@ const { Content, Sider } = Layout
 const AuthenticatedLayout = props => {
   return (
     <Layout>
+      <HeaderComponent />
       <Layout
         style={{
           flexDirection: 'row',
@@ -19,7 +20,6 @@ const AuthenticatedLayout = props => {
       >
         <SidebarComponent />
         <Layout>
-          <HeaderComponent />
           <ContentComponent>{props.children}</ContentComponent>
         </Layout>
       </Layout>
