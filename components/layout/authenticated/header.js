@@ -35,6 +35,12 @@ class AuthenticatedLayoutHeader extends Component {
           </div>
           <div className="mx-4 flex">
             <div className="px-4">
+              <Icon type="notification" />
+            </div>
+            <div className="px-4">
+              <Icon type="setting" />
+            </div>
+            <div className="px-4">
               <Dropdown
                 placement="bottomRight"
                 overlay={
