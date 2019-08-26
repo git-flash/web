@@ -3,6 +3,7 @@ import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Button, Table, PageHeader, Badge } from 'antd'
 import Link from 'next/link'
+import Router from 'next/router'
 
 import Loader from '../../common/loader'
 
@@ -223,19 +224,22 @@ const ProjectsIndex = () => {
     <Fragment>
       <div className="border border-solid border-gray-300">
         <PageHeader
+          onBack={() => Router.push('/projects')}
           title={
-            <h2 className="text-3xl mb-0 text-gray-700">Projects</h2>
+            <h2 className="text-3xl m-2 text-gray-700">Projects</h2>
           }
           extra={
-            <Link href={`/projects/new`} as={`/projects/new`}>
-              <Button type="primary" icon="plus-circle" size="large">
-                Create new Project
+            <div className="m-2">
+              <Link href={`/projects/new`} as={`/projects/new`}>
+                <Button type="primary" icon="plus-circle" size="large">
+                  Create new Project
               </Button>
-            </Link>
+              </Link>
+            </div>
           }
         />
       </div>
-      <div className="mt-8 bg-white rounded">
+      <div className="m-8 bg-white rounded">
         <Table
           rowKey="id"
           dataSource={data.project}

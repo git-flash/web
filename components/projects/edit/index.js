@@ -129,17 +129,19 @@ class ProjectsEdit extends Component {
             <Fragment>
               <div className="border border-solid border-gray-300">
                 <PageHeader
+                  onBack={() => Router.push('/projects')}
                   title={
-                    <h2 className="text-3xl mb-0 text-gray-700">Edit {name}</h2>
+                    <h2 className="text-3xl m-2 text-gray-700">Edit {name}</h2>
                   }
-                >
-                  <p className="text-sm mb-0 text-gray-700">
-                    You can edit an existing project by updating the necessary
-                    details
-                  </p>
-                </PageHeader>
+                  subTitle={
+                    <p className="text-sm mb-0 text-gray-700">
+                      You can edit an existing project by updating the necessary
+                      details
+                    </p>
+                  }
+                />
               </div>
-              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto bg-white rounded border border-solid border-gray-300">
+              <div className="m-8 bg-white rounded border border-solid border-gray-300">
                 <Tabs defaultActiveKey="details" size="large">
                   <Tabs.TabPane tab="Details" key="details">
                     <Card bordered={false}>
@@ -289,7 +291,7 @@ class ProjectsEdit extends Component {
                   </Tabs.TabPane>
                 </Tabs>
               </div>
-              <div className="mt-8 flex justify-center flex-col ml-auto mr-auto">
+              <div className="m-8">
                 <div className="flex justify-end">
                   <div className="mr-4">
                     <Link href={`/projects`} as={`/projects`}>

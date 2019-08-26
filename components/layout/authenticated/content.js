@@ -7,7 +7,7 @@ const { Content } = Layout
 class AuthenticatedLayoutContent extends Component {
   render() {
     return (
-      <div className="m-8" style={{ height: 'calc(100vh - 130px)' }}>
+      <div style={{ height: 'calc(100vh - 65px)' }}>
         <div className="my-0 mx-auto">{this.props.children}</div>
       </div>
     )

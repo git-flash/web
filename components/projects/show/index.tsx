@@ -6,6 +6,7 @@ import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Router from 'next/router'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
@@ -200,9 +201,10 @@ const ProjectsShow = (props: any) => {
     <>
       <div className="border border-solid border-gray-300">
         <PageHeader
-          title={<h2 className="text-3xl mb-0 text-gray-700">{name}</h2>}
+          onBack={() => Router.push('/projects')}
+          title={<h2 className="text-3xl m-2 text-gray-700">{name}</h2>}
           extra={
-            <>
+            <div className="m-2">
               <AddLinkModal projectId={id} />
               <Link
                 href={`/projects/edit?id=${id}`}
@@ -212,11 +214,11 @@ const ProjectsShow = (props: any) => {
                   Edit Project
                 </Button>
               </Link>
-            </>
+            </div>
           }
         />
       </div>
-      <div className="mt-8 bg-white rounded">
+      <div className="m-8 bg-white rounded">
         <Table
           rowKey="id"
           columns={columns}
