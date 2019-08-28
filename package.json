@@ -42,7 +42,7 @@
     "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
     "subscriptions-transport-ws": "^0.9.16",
-    "webpack": "^4.39.2"
+    "webpack": "^4.39.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.1",
