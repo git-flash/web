@@ -4,14 +4,15 @@ import { Layout, Menu, Dropdown, Icon, Avatar } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 
-import LocalStore from '../../../lib/local-store'
 import Logo from '../../../static/images/logo.svg'
 
 const { Header } = Layout
 
 class AuthenticatedLayoutHeader extends Component {
   handleSignOut = () => {
-    LocalStore.clear()
+    document.cookie = `userId=`
+    document.cookie = `email=`
+    document.cookie = `token=`
 
     Router.push('/authentication')
   }
