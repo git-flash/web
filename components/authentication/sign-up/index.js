@@ -67,7 +67,7 @@ const SignUp = props => {
                 message: 'Please enter email!',
               },
             ],
-            initialValue: 'admin@admin.com',
+            initialValue: '',
           })(
             <Input placeholder="Please enter email" size="large" type="email" />
           )}
@@ -79,7 +79,7 @@ const SignUp = props => {
         >
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please enter username!' }],
-            initialValue: 'admin',
+            initialValue: '',
           })(
             <Input
               placeholder="Please enter username"
@@ -95,7 +95,7 @@ const SignUp = props => {
         >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please enter password!' }],
-            initialValue: 'password',
+            initialValue: '',
           })(
             <Input
               placeholder="Please enter password"
