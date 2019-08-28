@@ -132,7 +132,7 @@ class ProjectsEdit extends Component {
                   onBack={() => Router.push('/projects')}
                   title={`Edit ${name}`}
                 >
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 mb-0">
                     You can edit {name} by providing the necessary details
                   </p>
                 </PageHeader>

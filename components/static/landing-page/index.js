@@ -193,20 +193,8 @@ class LandingPage extends Component {
           </div>
         </section>
         <section className="px-16 py-32 max-w-6xl my-0 mx-auto">
-          <Row type="flex" justify="end">
-            <img
-              className="w-0 md:w-auto lg:w-auto"
-              src={Illustration2}
-              style={{
-                position: 'absolute',
-                left: 0,
-                marginTop: '-150px',
-                marginLeft: '-50px',
-                maxWidth: '950px',
-              }}
-              alt="Illustration"
-            />
-            <Col sm={24} md={12}>
+          <Row>
+            <Col sm={24} md={14}>
               <h2 className="text-4xl text-black font-base mb-2">
                 Measure performance logs
               </h2>
@@ -251,6 +239,17 @@ class LandingPage extends Component {
                 Know More
               </Button>
             </Col>
+            <img
+              className="w-0 md:w-auto lg:w-auto"
+              src={Illustration2}
+              style={{
+                position: 'absolute',
+                marginTop: '-150px',
+                marginLeft: '-100px',
+                maxWidth: '950px',
+              }}
+              alt="Illustration"
+            />
           </Row>
         </section>
         <section className="px-16 py-32 bg-gray-100">

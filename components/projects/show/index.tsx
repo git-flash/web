@@ -48,7 +48,8 @@ const ProjectsShow = (props: any) => {
       ),
       dataIndex: 'id',
       key: 'id',
-      width: '25%',
+      width: 500,
+      fixed: 'left',
       render: (_: string, record: {
         link: string,
         audits: [{
@@ -73,7 +74,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">Performance</span>,
       dataIndex: 'performance',
       key: 'performance',
-      width: '15%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -88,7 +89,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
       dataIndex: 'accessibility',
       key: 'accessibility',
-      width: '15%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -103,7 +104,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
-      width: '15%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -118,7 +119,7 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
       dataIndex: 'bestPractices',
       key: 'bestPractices',
-      width: '15%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -133,7 +134,6 @@ const ProjectsShow = (props: any) => {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
-      width: '15%',
       render: (
         _: string,
         record: {
@@ -217,26 +217,34 @@ const ProjectsShow = (props: any) => {
             </div>
           }
         >
-          <p className="text-gray-600">
-            You can edit {name} by providing the necessary details
+          <p className="text-gray-600 mb-0">
+            Details for {name}
           </p>
         </PageHeader>
       </div>
-      <div className="m-8 bg-white rounded">
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={urls}
-          pagination={false}
-          bordered
-          expandedRowRender={
-            (record: {
-              audits: [{ id: string }]
-            }) => !!record.audits.length
-                ? <LinkDetails id={record.audits[0].id} />
-                : <Empty />
-          }
-        />
+      <div className="p-8">
+        <div
+          className="bg-white rounded mx-auto"
+          style={{ maxWidth: "1000px" }}
+        >
+          <Table
+            rowKey="id"
+            columns={columns}
+            dataSource={urls}
+            pagination={false}
+            bordered
+            scroll={{ x: 1300, y: 500 }}
+            expandedRowRender={
+              (record: {
+                audits: [{ id: string }]
+              }) => !!record.audits.length
+                  ? <LinkDetails id={record.audits[0].id} />
+                  : <Empty />
+            }
+          />
+        </div>
+
+
       </div>
     </>
   )

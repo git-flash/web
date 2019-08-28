@@ -1,26 +1,88 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Dropdown, Icon, Avatar, Button } from 'antd'
+import {
+  Layout,
+  Menu,
+  Dropdown,
+  Icon,
+  Avatar,
+  Button,
+  Row,
+  Col,
+  Drawer,
+} from 'antd'
 import Link from 'next/link'
 
 import Logo from '../../../static/images/logo.svg'
 
-const { Header } = Layout
+const StaticLayoutHeader = () => {
+  const { Header } = Layout
+  const [isDrawerVisible, showDrawer] = useState(false)
 
-class StaticLayoutHeader extends Component {
-  render() {
+  const drawerNode = () => {
     return (
-      <Header
-        style={{
-          background: '#fff',
-          padding: '0',
-          height: '100px',
-          zIndex: '1',
-          boxShadow: '0 10px 40px 0 #f7fafc',
-        }}
+      <Drawer
+        title={<div className="uppercase">Menu</div>}
+        onClose={() => showDrawer(false)}
+        destroyOnClose
+        visible={isDrawerVisible}
       >
-        <div className="px-4 flex justify-between h-full max-w-6xl my-4 mx-auto">
-          <div className="flex uppercase text-sm">
+        <div className="flex uppercase flex-col text-center">
+          <div className="py-4">
+            <Link href={`/pricing`} as={`/pricing`}>
+              <a>Pricing</a>
+            </Link>
+          </div>
+          <div className="py-4">
+            <Link href={`/product`} as={`/product`}>
+              <a>Product</a>
+            </Link>
+          </div>
+          <div className="py-4">
+            <Link href={`/features`} as={`/features`}>
+              <a>Features</a>
+            </Link>
+          </div>
+          <div className="py-4">
+            <Link href={`/authentication`} as={`/authentication`}>
+              <Button type="link" className="uppercase text-sm">
+                Sign In
+              </Button>
+            </Link>
+          </div>
+          <div className="py-4">
+            <Link href={`/authentication`} as={`/authentication`}>
+              <Button
+                type="primary"
+                size="large"
+                icon="login"
+                className="uppercase text-sm font-semibold"
+                block
+              >
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Drawer>
+    )
+  }
+
+  console.log(isDrawerVisible)
+
+  return (
+    <Header
+      style={{
+        background: '#fff',
+        padding: '0',
+        height: '100px',
+        zIndex: '1',
+        boxShadow: '0 10px 40px 0 #f7fafc',
+      }}
+    >
+      <div className="px-16 flex justify-between h-full max-w-6xl my-4 mx-auto">
+        <Row type="flex" justify="space-between" className="w-full">
+          <Col md={2}>
             <div className="pr-4">
               <Link href={`/`} as={`/`}>
                 <a>
@@ -34,47 +96,59 @@ class StaticLayoutHeader extends Component {
                 </a>
               </Link>
             </div>
-            <div className="px-4">
-              <Link href={`/pricing`} as={`/pricing`}>
-                <a>Pricing</a>
-              </Link>
+          </Col>
+          <Col xs={0} sm={0} md={12}>
+            <div className="flex uppercase text-sm">
+              <div className="px-4">
+                <Link href={`/pricing`} as={`/pricing`}>
+                  <a>Pricing</a>
+                </Link>
+              </div>
+              <div className="px-4">
+                <Link href={`/product`} as={`/product`}>
+                  <a>Product</a>
+                </Link>
+              </div>
+              <div className="px-4">
+                <Link href={`/features`} as={`/features`}>
+                  <a>Features</a>
+                </Link>
+              </div>
             </div>
-            <div className="px-4">
-              <Link href={`/product`} as={`/product`}>
-                <a>Product</a>
-              </Link>
+          </Col>
+          <Col xs={0} md={6}>
+            <div className="flex justify-end">
+              <div className="pr-4">
+                <Link href={`/authentication`} as={`/authentication`}>
+                  <Button type="link" className="uppercase text-sm">
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+              <div>
+                <Link href={`/authentication`} as={`/authentication`}>
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon="login"
+                    className="w-40 uppercase text-sm font-semibold"
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div className="px-4">
-              <Link href={`/features`} as={`/authentication`}>
-                <a>Features</a>
-              </Link>
-            </div>
-          </div>
-          <div className="ml-4 flex">
-            <div className="px-4">
-              <Link href={`/authentication`} as={`/authentication`}>
-                <Button type="link" className="uppercase text-sm">
-                  Sign In
-                </Button>
-              </Link>
-            </div>
-            <div>
-              <Link href={`/authentication`} as={`/authentication`}>
-                <Button
-                  type="primary"
-                  size="large"
-                  icon="login"
-                  className="w-40 uppercase text-sm font-semibold"
-                >
-                  Sign Up
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </Header>
-    )
-  }
+          </Col>
+          <Col xs={1} sm={1} md={0}>
+            <Button type="link" onClick={() => showDrawer(true)}>
+              <Icon type="menu" className="text-xl" />
+              {drawerNode()}
+            </Button>
+          </Col>
+        </Row>
+      </div>
+    </Header>
+  )
 }
 
 export default StaticLayoutHeader

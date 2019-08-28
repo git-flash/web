@@ -41,7 +41,8 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Name</span>,
       dataIndex: 'name',
       key: 'name',
-      width: '20%',
+      width: 300,
+      fixed: 'left',
       render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
@@ -57,7 +58,7 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Accessibility</span>,
       dataIndex: 'a11y',
       key: 'a11y',
-      width: '10%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -74,7 +75,7 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Best Practices</span>,
       dataIndex: 'bestPractices',
       key: 'bestPractices',
-      width: '10%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -91,7 +92,7 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Performance</span>,
       dataIndex: 'performance',
       key: 'performance',
-      width: '10%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -108,7 +109,7 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
-      width: '10%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -125,7 +126,7 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
-      width: '10%',
+      width: 150,
       render: (
         _: string,
         record: {
@@ -142,7 +143,6 @@ const ProjectsIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Pages</span>,
       dataIndex: 'pages',
       key: 'pages',
-      width: '10%',
       render: (
         _: string,
         record: { urls_aggregate: { aggregate: { count: number } } }
@@ -206,17 +206,23 @@ const ProjectsIndex = () => {
             </div>
           }
         >
-          <p className="text-gray-600">A list of all your projects</p>
+          <p className="text-gray-600 mb-0">A list of all your projects</p>
         </PageHeader>
       </div>
-      <div className="m-8 bg-white rounded">
-        <Table
-          rowKey="id"
-          dataSource={data.project}
-          columns={columns}
-          pagination={false}
-          bordered
-        />
+      <div className="p-8">
+        <div
+          className="bg-white rounded mx-auto"
+          style={{ maxWidth: "1200px" }}
+        >
+          <Table
+            rowKey="id"
+            dataSource={data.project}
+            columns={columns}
+            pagination={false}
+            bordered
+            scroll={{ x: 1200, y: 500 }}
+          />
+        </div>
       </div>
     </Fragment>
   )

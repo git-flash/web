@@ -91,7 +91,7 @@ class ProjectsNew extends Component {
                   onBack={() => Router.push('/projects')}
                   title="Create new Project"
                 >
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 mb-0">
                     You can add a new project by providing the necessary details
                   </p>
                 </PageHeader>
