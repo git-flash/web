@@ -155,8 +155,8 @@ const ProjectsIndex = () => {
     },
   ]
 
-  const calculateProgress = (record: number) => {
-    const score = record * 100
+  const calculateProgress = (scoreInFloat: number) => {
+    const score = Math.round(scoreInFloat * 100)
 
     if (score <= 49) {
       return (
