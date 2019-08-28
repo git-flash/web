@@ -27,10 +27,11 @@ const SignUp = props => {
               username: values.username,
             }),
           })
+
           const data = await response.json()
 
           document.cookie = `userId=${data.id};path=/`
-          document.cookie = `username=${data.username};path=/`
+          document.cookie = `email=${data.email};path=/`
           document.cookie = `token=${data.token};path=/`
 
           if ([200, 201].indexOf(response.status) > -1) {
@@ -38,7 +39,9 @@ const SignUp = props => {
 
             Router.push('/projects')
           } else {
-            setError(response.statusText)
+            const data = await response.json()
+
+            setError('Invalid credentials')
 
             setIsLoading(false)
           }
@@ -55,11 +58,7 @@ const SignUp = props => {
   return (
     <div className="mt-4">
       <Form layout="vertical" onSubmit={handleSubmit}>
-        <Form.Item
-          label="Email"
-          validateStatus={error ? 'error' : ''}
-          help={error}
-        >
+        <Form.Item label="Email">
           {getFieldDecorator('email', {
             rules: [
               {
@@ -72,11 +71,7 @@ const SignUp = props => {
             <Input placeholder="Please enter email" size="large" type="email" />
           )}
         </Form.Item>
-        <Form.Item
-          label="Username"
-          validateStatus={error ? 'error' : ''}
-          help={error}
-        >
+        <Form.Item label="Username">
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please enter username!' }],
             initialValue: '',
@@ -88,11 +83,7 @@ const SignUp = props => {
             />
           )}
         </Form.Item>
-        <Form.Item
-          label="Password"
-          validateStatus={error ? 'error' : ''}
-          help={error}
-        >
+        <Form.Item label="Password">
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please enter password!' }],
             initialValue: '',

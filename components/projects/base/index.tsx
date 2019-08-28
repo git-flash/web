@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, PageHeader, Badge } from 'antd'
+import { Button, Table, PageHeader } from 'antd'
 import Link from 'next/link'
 import Router from 'next/router'
 
@@ -152,36 +152,6 @@ const ProjectsIndex = () => {
             <span className="text-gray-500 text-xs"> /50</span>
           </span>
         ),
-    },
-    {
-      title: () => <span className='text-xs uppercase text-gray-700'>Users</span>,
-      dataIndex: 'users',
-      key: 'users',
-      width: '10%',
-      render: (_: string, record: { users: []; id: number }) => (
-        <Fragment>
-          <span className="text-sm">
-            {record.users ? record.users.length : 0}
-          </span>
-          <span className="text-gray-500 text-xs"> /10</span>
-        </Fragment>
-      ),
-    },
-    {
-      title: () => <span className='text-xs uppercase text-gray-700'>Authentication</span>,
-      dataIndex: 'authentication',
-      key: 'authentication',
-      width: '10%',
-      render: (_: string, record: { login_url: string }) =>
-        !!record.login_url ? (
-          <>
-            <Badge status="success" text="Enabled" title="Enabled" />
-          </>
-        ) : (
-            <>
-              <Badge status="error" text="Disabled" title="Disabled" />
-            </>
-          ),
     },
   ]
 

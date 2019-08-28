@@ -3,7 +3,6 @@ import { Layout } from 'antd'
 import { Menu, Icon } from 'antd'
 import Router from 'next/router'
 
-import ProjectsMenu from "./projects-menu"
 
 const AuthenticatedSidebar = () => {
   const [isSidebarCollapsed, collapseSidebar] = useState(false)
@@ -34,8 +33,11 @@ const AuthenticatedSidebar = () => {
             <Icon type="container" />
             <span>Information</span>
           </Menu.Item>
+          <Menu.Item key="/projects">
+            <Icon type="project" />
+            <span>Projects</span>
+          </Menu.Item>
         </Menu>
-        <ProjectsMenu />
       </div>
     </Sider >
   )
