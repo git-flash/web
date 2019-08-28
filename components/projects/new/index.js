@@ -96,9 +96,9 @@ class ProjectsNew extends Component {
                   </p>
                 </PageHeader>
               </div>
-              <div className="m-8 bg-white rounded border border-solid border-gray-300">
-                <Tabs defaultActiveKey="details" size="large">
-                  <Tabs.TabPane tab="Details" key="details">
+              <Row>
+                <Col sm={24} md={12}>
+                  <div className="m-8 bg-white rounded border border-solid border-gray-300">
                     <Card bordered={false}>
                       <Form layout="vertical" onSubmit={this.handleSubmit}>
                         <Form.Item label="Name">
@@ -115,156 +115,35 @@ class ProjectsNew extends Component {
                         </Form.Item>
                       </Form>
                     </Card>
-                  </Tabs.TabPane>
-                  <Tabs.TabPane tab="Authentication" key="authentication">
-                    <Card bordered={false}>
-                      <Form layout="vertical" onSubmit={this.handleSubmit}>
-                        <Row>
-                          <Col sm={24} md={24}>
-                            <Form.Item label="Login URL">
-                              {getFieldDecorator('login_url', {
-                                rules: [
-                                  {
-                                    message: 'Please enter login URL!',
-                                  },
-                                ],
-                              })(
-                                <Input
-                                  placeholder="Please enter login URL"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Row gutter={48}>
-                          <Col sm={24} md={12}>
-                            <Form.Item label="Username or Email Address field selector">
-                              {getFieldDecorator(
-                                'username_or_email_address_field_selector',
-                                {
-                                  rules: [
-                                    {
-                                      message:
-                                        'Please enter Username or Email Address field selector!',
-                                    },
-                                  ],
-                                }
-                              )(
-                                <Input
-                                  placeholder="Please enter Username or Email Address field selector"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col sm={24} md={12}>
-                            <Form.Item label="Username or Email Address field value">
-                              {getFieldDecorator(
-                                'username_or_email_address_field_value',
-                                {
-                                  rules: [
-                                    {
-                                      message:
-                                        'Please enter Username or Email Address field value!',
-                                    },
-                                  ],
-                                }
-                              )(
-                                <Input
-                                  placeholder="Please enter Username or Email Address field value"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Row gutter={48}>
-                          <Col sm={24} md={12}>
-                            <Form.Item label="Password field selector">
-                              {getFieldDecorator('password_field_selector', {
-                                rules: [
-                                  {
-                                    message:
-                                      'Please enter Password field selector!',
-                                  },
-                                ],
-                              })(
-                                <Input
-                                  placeholder="Please enter Username or Email Address field selector"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col sm={24} md={12}>
-                            <Form.Item label="Password field value">
-                              {getFieldDecorator('password_field_value', {
-                                rules: [
-                                  {
-                                    message:
-                                      'Please enter Password field value!',
-                                  },
-                                ],
-                              })(
-                                <Input
-                                  placeholder="Please enter Password field value"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                        <Row gutter={48}>
-                          <Col sm={12} md={12}>
-                            <Form.Item label="Submit Button selector">
-                              {getFieldDecorator('submit_button_selector', {
-                                rules: [
-                                  {
-                                    message:
-                                      'Please enter Submit Button selector!',
-                                  },
-                                ],
-                              })(
-                                <Input
-                                  placeholder="Please enter Submit Button selector"
-                                  size="large"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                      </Form>
-                    </Card>
-                  </Tabs.TabPane>
-                </Tabs>
-              </div>
-              <div className="m-8">
-                <div className="flex justify-end">
-                  <div className="mr-4">
-                    <Link href={`/projects`} as={`/projects`}>
+                  </div>
+                  <div className="m-8">
+                    <div className="flex justify-end">
+                      <div className="mr-4">
+                        <Link href={`/projects`} as={`/projects`}>
+                          <Button
+                            loading={loading}
+                            size="large"
+                            icon="close-circle"
+                            type="danger"
+                          >
+                            Cancel
+                          </Button>
+                        </Link>
+                      </div>
                       <Button
+                        type="primary"
+                        htmlType="submit"
+                        onClick={this.handleSubmit}
                         loading={loading}
                         size="large"
-                        icon="close-circle"
-                        type="danger"
+                        icon="check-circle"
                       >
-                        Cancel
+                        Save
                       </Button>
-                    </Link>
+                    </div>
                   </div>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    onClick={this.handleSubmit}
-                    loading={loading}
-                    size="large"
-                    icon="check-circle"
-                  >
-                    Save
-                  </Button>
-                </div>
-              </div>
+                </Col>
+              </Row>
             </Fragment>
           )
         }}
