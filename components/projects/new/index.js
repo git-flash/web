@@ -86,21 +86,15 @@ class ProjectsNew extends Component {
 
           return (
             <Fragment>
-              <div className="border border-solid border-gray-300">
+              <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
                 <PageHeader
                   onBack={() => Router.push('/projects')}
-                  title={
-                    <h2 className="text-3xl m-2 text-gray-700">
-                      Create new Project
-                    </h2>
-                  }
-                  subTitle={
-                    <p className="text-sm mb-0 text-gray-700">
-                      You can add a new project by providing the necessary
-                      details
-                    </p>
-                  }
-                />
+                  title="Create new Project"
+                >
+                  <p className="text-gray-600">
+                    You can add a new project by providing the necessary details
+                  </p>
+                </PageHeader>
               </div>
               <div className="m-8 bg-white rounded border border-solid border-gray-300">
                 <Tabs defaultActiveKey="details" size="large">

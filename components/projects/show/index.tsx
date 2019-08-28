@@ -199,10 +199,10 @@ const ProjectsShow = (props: any) => {
 
   return (
     <>
-      <div className="border border-solid border-gray-300">
+      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
           onBack={() => Router.push('/projects')}
-          title={<h2 className="text-3xl m-2 text-gray-700">{name}</h2>}
+          title={name}
           extra={
             <div className="m-2">
               <AddLinkModal projectId={id} />
@@ -216,7 +216,11 @@ const ProjectsShow = (props: any) => {
               </Link>
             </div>
           }
-        />
+        >
+          <p className="text-gray-600">
+            You can edit {name} by providing the necessary details
+          </p>
+        </PageHeader>
       </div>
       <div className="m-8 bg-white rounded">
         <Table

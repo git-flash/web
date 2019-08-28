@@ -222,12 +222,10 @@ const ProjectsIndex = () => {
 
   return (
     <Fragment>
-      <div className="border border-solid border-gray-300">
+      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
           onBack={() => Router.push('/projects')}
-          title={
-            <h2 className="text-3xl m-2 text-gray-700">Projects</h2>
-          }
+          title="Projects"
           extra={
             <div className="m-2">
               <Link href={`/projects/new`} as={`/projects/new`}>
@@ -237,7 +235,9 @@ const ProjectsIndex = () => {
               </Link>
             </div>
           }
-        />
+        >
+          <p className="text-gray-600">A list of all your projects</p>
+        </PageHeader>
       </div>
       <div className="m-8 bg-white rounded">
         <Table
