@@ -23,7 +23,7 @@ const fetchProjectSubscription = gql`
       urls {
         id
         link
-        audits(limit: 1) {
+        audits(limit: 1, order_by: {fetch_time: desc}) {
           id
           created_at
           categories_accessibility_score
