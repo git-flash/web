@@ -21,22 +21,22 @@ app
       server.use(compression())
     }
 
-    server.get('/projects', (req: any, res: any) => {
-      app.render(req, res, '/projects')
+    server.get('/sites', (req: any, res: any) => {
+      app.render(req, res, '/sites')
     })
 
-    server.get('/projects/new', (req: any, res: any) => {
-      app.render(req, res, '/projects/new')
+    server.get('/sites/new', (req: any, res: any) => {
+      app.render(req, res, '/sites/new')
     })
 
-    server.get('/projects/:id/edit', (req: any, res: any) => {
-      app.render(req, res, '/projects/edit', {
+    server.get('/sites/:id/edit', (req: any, res: any) => {
+      app.render(req, res, '/sites/edit', {
         id: req.params.id,
       })
     })
 
-    server.get('/projects/:id', (req: any, res: any) => {
-      app.render(req, res, '/projects/show', {
+    server.get('/sites/:id', (req: any, res: any) => {
+      app.render(req, res, '/sites/show', {
         id: req.params.id,
       })
     })

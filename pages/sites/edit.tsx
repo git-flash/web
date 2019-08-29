@@ -4,21 +4,21 @@ import { withRouter } from 'next/router'
 
 import withApollo from '../../lib/with-apollo'
 import withLayout from '../../lib/with-layout'
-import Project from '../../components/projects/edit'
+import Site from '../../components/sites/edit'
 
 type Props = {
   router: { query: { id: string } }
 }
 
-const Edit = (props: Props) => {
+const SitesEditPage = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>Edit project - Perfy</title>
+        <title>Edit site - Perfy</title>
       </Head>
-      <Project id={props.router.query.id} />
+      <Site id={props.router.query.id} />
     </Fragment>
   )
 }
 
-export default withRouter(withApollo(withLayout(Edit)))
+export default withRouter(withApollo(withLayout(SitesEditPage)))

@@ -40,7 +40,7 @@ const fetchProjectSubscription = gql`
   }
 `
 
-const ProjectsShow = (props: any) => {
+const SitesShow = (props: any) => {
   const columns: any = [
     {
       title: () => (
@@ -201,17 +201,17 @@ const ProjectsShow = (props: any) => {
     <>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
-          onBack={() => Router.push('/projects')}
+          onBack={() => Router.push('/sites')}
           title={name}
           extra={
             <div className="m-2">
               <AddLinkModal projectId={id} />
               <Link
-                href={`/projects/edit?id=${id}`}
-                as={`/projects/${id}/edit`}
+                href={`/sites/edit?id=${id}`}
+                as={`/sites/${id}/edit`}
               >
                 <Button type="default" icon="highlight" size="large">
-                  Edit Project
+                  Edit Site
                 </Button>
               </Link>
             </div>
@@ -250,4 +250,4 @@ const ProjectsShow = (props: any) => {
   )
 }
 
-export default withApollo(ProjectsShow)
+export default withApollo(SitesShow)

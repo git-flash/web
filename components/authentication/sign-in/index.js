@@ -36,7 +36,7 @@ const SignIn = props => {
 
             setError('')
 
-            Router.push('/projects')
+            Router.push('/sites')
           } else {
             const data = await response.json()
 

@@ -209,7 +209,7 @@ class LandingPage extends Component {
                     twoToneColor="#2196f3"
                     theme="twoTone"
                   />
-                  Create a project with pages
+                  Create a site with pages
                 </p>
                 <p className="text-base">
                   <Icon

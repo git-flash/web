@@ -37,7 +37,7 @@ const SignUp = props => {
           if ([200, 201].indexOf(response.status) > -1) {
             setError('')
 
-            Router.push('/projects')
+            Router.push('/sites')
           } else {
             const data = await response.json()
 
