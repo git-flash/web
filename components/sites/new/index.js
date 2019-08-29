@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import find from 'lodash/find'
+import findIndex from 'lodash/findIndex'
+import { graphql, withApollo, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { graphql, withApollo, Query } from 'react-apollo'
 import {
   Form,
   Button,
@@ -17,24 +19,7 @@ import Link from 'next/link'
 
 import Loader from '../../common/loader'
 
-const fetchProjectQuery = gql`
-  query($id: uuid!) {
-    project_by_pk(id: $id) {
-      id
-      name
-      login_url
-      username_or_email_address_field_selector
-      username_or_email_address_field_value
-      password_field_selector
-      password_field_value
-      submit_button_selector
-      users {
-        id
-      }
-    }
-  }
-`
-const updateProjectMutation = gql`
+const createProjectMutation = gql`
   mutation(
     $name: String
     $login_url: String
@@ -43,11 +28,10 @@ const updateProjectMutation = gql`
     $password_field_selector: String
     $password_field_value: String
     $submit_button_selector: String
-    $id: uuid!
+    $user_id: uuid
   ) {
-    update_project(
-      where: { id: { _eq: $id } }
-      _set: {
+    insert_project(
+      objects: {
         name: $name
         login_url: $login_url
         username_or_email_address_field_selector: $username_or_email_address_field_selector
@@ -55,30 +39,23 @@ const updateProjectMutation = gql`
         password_field_selector: $password_field_selector
         password_field_value: $password_field_value
         submit_button_selector: $submit_button_selector
+        users: { data: { user_id: $user_id } }
       }
     ) {
       returning {
         id
-        name
-        login_url
-        username_or_email_address_field_selector
-        username_or_email_address_field_value
-        password_field_selector
-        password_field_value
-        submit_button_selector
       }
     }
   }
 `
 
-class ProjectsEdit extends Component {
+class SitesNew extends Component {
   handleSubmit = () => {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         await this.props.client.mutate({
-          mutation: updateProjectMutation,
+          mutation: createProjectMutation,
           variables: {
-            id: this.props.id,
             name: values.name,
             login_url: values.login_url,
             username_or_email_address_field_selector:
@@ -88,14 +65,11 @@ class ProjectsEdit extends Component {
             password_field_selector: values.password_field_selector,
             password_field_value: values.password_field_value,
             submit_button_selector: values.submit_button_selector,
-            cookies: values.cookies,
+            user_id: this.props.userId,
           },
         })
 
-        Router.push(
-          `/projects/show?id=${this.props.id}`,
-          `/projects/${this.props.id}`
-        )
+        Router.push('/sites')
       }
     })
   }
@@ -104,36 +78,21 @@ class ProjectsEdit extends Component {
     const { getFieldDecorator } = this.props.form
 
     return (
-      <Query
-        query={fetchProjectQuery}
-        variables={{ id: this.props.id }}
-        fetchPolicy="network-only"
-      >
-        {({ data, error, loading }) => {
+      <Mutation mutation={createProjectMutation}>
+        {({ loading, error }) => {
           if (loading) return <Loader />
 
           if (error) return <p>Error: {error.message}</p>
-
-          const {
-            name,
-            login_url,
-            username_or_email_address_field_selector,
-            username_or_email_address_field_value,
-            password_field_selector,
-            password_field_value,
-            submit_button_selector,
-            cookies,
-          } = data.project_by_pk
 
           return (
             <Fragment>
               <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
                 <PageHeader
-                  onBack={() => Router.push('/projects')}
-                  title={`Edit ${name}`}
+                  onBack={() => Router.push('/sites')}
+                  title="Create New Site"
                 >
                   <p className="text-gray-600 mb-0">
-                    You can edit {name} by providing the necessary details
+                    You can add a new site by providing the necessary details
                   </p>
                 </PageHeader>
               </div>
@@ -147,7 +106,6 @@ class ProjectsEdit extends Component {
                             rules: [
                               { required: true, message: 'Please enter name!' },
                             ],
-                            initialValue: name,
                           })(
                             <Input
                               placeholder="Please enter name"
@@ -161,7 +119,7 @@ class ProjectsEdit extends Component {
                   <div className="m-8">
                     <div className="flex justify-end">
                       <div className="mr-4">
-                        <Link href={`/projects`} as={`/projects`}>
+                        <Link href={`/sites`} as={`/sites`}>
                           <Button
                             loading={loading}
                             size="large"
@@ -189,9 +147,9 @@ class ProjectsEdit extends Component {
             </Fragment>
           )
         }}
-      </Query>
+      </Mutation>
     )
   }
 }
 
-export default withApollo(Form.create()(ProjectsEdit))
+export default withApollo(Form.create()(SitesNew))

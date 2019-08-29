@@ -33,9 +33,9 @@ const AuthenticatedSidebar = () => {
             <Icon type="container" />
             <span>Information</span>
           </Menu.Item>
-          <Menu.Item key="/projects">
+          <Menu.Item key="/sites">
             <Icon type="project" />
-            <span>Projects</span>
+            <span>Sites</span>
           </Menu.Item>
         </Menu>
       </div>

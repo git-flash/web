@@ -4,17 +4,17 @@ import { withRouter } from 'next/router'
 
 import withApollo from '../../lib/with-apollo'
 import withLayout from '../../lib/with-layout'
-import Project from '../../components/projects/show'
+import Site from '../../components/sites/show'
 
-const Show = props => {
+const SitesShowPage = props => {
   return (
     <Fragment>
       <Head>
-        <title>Project Details - Perfy</title>
+        <title>Site Details - Perfy</title>
       </Head>
-      <Project id={props.router.query.id} />
+      <Site id={props.router.query.id} />
     </Fragment>
   )
 }
 
-export default withRouter(withApollo(withLayout(Show)))
+export default withRouter(withApollo(withLayout(SitesShowPage)))

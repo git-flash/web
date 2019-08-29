@@ -35,7 +35,7 @@ const fetchProjectsSubscription = gql`
   }
 `
 
-const ProjectsIndex = () => {
+const SitesIndex = () => {
   const columns: any = [
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Name</span>,
@@ -46,8 +46,8 @@ const ProjectsIndex = () => {
       render: (_: string, record: { name: string; id: number }) => (
         <Fragment>
           <Link
-            href={`/projects/show?id=${record.id}`}
-            as={`/projects/${record.id}`}
+            href={`/sites/show?id=${record.id}`}
+            as={`/sites/${record.id}`}
           >
             <a className="font-base w-full flex">{record.name}</a>
           </Link>
@@ -194,19 +194,19 @@ const ProjectsIndex = () => {
     <Fragment>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
-          onBack={() => Router.push('/projects')}
-          title="Projects"
+          onBack={() => Router.push('/sites')}
+          title="Sites"
           extra={
             <div className="m-2">
-              <Link href={`/projects/new`} as={`/projects/new`}>
+              <Link href={`/sites/new`} as={`/sites/new`}>
                 <Button type="primary" icon="plus-circle" size="large">
-                  Create new Project
+                  Create New Site
               </Button>
               </Link>
             </div>
           }
         >
-          <p className="text-gray-600 mb-0">A list of all your projects</p>
+          <p className="text-gray-600 mb-0">A list of all your sites</p>
         </PageHeader>
       </div>
       <div className="p-8">
@@ -228,4 +228,4 @@ const ProjectsIndex = () => {
   )
 }
 
-export default withApollo(ProjectsIndex)
+export default withApollo(SitesIndex)

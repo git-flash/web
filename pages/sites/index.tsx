@@ -3,18 +3,18 @@ import Head from 'next/head'
 
 import withApollo from '../../lib/with-apollo'
 import withLayout from '../../lib/with-layout'
-import Projects from '../../components/projects/base'
+import Sites from '../../components/sites/base'
 
-const Index = () => {
+const SitesIndexPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>All Projects - Perfy</title>
+        <title>All Sites - Perfy</title>
       </Head>
-      <Projects />
+      <Sites />
     </Fragment>
   )
 
 }
 
-export default withApollo(withLayout(Index))
+export default withApollo(withLayout(SitesIndexPage))
