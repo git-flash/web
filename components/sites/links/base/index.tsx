@@ -135,7 +135,7 @@ const LinkDetails = (props: any) => {
     <>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
-          onBack={() => Router.push(`/sites/${props.siteId}`)}
+          onBack={() => Router.push(`/sites/show?id=${props.siteId}`, `/sites/${props.siteId}`)}
           title={`Audits for ${url_by_pk.link}`}
         >
           <p className="text-xs text-gray-500 font-hairline">

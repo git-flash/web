@@ -3,7 +3,6 @@ import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Button, Table, PageHeader } from 'antd'
 import Link from 'next/link'
-import Router from 'next/router'
 
 import Loader from '../../common/loader'
 import calculateProgress from "../../../lib/calculate-progress"
@@ -204,7 +203,6 @@ const SitesIndex = () => {
     <Fragment>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
-          onBack={() => Router.push('/sites')}
           title="Sites"
           extra={
             <div className="m-2">

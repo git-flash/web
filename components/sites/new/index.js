@@ -72,7 +72,7 @@ const SitesNew = props => {
 
         props.router.push(
           `/sites/show?id=${res.data.insert_project.returning[0].id}`,
-          `/sites/show${res.data.insert_project.returning[0].id}`
+          `/sites/${res.data.insert_project.returning[0].id}`
         )
       }
     })
