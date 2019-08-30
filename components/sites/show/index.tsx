@@ -10,6 +10,7 @@ import Router from 'next/router'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
+import calculateProgress from "../../../lib/calculate-progress"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -90,7 +91,7 @@ const SitesShow = (props: any) => {
             categories_performance_score: number
           }]
         }
-      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_performance_score),
+      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_performance_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
@@ -105,7 +106,7 @@ const SitesShow = (props: any) => {
             categories_accessibility_score: number
           }]
         }
-      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_accessibility_score),
+      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_accessibility_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
@@ -120,7 +121,7 @@ const SitesShow = (props: any) => {
             categories_seo_score: number
           }]
         }
-      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_seo_score),
+      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_seo_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
@@ -135,7 +136,7 @@ const SitesShow = (props: any) => {
             categories_best_practices_score: number
           }]
         }
-      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_best_practices_score),
+      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_best_practices_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
@@ -149,11 +150,11 @@ const SitesShow = (props: any) => {
             categories_seo_score: number
           }]
         }
-      ) => calculateProgress(record, !!record.audits.length && record.audits[0].categories_seo_score),
+      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_seo_score),
     },
   ]
 
-  const calculateProgress = (record: any, scoreInFloat: number) => {
+  const calculatePerformanceScore = (record: any, scoreInFloat: number) => {
     if (!record.audits.length) {
       return (
         <Progress
@@ -167,30 +168,7 @@ const SitesShow = (props: any) => {
       )
     }
 
-    const score = Math.round(scoreInFloat * 100)
-
-    if (score <= 49) {
-      return (
-        <>
-          <span className="text-red-700 text-sm">{score}</span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
-      )
-    } else if (score <= 89) {
-      return (
-        <>
-          <span className="text-blue-700 text-sm">{score}</span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
-      )
-    } else {
-      return (
-        <>
-          <span className="text-green-700 text-sm">{score}</span>
-          <span className="text-gray-500 text-xs"> /100</span>
-        </>
-      )
-    }
+    return calculateProgress(scoreInFloat)
   }
 
   const { data, loading, error } = useSubscription(fetchProjectSubscription, {

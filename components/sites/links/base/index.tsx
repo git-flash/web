@@ -8,6 +8,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import Loader from '../../../common/loader'
+import calculateProgress from "../../../../lib/calculate-progress"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -80,9 +81,7 @@ const LinkDetails = (props: any) => {
       width: 200,
       render: (_: string, record: {
         categories_pwa_score: number
-      }) => (
-          <span className="text-sm">{record.categories_pwa_score}</span>
-        ),
+      }) => calculateProgress(record.categories_pwa_score)
     },
     {
       title: (
@@ -95,11 +94,7 @@ const LinkDetails = (props: any) => {
       width: 200,
       render: (_: string, record: {
         categories_best_practices_score: number
-      }) => (
-          <span className="text-sm">
-            {record.categories_best_practices_score}
-          </span>
-        ),
+      }) => calculateProgress(record.categories_best_practices_score)
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO Score</span>,
@@ -108,9 +103,7 @@ const LinkDetails = (props: any) => {
       width: 200,
       render: (_: string, record: {
         categories_seo_score: number
-      }) => (
-          <span className="text-sm">{record.categories_seo_score}</span>
-        ),
+      }) => calculateProgress(record.categories_seo_score)
     },
     {
       title: (
@@ -123,9 +116,7 @@ const LinkDetails = (props: any) => {
       width: 200,
       render: (_: string, record: {
         categories_performance_score: number
-      }) => (
-          <span className="text-sm">{record.categories_performance_score}</span>
-        ),
+      }) => calculateProgress(record.categories_performance_score)
     },
   ]
 
