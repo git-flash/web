@@ -19,7 +19,7 @@ const fetchProjectsSubscription = gql`
         }
         nodes {
           id
-          audits(limit: 1) {
+          audits(limit: 1, order_by: {fetch_time: desc}) {
             categories_accessibility_score
             categories_best_practices_score
             categories_performance_score
@@ -44,14 +44,12 @@ const SitesIndex = () => {
       width: 300,
       fixed: 'left',
       render: (_: string, record: { name: string; id: number }) => (
-        <Fragment>
-          <Link
-            href={`/sites/show?id=${record.id}`}
-            as={`/sites/${record.id}`}
-          >
-            <a className="font-base w-full flex">{record.name}</a>
-          </Link>
-        </Fragment>
+        <Link
+          href={`/sites/show?id=${record.id}`}
+          as={`/sites/${record.id}`}
+        >
+          <a className="font-base w-full flex">{record.name}</a>
+        </Link>
       ),
     },
     {

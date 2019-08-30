@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Button, Progress, PageHeader, Icon, Empty } from 'antd'
+import { Table, Button, Progress, PageHeader, Icon } from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -10,7 +10,6 @@ import Router from 'next/router'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
-import LinkDetails from './link-details'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -51,6 +50,7 @@ const SitesShow = (props: any) => {
       width: 500,
       fixed: 'left',
       render: (_: string, record: {
+        id: string,
         link: string,
         audits: [{
           link: string,
@@ -58,7 +58,14 @@ const SitesShow = (props: any) => {
         }]
       }) => (
           <>
-            <span className="font-base w-full flex">{record.link}</span>
+            <span className="font-base w-full flex">
+              <Link
+                href={`/sites/links?id=${record.id}&siteId=${props.id}`}
+                as={`/sites/${props.id}/links/${record.id}`}
+              >
+                <a className="font-base w-full flex">{record.link}</a>
+              </Link>
+            </span>
             {!!record.audits.length
               ? <span className="text-xs text-gray-500 mt-1 flex">
                 Last audit was {dayjs(record.audits[0].created_at).fromNow()}
@@ -234,13 +241,6 @@ const SitesShow = (props: any) => {
             pagination={false}
             bordered
             scroll={{ x: 1300, y: 500 }}
-            expandedRowRender={
-              (record: {
-                audits: [{ id: string }]
-              }) => !!record.audits.length
-                  ? <LinkDetails id={record.audits[0].id} />
-                  : <Empty />
-            }
           />
         </div>
 

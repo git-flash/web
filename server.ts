@@ -41,6 +41,13 @@ app
       })
     })
 
+    server.get('/sites/:siteId/links/:id', (req: any, res: any) => {
+      app.render(req, res, '/sites/links', {
+        siteId: req.params.siteId,
+        id: req.params.id,
+      })
+    })
+
     server.get('/authentication', (req: any, res: any) => {
       app.render(req, res, '/authentication')
     })
