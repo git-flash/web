@@ -59,22 +59,22 @@ const SitesShow = (props: any) => {
         }]
       }) => (
           <>
-            <span className="font-base w-full flex">
-              <Link
-                href={`/sites/links?id=${record.id}&siteId=${props.id}`}
-                as={`/sites/${props.id}/links/${record.id}`}
-              >
-                <a className="font-base w-full flex">{record.link}</a>
-              </Link>
-            </span>
-            {!!record.audits.length
-              ? <span className="text-xs mt-1 text-gray-500 font-hairline">
-                Last audit was {dayjs(record.audits[0].created_at).fromNow()}
-              </span>
-              : <span className="text-xs text-gray-500 mt-1 flex">
-                Link will be audited soon
-              </span>
-            }
+            <Link
+              href={`/sites/links?id=${record.id}&siteId=${props.id}`}
+              as={`/sites/${props.id}/links/${record.id}`}
+            >
+              <a className="font-base w-full flex">
+                <div>
+                  <div className="text-sm">{record.link}</div>
+                  <div className="text-xs mt-1 text-gray-500 font-hairline">
+                    {!!record.audits.length
+                      ? `Last audit was ${dayjs(record.audits[0].created_at).fromNow()}`
+                      : "Link will be audited soon"
+                    }
+                  </div>
+                </div>
+              </a>
+            </Link>
           </>
         ),
     },
