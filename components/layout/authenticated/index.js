@@ -9,10 +9,10 @@ import { withAuthentication } from '../../../lib/with-authentication'
 
 const { Content, Sider } = Layout
 
-const AuthenticatedLayout = props => {
+const AuthenticatedLayout = ({ email, children }) => {
   return (
     <Layout>
-      <HeaderComponent />
+      <HeaderComponent email={email} />
       <Layout
         style={{
           flexDirection: 'row',
@@ -20,7 +20,7 @@ const AuthenticatedLayout = props => {
       >
         <SidebarComponent />
         <Layout>
-          <ContentComponent>{props.children}</ContentComponent>
+          <ContentComponent>{children}</ContentComponent>
         </Layout>
       </Layout>
     </Layout>
@@ -29,6 +29,7 @@ const AuthenticatedLayout = props => {
 
 AuthenticatedLayout.propTypes = {
   children: PropTypes.node,
+  email: PropTypes.string,
 }
 
 export default withAuthentication(AuthenticatedLayout)

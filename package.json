@@ -41,6 +41,7 @@
     "react": "^16.9.0",
     "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
+    "react-gravatar": "^2.6.3",
     "subscriptions-transport-ws": "^0.9.16",
     "webpack": "^4.39.3"
   },
