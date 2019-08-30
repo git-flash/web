@@ -67,7 +67,7 @@ const SitesShow = (props: any) => {
               </Link>
             </span>
             {!!record.audits.length
-              ? <span className="text-xs text-gray-500 mt-1 flex">
+              ? <span className="text-xs mt-1 text-gray-500 font-hairline">
                 Last audit was {dayjs(record.audits[0].created_at).fromNow()}
               </span>
               : <span className="text-xs text-gray-500 mt-1 flex">

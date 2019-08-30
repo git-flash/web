@@ -147,7 +147,7 @@ const LinkDetails = (props: any) => {
           onBack={() => Router.push(`/sites/${props.siteId}`)}
           title={`Audits for ${url_by_pk.link}`}
         >
-          <p className="text-gray-600 mb-0">
+          <p className="text-xs text-gray-500 font-hairline">
             {!!url_by_pk.audits.length ?
               `Last audit was ${dayjs(url_by_pk.audits[0].created_at).fromNow()}`
               :
@@ -163,8 +163,8 @@ const LinkDetails = (props: any) => {
             columns={columns}
             dataSource={!!url_by_pk.id ? url_by_pk.audits : []}
             pagination={false}
-            scroll={{ x: 1200 }}
             bordered
+            scroll={{ x: 1200 }}
           />
         </div>
       </div>

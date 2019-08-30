@@ -25,6 +25,7 @@ const fetchProjectsSubscription = gql`
             categories_performance_score
             categories_pwa_score
             categories_seo_score
+            audit_screenshot_thumbnails
           }
         }
       }
@@ -41,16 +42,53 @@ const SitesIndex = () => {
       title: () => <span className='text-xs uppercase text-gray-700'>Name</span>,
       dataIndex: 'name',
       key: 'name',
-      width: 300,
+      width: 350,
       fixed: 'left',
-      render: (_: string, record: { name: string; id: number }) => (
-        <Link
-          href={`/sites/show?id=${record.id}`}
-          as={`/sites/${record.id}`}
-        >
-          <a className="font-base w-full flex">{record.name}</a>
-        </Link>
-      ),
+      render: (_: string, record: {
+        id: number,
+        name: string,
+        urls_aggregate: {
+          nodes: [{
+            audits: [{
+              audit_screenshot_thumbnails: {
+                items: [{
+                  data: string
+                }]
+              }
+            }]
+          }]
+        }
+      }) => {
+        const thumbnails = record.urls_aggregate.nodes.length && record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails.items
+
+        return (
+          <Link
+            href={`/sites/show?id=${record.id}`}
+            as={`/sites/${record.id}`
+            }
+          >
+            <a className="font-base w-full flex">
+              {!!thumbnails
+                ? <div className="flex items-center">
+                  <img
+                    src={thumbnails[thumbnails.length - 1].data}
+                    alt={record.name}
+                    width={20}
+                  />
+                  <div className="ml-4">
+                    <div className="text-sm">{record.name}</div>
+                    <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
+                  </div>
+                </div>
+                : <div className="ml-10">
+                  <div className="text-sm">{record.name}</div>
+                  <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
+                </div>
+              }
+            </a>
+          </Link>
+        )
+      },
     },
     {
       title: () => <span className='text-xs uppercase text-gray-700'>Accessibility</span>,
