@@ -157,16 +157,13 @@ const LinkDetails = (props: any) => {
         </PageHeader>
       </div>
       <div className="p-8">
-        <div
-          className="bg-white rounded mx-auto"
-          style={{ maxWidth: '1200px' }}
-        >
+        <div className="bg-white rounded mx-auto">
           <Table
             rowKey="id"
             columns={columns}
             dataSource={!!url_by_pk.id ? url_by_pk.audits : []}
             pagination={false}
-            scroll={{ x: 1200, y: 500 }}
+            scroll={{ x: 1200 }}
             bordered
           />
         </div>

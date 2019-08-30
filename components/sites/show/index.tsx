@@ -230,17 +230,14 @@ const SitesShow = (props: any) => {
         </PageHeader>
       </div>
       <div className="p-8">
-        <div
-          className="bg-white rounded mx-auto"
-          style={{ maxWidth: "1000px" }}
-        >
+        <div className="bg-white rounded mx-auto">
           <Table
             rowKey="id"
             columns={columns}
             dataSource={urls}
             pagination={false}
             bordered
-            scroll={{ x: 1300, y: 500 }}
+            scroll={{ x: 1300 }}
           />
         </div>
 

@@ -208,17 +208,14 @@ const SitesIndex = () => {
         </PageHeader>
       </div>
       <div className="p-8">
-        <div
-          className="bg-white rounded mx-auto"
-          style={{ maxWidth: "1200px" }}
-        >
+        <div className="bg-white rounded mx-auto">
           <Table
             rowKey="id"
             dataSource={data.project}
             columns={columns}
             pagination={false}
             bordered
-            scroll={{ x: 1200, y: 500 }}
+            scroll={{ x: 1200 }}
           />
         </div>
       </div>
