@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Dropdown, Icon, Avatar } from 'antd'
+import { Layout, Menu, Dropdown, Icon, Avatar, Button } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 import Gravatar from 'react-gravatar'
@@ -47,13 +47,9 @@ const AuthenticatedLayoutHeader = ({ email }) => {
               overlay={
                 <Menu>
                   <Menu.Item>
-                    <a
-                      rel="noopener noreferrer"
-                      href="javascript:"
-                      onClick={handleSignOut}
-                    >
+                    <Button type="primary" onClick={handleSignOut}>
                       Sign Out
-                    </a>
+                    </Button>
                   </Menu.Item>
                 </Menu>
               }
