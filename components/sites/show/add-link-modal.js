@@ -52,11 +52,9 @@ const AddLinkModal = props => {
             <Button
               onClick={() => setVisibility(true)}
               size="large"
-              className="mr-4"
-              icon="plus-circle"
-              type="primary"
+              icon="link"
             >
-              Add new Link
+              Add Links
             </Button>
             <Modal
               title="Add a new link"

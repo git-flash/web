@@ -1,15 +1,17 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Button, Progress, PageHeader, Icon } from 'antd'
+import { Table, Button, Progress, PageHeader, Icon, Avatar, Popover } from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Router from 'next/router'
+import Gravatar from 'react-gravatar'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
+import AddUsersToProjectModal from './add-users-to-project'
 import calculateProgress from "../../../lib/calculate-progress"
 
 dayjs.extend(advancedFormat)
@@ -34,6 +36,12 @@ const fetchProjectSubscription = gql`
           url {
             link
           }
+        }
+      }
+      users {
+        user {
+          id
+          email
         }
       }
     }
@@ -180,7 +188,48 @@ const SitesShow = (props: any) => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { id, name, urls } = data.project_by_pk
+  const { id, name, urls, users } = data.project_by_pk
+  const ButtonGroup = Button.Group;
+
+  const userAvatarsNode = () => {
+    return (
+      <div className="inline-flex mr-4 invisible lg:visible">
+        {users.slice(0, 3).map((data: { user: { id: string, email: string } }, index: number) => {
+          return (
+            <Popover key={index} content={data.user.email}>
+              <div
+                style={{
+                  marginLeft: "-15px"
+                }}>
+                <Gravatar
+                  email={data.user.email}
+                  size={40}
+                  className="rounded-full border-3 border-solid border-white"
+                />
+              </div>
+            </Popover>
+          )
+        })}
+        {users.length > 3 &&
+          <div
+            style={{
+              marginLeft: "-15px"
+            }}
+          >
+            <Avatar
+              size={40}
+              className="rounded-full border-3 border-solid border-white flex items-center"
+              style={{
+                backgroundColor: "#2196f3"
+              }}
+            >
+              {users.length - 2}
+            </Avatar>
+          </div>
+        }
+      </div>
+    )
+  }
 
   return (
     <>
@@ -190,13 +239,21 @@ const SitesShow = (props: any) => {
           title={name}
           extra={
             <div className="m-2">
-              <AddLinkModal projectId={id} />
+              {userAvatarsNode()}
+              <ButtonGroup className="mr-4">
+                <AddUsersToProjectModal
+                  projectId={id}
+                  projectName={name}
+                  projectUsers={users}
+                />
+                <AddLinkModal projectId={id} />
+              </ButtonGroup>
               <Link
                 href={`/sites/edit?id=${id}`}
                 as={`/sites/${id}/edit`}
               >
-                <Button type="default" icon="highlight" size="large">
-                  Edit Site
+                <Button type="primary" icon="highlight" size="large">
+                  Edit Site Details
                 </Button>
               </Link>
             </div>
