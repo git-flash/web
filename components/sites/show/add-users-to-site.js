@@ -18,11 +18,9 @@ const fetchUsersSubscription = gql`
   }
 `
 
-const insertProjectUserMutation = gql`
-  mutation($user_id: uuid!, $project_id: uuid!) {
-    insert_project_user(
-      objects: { user_id: $user_id, project_id: $project_id }
-    ) {
+const insertSiteUserMutation = gql`
+  mutation($user_id: uuid!, $site_id: uuid!) {
+    insert_site_user(objects: { user_id: $user_id, site_id: $site_id }) {
       returning {
         id
       }
@@ -30,7 +28,7 @@ const insertProjectUserMutation = gql`
   }
 `
 
-const AddUsersToProjectModal = props => {
+const AddUsersToSiteModal = props => {
   const [visible, setVisibility] = useState(false)
   const [selectedUsers, setSelectedUsers] = useState([])
   const { getFieldDecorator } = props.form
@@ -49,10 +47,10 @@ const AddUsersToProjectModal = props => {
       if (!err) {
         selectedUsers.map(async (id, index) => {
           const res = await props.client.mutate({
-            mutation: insertProjectUserMutation,
+            mutation: insertSiteUserMutation,
             variables: {
               user_id: id,
-              project_id: props.projectId,
+              site_id: props.siteId,
             },
           })
         })
@@ -63,17 +61,15 @@ const AddUsersToProjectModal = props => {
   }
 
   const modalNode = () => {
-    const projectUserIds = props.projectUsers.map(
-      projectUser => projectUser.user.id
-    )
+    const siteUserIds = props.siteUsers.map(siteUser => siteUser.user.id)
 
-    const usersWhoDoesntBelongToThisProject = data.user.filter(
-      user => !projectUserIds.includes(user.id)
+    const usersWhoDoesntBelongToThisSite = data.user.filter(
+      user => !siteUserIds.includes(user.id)
     )
 
     return (
       <Modal
-        title={`Add Users To ${props.projectName}`}
+        title={`Add Users To ${props.siteName}`}
         onOk={handleSubmit}
         onCancel={() => {
           handleSubmit()
@@ -97,7 +93,7 @@ const AddUsersToProjectModal = props => {
                 size="large"
                 allowClear
               >
-                {usersWhoDoesntBelongToThisProject.map(user => {
+                {usersWhoDoesntBelongToThisSite.map(user => {
                   return (
                     <Option key={user.id} value={user.id}>
                       <Gravatar
@@ -131,10 +127,10 @@ const AddUsersToProjectModal = props => {
   )
 }
 
-AddUsersToProjectModal.propTypes = {
-  projectId: PropTypes.string.isRequired,
-  projectName: PropTypes.string.isRequired,
-  projectUsers: PropTypes.array.isRequired,
+AddUsersToSiteModal.propTypes = {
+  siteId: PropTypes.string.isRequired,
+  siteName: PropTypes.string.isRequired,
+  siteUsers: PropTypes.array.isRequired,
 }
 
-export default withApollo(Form.create()(AddUsersToProjectModal))
+export default withApollo(Form.create()(AddUsersToSiteModal))

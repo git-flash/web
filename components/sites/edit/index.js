@@ -17,9 +17,9 @@ import Link from 'next/link'
 
 import Loader from '../../common/loader'
 
-const fetchProjectQuery = gql`
+const fetchSiteQuery = gql`
   query($id: uuid!) {
-    project_by_pk(id: $id) {
+    site_by_pk(id: $id) {
       id
       name
       login_url
@@ -34,7 +34,7 @@ const fetchProjectQuery = gql`
     }
   }
 `
-const updateProjectMutation = gql`
+const updateSiteMutation = gql`
   mutation(
     $name: String
     $login_url: String
@@ -45,7 +45,7 @@ const updateProjectMutation = gql`
     $submit_button_selector: String
     $id: uuid!
   ) {
-    update_project(
+    update_site(
       where: { id: { _eq: $id } }
       _set: {
         name: $name
@@ -76,7 +76,7 @@ class SitesEdit extends Component {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         await this.props.client.mutate({
-          mutation: updateProjectMutation,
+          mutation: updateSiteMutation,
           variables: {
             id: this.props.id,
             name: values.name,
@@ -105,7 +105,7 @@ class SitesEdit extends Component {
 
     return (
       <Query
-        query={fetchProjectQuery}
+        query={fetchSiteQuery}
         variables={{ id: this.props.id }}
         fetchPolicy="network-only"
       >
@@ -123,7 +123,7 @@ class SitesEdit extends Component {
             password_field_value,
             submit_button_selector,
             cookies,
-          } = data.project_by_pk
+          } = data.site_by_pk
 
           return (
             <Fragment>

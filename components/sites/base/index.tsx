@@ -7,9 +7,9 @@ import Link from 'next/link'
 import Loader from '../../common/loader'
 import calculateProgress from "../../../lib/calculate-progress"
 
-const fetchProjectsSubscription = gql`
+const fetchSitesSubscription = gql`
   subscription {
-    project {
+    site(order_by: {created_at: desc}) {
       id
       name
       login_url
@@ -59,7 +59,7 @@ const SitesIndex = () => {
           }]
         }
       }) => {
-        const thumbnails = record.urls_aggregate.nodes.length && record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails.items
+        const thumbnails = record.urls_aggregate.nodes.length && record.urls_aggregate.nodes[0].audits.length && record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails.items
 
         return (
           <Link
@@ -192,7 +192,7 @@ const SitesIndex = () => {
   ]
 
   const { data, loading, error } = useSubscription(
-    fetchProjectsSubscription
+    fetchSitesSubscription
   );
 
   if (loading) return <Loader />
@@ -221,7 +221,7 @@ const SitesIndex = () => {
         <div className="bg-white rounded mx-auto">
           <Table
             rowKey="id"
-            dataSource={data.project}
+            dataSource={data.site}
             columns={columns}
             pagination={false}
             bordered

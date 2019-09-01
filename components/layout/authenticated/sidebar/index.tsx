@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from 'antd'
 import { Menu, Icon } from 'antd'
 import Router from 'next/router'
@@ -7,6 +7,11 @@ import Router from 'next/router'
 const AuthenticatedSidebar = () => {
   const [isSidebarCollapsed, collapseSidebar] = useState(false)
   const { Sider } = Layout
+
+  useEffect(() => {
+    window.innerWidth < 1024 && collapseSidebar(true)
+  });
+
 
   return (
     <Sider
@@ -25,6 +30,10 @@ const AuthenticatedSidebar = () => {
             <Icon type="appstore" />
             <span>Dashboard</span>
           </Menu.Item>
+          <Menu.Item key="/sites">
+            <Icon type="project" />
+            <span>Sites</span>
+          </Menu.Item>
           <Menu.Item key="/users">
             <Icon type="user" />
             <span>Users</span>
@@ -32,10 +41,6 @@ const AuthenticatedSidebar = () => {
           <Menu.Item key="/information">
             <Icon type="container" />
             <span>Information</span>
-          </Menu.Item>
-          <Menu.Item key="/sites">
-            <Icon type="project" />
-            <span>Sites</span>
           </Menu.Item>
         </Menu>
       </div>

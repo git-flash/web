@@ -5,8 +5,8 @@ import { graphql, withApollo, Mutation } from 'react-apollo'
 import Link from 'next/link'
 
 const createLinkMutation = gql`
-  mutation($link: String, $project_id: uuid) {
-    insert_url(objects: { link: $link, project_id: $project_id }) {
+  mutation($link: String, $site_id: uuid) {
+    insert_url(objects: { link: $link, site_id: $site_id }) {
       returning {
         link
         id
@@ -22,7 +22,7 @@ const handleSubmit = props => {
         mutation: createLinkMutation,
         variables: {
           link: values.link,
-          project_id: props.projectId,
+          site_id: props.siteId,
         },
       })
 

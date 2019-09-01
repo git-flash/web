@@ -11,15 +11,15 @@ import Gravatar from 'react-gravatar'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
-import AddUsersToProjectModal from './add-users-to-project'
+import AddUsersToSiteModal from './add-users-to-site'
 import calculateProgress from "../../../lib/calculate-progress"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
 
-const fetchProjectSubscription = gql`
+const fetchSiteSubscription = gql`
   subscription($id: uuid!) {
-    project_by_pk(id: $id) {
+    site_by_pk(id: $id) {
       id
       name
       urls {
@@ -179,7 +179,7 @@ const SitesShow = (props: any) => {
     return calculateProgress(scoreInFloat)
   }
 
-  const { data, loading, error } = useSubscription(fetchProjectSubscription, {
+  const { data, loading, error } = useSubscription(fetchSiteSubscription, {
     variables: { id: props.id },
     fetchPolicy: 'network-only',
   })
@@ -188,7 +188,7 @@ const SitesShow = (props: any) => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { id, name, urls, users } = data.project_by_pk
+  const { id, name, urls, users } = data.site_by_pk
   const ButtonGroup = Button.Group;
 
   const userAvatarsNode = () => {
@@ -241,12 +241,12 @@ const SitesShow = (props: any) => {
             <div className="m-2">
               {userAvatarsNode()}
               <ButtonGroup className="mr-4">
-                <AddUsersToProjectModal
-                  projectId={id}
-                  projectName={name}
-                  projectUsers={users}
+                <AddUsersToSiteModal
+                  siteId={id}
+                  siteName={name}
+                  siteUsers={users}
                 />
-                <AddLinkModal projectId={id} />
+                <AddLinkModal siteId={id} />
               </ButtonGroup>
               <Link
                 href={`/sites/edit?id=${id}`}

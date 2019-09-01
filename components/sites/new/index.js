@@ -20,7 +20,7 @@ import { withRouter } from 'next/router'
 
 import Loader from '../../common/loader'
 
-const createProjectMutation = gql`
+const createSiteMutation = gql`
   mutation(
     $name: String
     $login_url: String
@@ -31,7 +31,7 @@ const createProjectMutation = gql`
     $submit_button_selector: String
     $user_id: uuid
   ) {
-    insert_project(
+    insert_site(
       objects: {
         name: $name
         login_url: $login_url
@@ -55,7 +55,7 @@ const SitesNew = props => {
     props.form.validateFields(async (err, values) => {
       if (!err) {
         const res = await props.client.mutate({
-          mutation: createProjectMutation,
+          mutation: createSiteMutation,
           variables: {
             name: values.name,
             login_url: values.login_url,
@@ -71,8 +71,8 @@ const SitesNew = props => {
         })
 
         props.router.push(
-          `/sites/show?id=${res.data.insert_project.returning[0].id}`,
-          `/sites/${res.data.insert_project.returning[0].id}`
+          `/sites/show?id=${res.data.insert_site.returning[0].id}`,
+          `/sites/${res.data.insert_site.returning[0].id}`
         )
       }
     })
@@ -80,7 +80,7 @@ const SitesNew = props => {
 
   const { getFieldDecorator } = props.form
 
-  const { data, loading, error } = useMutation(createProjectMutation)
+  const { data, loading, error } = useMutation(createSiteMutation)
 
   if (loading) return <Loader />
 
