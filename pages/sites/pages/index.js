@@ -4,17 +4,17 @@ import { withRouter } from 'next/router'
 
 import withApollo from '../../../lib/with-apollo'
 import withLayout from '../../../lib/with-layout'
-import Links from '../../../components/sites/links/base'
+import Pages from '../../../components/sites/pages/base'
 
-const LinksIndexPage = props => {
+const PagesIndexPage = props => {
   return (
     <Fragment>
       <Head>
-        <title>All Links - Perfy</title>
+        <title>All Pages - Perfy</title>
       </Head>
-      <Links id={props.router.query.id} siteId={props.router.query.siteId} />
+      <Pages id={props.router.query.id} siteId={props.router.query.siteId} />
     </Fragment>
   )
 }
 
-export default withRouter(withApollo(withLayout(LinksIndexPage)))
+export default withRouter(withApollo(withLayout(PagesIndexPage)))

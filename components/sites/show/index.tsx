@@ -31,7 +31,7 @@ const fetchSiteSubscription = gql`
     site_by_pk(id: $id) {
       id
       name
-      urls {
+      pages {
         id
         link
         audits(limit: 1, order_by: { fetch_time: desc }) {
@@ -42,7 +42,7 @@ const fetchSiteSubscription = gql`
           categories_performance_score
           categories_pwa_score
           categories_seo_score
-          url {
+          page {
             link
           }
         }
@@ -57,9 +57,9 @@ const fetchSiteSubscription = gql`
   }
 `
 
-const deleteUrlMutation = gql`
+const deletePageMutation = gql`
   mutation($id: uuid!) {
-    delete_url(where: { id: { _eq: $id } }) {
+    delete_page(where: { id: { _eq: $id } }) {
       returning {
         id
       }
@@ -73,7 +73,7 @@ const SitesShow = (props: any) => {
   const columns: any = [
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Link</span>
+        <span className="text-xs uppercase text-gray-700">Page</span>
       ),
       dataIndex: 'id',
       key: 'id',
@@ -93,8 +93,8 @@ const SitesShow = (props: any) => {
         }
       ) => (
         <Link
-          href={`/sites/links?id=${record.id}&siteId=${props.id}`}
-          as={`/sites/${props.id}/links/${record.id}`}
+          href={`/sites/pages?id=${record.id}&siteId=${props.id}`}
+          as={`/sites/${props.id}/pages/${record.id}`}
         >
           <a className="font-base w-full flex-col">
             <div className="text-sm">
@@ -233,8 +233,8 @@ const SitesShow = (props: any) => {
         <div>
           <ButtonGroup>
             <Link
-              href={`/sites/links?id=${record.id}&siteId=${props.id}`}
-              as={`/sites/${props.id}/links/${record.id}`}
+              href={`/sites/pages?id=${record.id}&siteId=${props.id}`}
+              as={`/sites/${props.id}/pages/${record.id}`}
             >
               <Button>
                 <Icon type="highlight" />
@@ -243,7 +243,7 @@ const SitesShow = (props: any) => {
             <Button
               onClick={() => {
                 props.client.mutate({
-                  mutation: deleteUrlMutation,
+                  mutation: deletePageMutation,
                   variables: {
                     id: record.id,
                   },
@@ -284,7 +284,7 @@ const SitesShow = (props: any) => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { id, name, urls, users } = data.site_by_pk
+  const { id, name, pages, users } = data.site_by_pk
 
   const userAvatarsNode = () => {
     return (
@@ -366,7 +366,7 @@ const SitesShow = (props: any) => {
           <Table
             rowKey="id"
             columns={columns}
-            dataSource={urls}
+            dataSource={pages}
             pagination={false}
             bordered
             scroll={{ x: 1200 }}

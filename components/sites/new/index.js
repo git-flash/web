@@ -110,31 +110,26 @@ const SitesNew = props => {
                 </Form.Item>
               </Form>
             </Card>
-          </div>
-          <div className="m-8">
-            <div className="flex justify-end">
-              <div className="mr-4">
-                <Link href={`/sites`} as={`/sites`}>
-                  <Button
-                    loading={loading}
-                    size="large"
-                    icon="close-circle"
-                    type="danger"
-                  >
-                    Cancel
-                  </Button>
-                </Link>
+            <div className="py-4 px-6 bg-gray-100">
+              <div className="flex justify-end">
+                <div className="mr-4">
+                  <Link href={`/sites`} as={`/sites`}>
+                    <Button loading={loading} size="large" icon="close-circle">
+                      Cancel
+                    </Button>
+                  </Link>
+                </div>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={handleSubmit}
+                  loading={loading}
+                  size="large"
+                  icon="check-circle"
+                >
+                  Save
+                </Button>
               </div>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={handleSubmit}
-                loading={loading}
-                size="large"
-                icon="check-circle"
-              >
-                Save
-              </Button>
             </div>
           </div>
         </Col>

@@ -13,9 +13,9 @@ import calculateProgress from '../../../../lib/calculate-progress'
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
 
-const fetchLinksSubscription = gql`
+const fetchPagesSubscription = gql`
   subscription($id: uuid!) {
-    url_by_pk(id: $id) {
+    page_by_pk(id: $id) {
       id
       link
       audits(limit: 1, order_by: { fetch_time: desc }) {
@@ -32,7 +32,7 @@ const fetchLinksSubscription = gql`
   }
 `
 
-const LinkDetails = (props: any) => {
+const PageDetails = (props: any) => {
   const columns: any = [
     {
       title: (
@@ -138,7 +138,7 @@ const LinkDetails = (props: any) => {
     },
   ]
 
-  const { data, loading, error } = useSubscription(fetchLinksSubscription, {
+  const { data, loading, error } = useSubscription(fetchPagesSubscription, {
     variables: { id: props.id },
     fetchPolicy: 'network-only',
   })
@@ -147,7 +147,7 @@ const LinkDetails = (props: any) => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { url_by_pk } = data
+  const { page_by_pk } = data
 
   return (
     <>
@@ -159,14 +159,14 @@ const LinkDetails = (props: any) => {
               `/sites/${props.siteId}`
             )
           }
-          title={`Audits for ${url_by_pk.link}`}
+          title={`Audits for ${page_by_pk.link}`}
         >
           <p className="text-xs text-gray-500 font-hairline mb-0">
-            {!!url_by_pk.audits.length
+            {!!page_by_pk.audits.length
               ? `Last audit was ${dayjs(
-                  url_by_pk.audits[0].created_at
+                  page_by_pk.audits[0].created_at
                 ).fromNow()}`
-              : 'Link will be audited soon'}
+              : 'Page will be audited soon'}
           </p>
         </PageHeader>
       </div>
@@ -175,7 +175,7 @@ const LinkDetails = (props: any) => {
           <Table
             rowKey="id"
             columns={columns}
-            dataSource={!!url_by_pk.id ? url_by_pk.audits : []}
+            dataSource={!!page_by_pk.id ? page_by_pk.audits : []}
             pagination={false}
             bordered
             scroll={{ x: 1200 }}
@@ -186,4 +186,4 @@ const LinkDetails = (props: any) => {
   )
 }
 
-export default withApollo(LinkDetails)
+export default withApollo(PageDetails)

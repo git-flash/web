@@ -4,11 +4,11 @@ import gql from 'graphql-tag'
 import { graphql, withApollo, Mutation } from 'react-apollo'
 import Link from 'next/link'
 
-const createLinkMutation = gql`
-  mutation($link: String, $site_id: uuid) {
-    insert_page(objects: { link: $link, site_id: $site_id }) {
+const createPageMutation = gql`
+  mutation($page: String, $site_id: uuid) {
+    insert_page(objects: { page: $page, site_id: $site_id }) {
       returning {
-        link
+        page
         id
       }
     }
@@ -19,9 +19,9 @@ const handleSubmit = props => {
   props.form.validateFields(async (err, values) => {
     if (!err) {
       await props.client.mutate({
-        mutation: createLinkMutation,
+        mutation: createPageMutation,
         variables: {
-          link: values.link,
+          page: values.page,
           site_id: props.siteId,
         },
       })
@@ -31,12 +31,12 @@ const handleSubmit = props => {
   })
 }
 
-const AddLinkModal = props => {
+const AddPagesToSite = props => {
   const [visible, setVisibility] = useState(false)
   const { getFieldDecorator } = props.form
 
   return (
-    <Mutation mutation={createLinkMutation}>
+    <Mutation mutation={createPageMutation}>
       {({ loading, error }) => {
         if (loading)
           return (
@@ -54,10 +54,10 @@ const AddLinkModal = props => {
               size="large"
               icon="link"
             >
-              Add Links
+              Add Pages
             </Button>
             <Modal
-              title="Add a new link"
+              title="Add a new page"
               centered
               visible={visible}
               onOk={() => {
@@ -67,10 +67,10 @@ const AddLinkModal = props => {
               onCancel={() => setVisibility(false)}
             >
               <Form layout="vertical" onSubmit={() => handleSubmit(props)}>
-                <Form.Item label="Link">
-                  {getFieldDecorator('link', {
-                    rules: [{ required: true, message: 'Please enter link!' }],
-                  })(<Input placeholder="Please enter link" size="large" />)}
+                <Form.Item label="Page">
+                  {getFieldDecorator('page', {
+                    rules: [{ required: true, message: 'Please enter page!' }],
+                  })(<Input placeholder="Please enter page" size="large" />)}
                 </Form.Item>
               </Form>
             </Modal>
@@ -81,4 +81,4 @@ const AddLinkModal = props => {
   )
 }
 
-export default withApollo(Form.create()(AddLinkModal))
+export default withApollo(Form.create()(AddPagesToSite))

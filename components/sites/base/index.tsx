@@ -14,7 +14,7 @@ const fetchSitesSubscription = gql`
       id
       name
       login_url
-      urls_aggregate {
+      pages_aggregate {
         aggregate {
           count
         }
@@ -64,7 +64,7 @@ const SitesIndex = (props: any) => {
         record: {
           id: number
           name: string
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [
@@ -84,11 +84,11 @@ const SitesIndex = (props: any) => {
         }
       ) => {
         const thumbnails =
-          record.urls_aggregate.nodes.length &&
-          record.urls_aggregate.nodes[0].audits.length &&
-          record.urls_aggregate.nodes[0].audits[0]
+          record.pages_aggregate.nodes.length &&
+          record.pages_aggregate.nodes[0].audits.length &&
+          record.pages_aggregate.nodes[0].audits[0]
             .audit_screenshot_thumbnails &&
-          record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails
+          record.pages_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails
             .items
 
         return (
@@ -138,7 +138,7 @@ const SitesIndex = (props: any) => {
       render: (
         _: string,
         record: {
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [{ categories_performance_score: number }]
@@ -147,10 +147,10 @@ const SitesIndex = (props: any) => {
           }
         }
       ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
         calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0].categories_performance_score
+          record.pages_aggregate.nodes[0].audits[0].categories_performance_score
         ),
     },
     {
@@ -163,7 +163,7 @@ const SitesIndex = (props: any) => {
       render: (
         _: string,
         record: {
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [{ categories_accessibility_score: number }]
@@ -172,10 +172,10 @@ const SitesIndex = (props: any) => {
           }
         }
       ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
         calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0]
+          record.pages_aggregate.nodes[0].audits[0]
             .categories_accessibility_score
         ),
     },
@@ -187,7 +187,7 @@ const SitesIndex = (props: any) => {
       render: (
         _: string,
         record: {
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [{ categories_seo_score: number }]
@@ -196,10 +196,10 @@ const SitesIndex = (props: any) => {
           }
         }
       ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
         calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0].categories_seo_score
+          record.pages_aggregate.nodes[0].audits[0].categories_seo_score
         ),
     },
     {
@@ -212,7 +212,7 @@ const SitesIndex = (props: any) => {
       render: (
         _: string,
         record: {
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [{ categories_best_practices_score: number }]
@@ -221,10 +221,10 @@ const SitesIndex = (props: any) => {
           }
         }
       ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
         calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0]
+          record.pages_aggregate.nodes[0].audits[0]
             .categories_best_practices_score
         ),
     },
@@ -236,7 +236,7 @@ const SitesIndex = (props: any) => {
       render: (
         _: string,
         record: {
-          urls_aggregate: {
+          pages_aggregate: {
             nodes: [
               {
                 audits: [{ categories_pwa_score: number }]
@@ -245,10 +245,10 @@ const SitesIndex = (props: any) => {
           }
         }
       ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
         calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0].categories_pwa_score
+          record.pages_aggregate.nodes[0].audits[0].categories_pwa_score
         ),
     },
     {
@@ -259,10 +259,10 @@ const SitesIndex = (props: any) => {
       key: 'pages',
       render: (
         _: string,
-        record: { urls_aggregate: { aggregate: { count: number } } }
+        record: { pages_aggregate: { aggregate: { count: number } } }
       ) => (
         <span className="text-sm">
-          {record.urls_aggregate.aggregate.count}
+          {record.pages_aggregate.aggregate.count}
           <span className="text-gray-500 text-xs"> /50</span>
         </span>
       ),

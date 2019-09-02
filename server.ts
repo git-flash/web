@@ -41,8 +41,8 @@ app
       })
     })
 
-    server.get('/sites/:siteId/links/:id', (req: any, res: any) => {
-      app.render(req, res, '/sites/links', {
+    server.get('/sites/:siteId/pages/:id', (req: any, res: any) => {
+      app.render(req, res, '/sites/pages', {
         siteId: req.params.siteId,
         id: req.params.id,
       })
