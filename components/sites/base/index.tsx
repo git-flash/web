@@ -6,11 +6,11 @@ import Link from 'next/link'
 import truncate from 'lodash/truncate'
 
 import Loader from '../../common/loader'
-import calculateProgress from "../../../lib/calculate-progress"
+import calculateProgress from '../../../lib/calculate-progress'
 
 const fetchSitesSubscription = gql`
   subscription {
-    site(order_by: {created_at: desc}) {
+    site(order_by: { created_at: desc }) {
       id
       name
       login_url
@@ -20,7 +20,7 @@ const fetchSitesSubscription = gql`
         }
         nodes {
           id
-          audits(limit: 1, order_by: {fetch_time: desc}) {
+          audits(limit: 1, order_by: { fetch_time: desc }) {
             categories_accessibility_score
             categories_best_practices_score
             categories_performance_score
@@ -40,37 +40,50 @@ const fetchSitesSubscription = gql`
 const SitesIndex = () => {
   const columns: any = [
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>Name</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700">Name</span>
+      ),
       dataIndex: 'name',
       key: 'name',
       width: 350,
       fixed: 'left',
-      render: (_: string, record: {
-        id: number,
-        name: string,
-        urls_aggregate: {
-          nodes: [{
-            audits: [{
-              audit_screenshot_thumbnails: {
-                items: [{
-                  data: string
-                }]
+      render: (
+        _: string,
+        record: {
+          id: number
+          name: string
+          urls_aggregate: {
+            nodes: [
+              {
+                audits: [
+                  {
+                    audit_screenshot_thumbnails: {
+                      items: [
+                        {
+                          data: string
+                        }
+                      ]
+                    }
+                  }
+                ]
               }
-            }]
-          }]
+            ]
+          }
         }
-      }) => {
-        const thumbnails = record.urls_aggregate.nodes.length && record.urls_aggregate.nodes[0].audits.length && record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails.items
+      ) => {
+        const thumbnails =
+          record.urls_aggregate.nodes.length &&
+          record.urls_aggregate.nodes[0].audits.length &&
+          record.urls_aggregate.nodes[0].audits[0]
+            .audit_screenshot_thumbnails &&
+          record.urls_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails
+            .items
 
         return (
-          <Link
-            href={`/sites/show?id=${record.id}`}
-            as={`/sites/${record.id}`
-            }
-          >
+          <Link href={`/sites/show?id=${record.id}`} as={`/sites/${record.id}`}>
             <a className="font-base w-full flex-col">
-              {!!thumbnails
-                ? <div className="flex items-center">
+              {!!thumbnails ? (
+                <div className="flex items-center">
                   <img
                     src={thumbnails[thumbnails.length - 1].data}
                     alt={record.name}
@@ -78,28 +91,35 @@ const SitesIndex = () => {
                   />
                   <div className="ml-4">
                     <div className="text-sm">
-                      {truncate(record.name, { 'length': 40, 'separator': '...' })}
+                      {truncate(record.name, { length: 40, separator: '...' })}
                     </div>
-                    <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
+                    <div className="text-xs mt-1 text-gray-500 font-hairline">
+                      {record.id}
+                    </div>
                   </div>
                 </div>
-                : <div className="ml-10">
+              ) : (
+                <div className="ml-10">
                   <div className="text-sm">
                     {truncate(record.name, {
-                      'length': 40,
-                      'separator': '...'
+                      length: 40,
+                      separator: '...',
                     })}
                   </div>
-                  <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
+                  <div className="text-xs mt-1 text-gray-500 font-hairline">
+                    {record.id}
+                  </div>
                 </div>
-              }
+              )}
             </a>
           </Link>
         )
       },
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>Accessibility</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700">Accessibility</span>
+      ),
       dataIndex: 'a11y',
       key: 'a11y',
       width: 150,
@@ -107,16 +127,25 @@ const SitesIndex = () => {
         _: string,
         record: {
           urls_aggregate: {
-            nodes: [{
-              audits: [{ categories_accessibility_score: number }]
-            }]
+            nodes: [
+              {
+                audits: [{ categories_accessibility_score: number }]
+              }
+            ]
           }
         }
-      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_accessibility_score)
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0]
+            .categories_accessibility_score
+        ),
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>Best Practices</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700">Best Practices</span>
+      ),
       dataIndex: 'bestPractices',
       key: 'bestPractices',
       width: 150,
@@ -124,16 +153,25 @@ const SitesIndex = () => {
         _: string,
         record: {
           urls_aggregate: {
-            nodes: [{
-              audits: [{ categories_best_practices_score: number }]
-            }]
+            nodes: [
+              {
+                audits: [{ categories_best_practices_score: number }]
+              }
+            ]
           }
         }
-      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_best_practices_score)
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0]
+            .categories_best_practices_score
+        ),
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>Performance</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700">Performance</span>
+      ),
       dataIndex: 'performance',
       key: 'performance',
       width: 150,
@@ -141,16 +179,22 @@ const SitesIndex = () => {
         _: string,
         record: {
           urls_aggregate: {
-            nodes: [{
-              audits: [{ categories_performance_score: number }]
-            }]
+            nodes: [
+              {
+                audits: [{ categories_performance_score: number }]
+              }
+            ]
           }
         }
-      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_performance_score)
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0].categories_performance_score
+        ),
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>PWA</span>,
+      title: () => <span className="text-xs uppercase text-gray-700">PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
       width: 150,
@@ -158,16 +202,22 @@ const SitesIndex = () => {
         _: string,
         record: {
           urls_aggregate: {
-            nodes: [{
-              audits: [{ categories_pwa_score: number }]
-            }]
+            nodes: [
+              {
+                audits: [{ categories_pwa_score: number }]
+              }
+            ]
           }
         }
-      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_pwa_score)
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0].categories_pwa_score
+        ),
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>SEO</span>,
+      title: () => <span className="text-xs uppercase text-gray-700">SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
       width: 150,
@@ -175,33 +225,39 @@ const SitesIndex = () => {
         _: string,
         record: {
           urls_aggregate: {
-            nodes: [{
-              audits: [{ categories_seo_score: number }]
-            }]
+            nodes: [
+              {
+                audits: [{ categories_seo_score: number }]
+              }
+            ]
           }
         }
-      ) => (!!record.urls_aggregate.nodes.length && !!record.urls_aggregate.nodes[0].audits.length)
-        && calculateProgress(record.urls_aggregate.nodes[0].audits[0].categories_seo_score)
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0].categories_seo_score
+        ),
     },
     {
-      title: () => <span className='text-xs uppercase text-gray-700'>Pages</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700">Pages</span>
+      ),
       dataIndex: 'pages',
       key: 'pages',
       render: (
         _: string,
         record: { urls_aggregate: { aggregate: { count: number } } }
       ) => (
-          <span className="text-sm">
-            {record.urls_aggregate.aggregate.count}
-            <span className="text-gray-500 text-xs"> /50</span>
-          </span>
-        ),
+        <span className="text-sm">
+          {record.urls_aggregate.aggregate.count}
+          <span className="text-gray-500 text-xs"> /50</span>
+        </span>
+      ),
     },
   ]
 
-  const { data, loading, error } = useSubscription(
-    fetchSitesSubscription
-  );
+  const { data, loading, error } = useSubscription(fetchSitesSubscription)
 
   if (loading) return <Loader />
 
@@ -217,7 +273,7 @@ const SitesIndex = () => {
               <Link href={`/sites/new`} as={`/sites/new`}>
                 <Button type="primary" icon="plus-circle" size="large">
                   Create New Site
-              </Button>
+                </Button>
               </Link>
             </div>
           }
