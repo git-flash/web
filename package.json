@@ -17,6 +17,7 @@
     "@sentry/browser": "^5.6.3",
     "@sentry/node": "^5.6.2",
     "@types/compression": "^1.0.1",
+    "@types/lodash": "^4.14.138",
     "@types/react-gravatar": "^2.6.7",
     "@zeit/next-css": "^1.0.1",
     "antd": "^3.22.2",

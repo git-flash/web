@@ -3,6 +3,7 @@ import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Button, Table, PageHeader } from 'antd'
 import Link from 'next/link'
+import truncate from 'lodash/truncate'
 
 import Loader from '../../common/loader'
 import calculateProgress from "../../../lib/calculate-progress"
@@ -67,7 +68,7 @@ const SitesIndex = () => {
             as={`/sites/${record.id}`
             }
           >
-            <a className="font-base w-full flex">
+            <a className="font-base w-full flex-col">
               {!!thumbnails
                 ? <div className="flex items-center">
                   <img
@@ -76,12 +77,19 @@ const SitesIndex = () => {
                     width={20}
                   />
                   <div className="ml-4">
-                    <div className="text-sm">{record.name}</div>
+                    <div className="text-sm">
+                      {truncate(record.name, { 'length': 40, 'separator': '...' })}
+                    </div>
                     <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
                   </div>
                 </div>
                 : <div className="ml-10">
-                  <div className="text-sm">{record.name}</div>
+                  <div className="text-sm">
+                    {truncate(record.name, {
+                      'length': 40,
+                      'separator': '...'
+                    })}
+                  </div>
                   <div className="text-xs mt-1 text-gray-500 font-hairline">{record.id}</div>
                 </div>
               }
