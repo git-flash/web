@@ -8,6 +8,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Router from 'next/router'
 import Gravatar from 'react-gravatar'
+import truncate from 'lodash/truncate'
 
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
@@ -56,7 +57,7 @@ const SitesShow = (props: any) => {
       ),
       dataIndex: 'id',
       key: 'id',
-      width: 500,
+      width: 350,
       fixed: 'left',
       render: (_: string, record: {
         id: string,
@@ -66,24 +67,22 @@ const SitesShow = (props: any) => {
           created_at: string,
         }]
       }) => (
-          <>
-            <Link
-              href={`/sites/links?id=${record.id}&siteId=${props.id}`}
-              as={`/sites/${props.id}/links/${record.id}`}
-            >
-              <a className="font-base w-full flex">
-                <div>
-                  <div className="text-sm">{record.link}</div>
-                  <div className="text-xs mt-1 text-gray-500 font-hairline">
-                    {!!record.audits.length
-                      ? `Last audit was ${dayjs(record.audits[0].created_at).fromNow()}`
-                      : "Link will be audited soon"
-                    }
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </>
+          <Link
+            href={`/sites/links?id=${record.id}&siteId=${props.id}`}
+            as={`/sites/${props.id}/links/${record.id}`}
+          >
+            <a className="font-base w-full flex-col">
+              <div className="text-sm">
+                {truncate(record.link, { 'length': 40, 'separator': '...' })}
+              </div>
+              <div className="text-xs mt-1 text-gray-500 font-hairline">
+                {!!record.audits.length
+                  ? `Last audit was ${dayjs(record.audits[0].created_at).fromNow()}`
+                  : "Link will be audited soon"
+                }
+              </div>
+            </a>
+          </Link>
         ),
     },
     {
@@ -236,7 +235,7 @@ const SitesShow = (props: any) => {
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
           onBack={() => Router.push('/sites')}
-          title={name}
+          title={truncate(name, { 'length': 40, 'separator': '...' })}
           extra={
             <div className="m-2">
               {userAvatarsNode()}
@@ -260,7 +259,7 @@ const SitesShow = (props: any) => {
           }
         >
           <p className="text-gray-600 mb-0">
-            Details for {name}
+            Details for {truncate(name, { 'length': 40, 'separator': '...' })}
           </p>
         </PageHeader>
       </div>
@@ -272,11 +271,9 @@ const SitesShow = (props: any) => {
             dataSource={urls}
             pagination={false}
             bordered
-            scroll={{ x: 1300 }}
+            scroll={{ x: 1200 }}
           />
         </div>
-
-
       </div>
     </>
   )
