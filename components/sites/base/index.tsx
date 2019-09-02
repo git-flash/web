@@ -102,7 +102,7 @@ const SitesIndex = (props: any) => {
                     width={20}
                   />
                   <div className="ml-4">
-                    <div className="text-sm">
+                    <div className="text-sm font-semibold">
                       {truncate(record.name, { length: 40, separator: '...' })}
                     </div>
                     <div className="text-xs mt-1 text-gray-500 font-hairline">
@@ -112,7 +112,7 @@ const SitesIndex = (props: any) => {
                 </div>
               ) : (
                 <div className="ml-10">
-                  <div className="text-sm">
+                  <div className="text-sm font-semibold">
                     {truncate(record.name, {
                       length: 40,
                       separator: '...',

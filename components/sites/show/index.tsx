@@ -1,15 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import {
-  Table,
-  Button,
-  Progress,
-  PageHeader,
-  Icon,
-  Avatar,
-  Popover,
-} from 'antd'
+import { Table, Button, PageHeader, Icon, Avatar, Popover } from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -97,7 +89,7 @@ const SitesShow = (props: any) => {
           as={`/sites/${props.id}/pages/${record.id}`}
         >
           <a className="font-base w-full flex-col">
-            <div className="text-sm">
+            <div className="text-sm font-semibold">
               {truncate(record.link, { length: 40, separator: '...' })}
             </div>
             <div className="text-xs mt-1 text-gray-500 font-hairline">
@@ -260,16 +252,7 @@ const SitesShow = (props: any) => {
 
   const calculatePerformanceScore = (record: any, scoreInFloat: number) => {
     if (!record.audits.length) {
-      return (
-        <Progress
-          type="circle"
-          percent={100}
-          format={() => <Icon type="hourglass" />}
-          width={30}
-          strokeWidth={10}
-          status="exception"
-        />
-      )
+      return <Icon type="dash" className="ml-4" />
     }
 
     return calculateProgress(scoreInFloat)
