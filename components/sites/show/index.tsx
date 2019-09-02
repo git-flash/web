@@ -1,7 +1,15 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Button, Progress, PageHeader, Icon, Avatar, Popover } from 'antd'
+import {
+  Table,
+  Button,
+  Progress,
+  PageHeader,
+  Icon,
+  Avatar,
+  Popover,
+} from 'antd'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
@@ -13,7 +21,7 @@ import truncate from 'lodash/truncate'
 import Loader from '../../common/loader'
 import AddLinkModal from './add-link-modal'
 import AddUsersToSiteModal from './add-users-to-site'
-import calculateProgress from "../../../lib/calculate-progress"
+import calculateProgress from '../../../lib/calculate-progress'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -26,7 +34,7 @@ const fetchSiteSubscription = gql`
       urls {
         id
         link
-        audits(limit: 1, order_by: {fetch_time: desc}) {
+        audits(limit: 1, order_by: { fetch_time: desc }) {
           id
           created_at
           categories_accessibility_score
@@ -49,7 +57,19 @@ const fetchSiteSubscription = gql`
   }
 `
 
+const deleteUrlMutation = gql`
+  mutation($id: uuid!) {
+    delete_url(where: { id: { _eq: $id } }) {
+      returning {
+        id
+      }
+    }
+  }
+`
+
 const SitesShow = (props: any) => {
+  const ButtonGroup = Button.Group
+
   const columns: any = [
     {
       title: () => (
@@ -59,61 +79,83 @@ const SitesShow = (props: any) => {
       key: 'id',
       width: 350,
       fixed: 'left',
-      render: (_: string, record: {
-        id: string,
-        link: string,
-        audits: [{
-          link: string,
-          created_at: string,
-        }]
-      }) => (
-          <Link
-            href={`/sites/links?id=${record.id}&siteId=${props.id}`}
-            as={`/sites/${props.id}/links/${record.id}`}
-          >
-            <a className="font-base w-full flex-col">
-              <div className="text-sm">
-                {truncate(record.link, { 'length': 40, 'separator': '...' })}
-              </div>
-              <div className="text-xs mt-1 text-gray-500 font-hairline">
-                {!!record.audits.length
-                  ? `Last audit was ${dayjs(record.audits[0].created_at).fromNow()}`
-                  : "Link will be audited soon"
-                }
-              </div>
-            </a>
-          </Link>
-        ),
+      render: (
+        _: string,
+        record: {
+          id: string
+          link: string
+          audits: [
+            {
+              link: string
+              created_at: string
+            }
+          ]
+        }
+      ) => (
+        <Link
+          href={`/sites/links?id=${record.id}&siteId=${props.id}`}
+          as={`/sites/${props.id}/links/${record.id}`}
+        >
+          <a className="font-base w-full flex-col">
+            <div className="text-sm">
+              {truncate(record.link, { length: 40, separator: '...' })}
+            </div>
+            <div className="text-xs mt-1 text-gray-500 font-hairline">
+              {!!record.audits.length
+                ? `Last audit was ${dayjs(
+                    record.audits[0].created_at
+                  ).fromNow()}`
+                : 'Link will be audited soon'}
+            </div>
+          </a>
+        </Link>
+      ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">Performance</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700">Performance</span>
+      ),
       dataIndex: 'performance',
       key: 'performance',
       width: 150,
       render: (
         _: string,
         record: {
-          audits: [{
-            created_at: string,
-            categories_performance_score: number
-          }]
+          audits: [
+            {
+              categories_performance_score: number
+            }
+          ]
         }
-      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_performance_score),
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length &&
+            record.audits[0].categories_performance_score
+        ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">A11Y</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700">Accessibility</span>
+      ),
       dataIndex: 'accessibility',
       key: 'accessibility',
       width: 150,
       render: (
         _: string,
         record: {
-          audits: [{
-            created_at: string,
-            categories_accessibility_score: number
-          }]
+          audits: [
+            {
+              categories_accessibility_score: number
+            }
+          ]
         }
-      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_accessibility_score),
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length &&
+            record.audits[0].categories_accessibility_score
+        ),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO</span>,
@@ -123,41 +165,96 @@ const SitesShow = (props: any) => {
       render: (
         _: string,
         record: {
-          audits: [{
-            created_at: string,
-            categories_seo_score: number
-          }]
+          audits: [
+            {
+              categories_seo_score: number
+            }
+          ]
         }
-      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_seo_score),
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length && record.audits[0].categories_seo_score
+        ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">Best Practices</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700">Best Practices</span>
+      ),
       dataIndex: 'bestPractices',
       key: 'bestPractices',
       width: 150,
       render: (
         _: string,
         record: {
-          audits: [{
-            created_at: string,
-            categories_best_practices_score: number
-          }]
+          audits: [
+            {
+              categories_best_practices_score: number
+            }
+          ]
         }
-      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_best_practices_score),
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length &&
+            record.audits[0].categories_best_practices_score
+        ),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
+      width: 150,
       render: (
         _: string,
         record: {
-          audits: [{
-            created_at: string,
-            categories_seo_score: number
-          }]
+          audits: [
+            {
+              categories_pwa_score: number
+            }
+          ]
         }
-      ) => calculatePerformanceScore(record, !!record.audits.length && record.audits[0].categories_seo_score),
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length && record.audits[0].categories_pwa_score
+        ),
+    },
+    {
+      title: <span className="text-xs uppercase text-gray-700">Actions</span>,
+      dataIndex: 'actions',
+      key: 'actions',
+      render: (
+        _: string,
+        record: {
+          id: number
+        }
+      ) => (
+        <div>
+          <ButtonGroup>
+            <Link
+              href={`/sites/links?id=${record.id}&siteId=${props.id}`}
+              as={`/sites/${props.id}/links/${record.id}`}
+            >
+              <Button>
+                <Icon type="highlight" />
+              </Button>
+            </Link>
+            <Button
+              onClick={() => {
+                props.client.mutate({
+                  mutation: deleteUrlMutation,
+                  variables: {
+                    id: record.id,
+                  },
+                })
+              }}
+            >
+              <Icon type="delete" />
+            </Button>
+          </ButtonGroup>
+        </div>
+      ),
     },
   ]
 
@@ -188,44 +285,48 @@ const SitesShow = (props: any) => {
   if (error) return <p>Error: {error.message}</p>
 
   const { id, name, urls, users } = data.site_by_pk
-  const ButtonGroup = Button.Group;
 
   const userAvatarsNode = () => {
     return (
       <div className="inline-flex mr-4 invisible lg:visible">
-        {users.slice(0, 3).map((data: { user: { id: string, email: string } }, index: number) => {
-          return (
-            <Popover key={index} content={data.user.email}>
-              <div
-                style={{
-                  marginLeft: "-15px"
-                }}>
-                <Gravatar
-                  email={data.user.email}
-                  size={40}
-                  className="rounded-full border-3 border-solid border-white"
-                />
-              </div>
-            </Popover>
-          )
-        })}
-        {users.length > 3 &&
+        {users
+          .slice(0, 3)
+          .map(
+            (data: { user: { id: string; email: string } }, index: number) => {
+              return (
+                <Popover key={index} content={data.user.email}>
+                  <div
+                    style={{
+                      marginLeft: '-15px',
+                    }}
+                  >
+                    <Gravatar
+                      email={data.user.email}
+                      size={40}
+                      className="rounded-full border-3 border-solid border-white"
+                    />
+                  </div>
+                </Popover>
+              )
+            }
+          )}
+        {users.length > 3 && (
           <div
             style={{
-              marginLeft: "-15px"
+              marginLeft: '-15px',
             }}
           >
             <Avatar
               size={40}
               className="rounded-full border-3 border-solid border-white flex items-center"
               style={{
-                backgroundColor: "#2196f3"
+                backgroundColor: '#2196f3',
               }}
             >
               {users.length - 2}
             </Avatar>
           </div>
-        }
+        )}
       </div>
     )
   }
@@ -235,9 +336,9 @@ const SitesShow = (props: any) => {
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
           onBack={() => Router.push('/sites')}
-          title={truncate(name, { 'length': 40, 'separator': '...' })}
+          title={truncate(name, { length: 40, separator: '...' })}
           extra={
-            <div className="m-2">
+            <div className="m-2 flex items-center">
               {userAvatarsNode()}
               <ButtonGroup className="mr-4">
                 <AddUsersToSiteModal
@@ -247,10 +348,7 @@ const SitesShow = (props: any) => {
                 />
                 <AddLinkModal siteId={id} />
               </ButtonGroup>
-              <Link
-                href={`/sites/edit?id=${id}`}
-                as={`/sites/${id}/edit`}
-              >
+              <Link href={`/sites/edit?id=${id}`} as={`/sites/${id}/edit`}>
                 <Button type="primary" icon="highlight" size="large">
                   Edit Site Details
                 </Button>
@@ -258,8 +356,8 @@ const SitesShow = (props: any) => {
             </div>
           }
         >
-          <p className="text-gray-600 mb-0">
-            Details for {truncate(name, { 'length': 40, 'separator': '...' })}
+          <p className="text-xs text-gray-500 font-hairline mb-0">
+            Details for {truncate(name, { length: 40, separator: '...' })}
           </p>
         </PageHeader>
       </div>

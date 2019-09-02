@@ -8,7 +8,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import Loader from '../../../common/loader'
-import calculateProgress from "../../../../lib/calculate-progress"
+import calculateProgress from '../../../../lib/calculate-progress'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -46,13 +46,16 @@ const LinkDetails = (props: any) => {
       dataIndex: 'firstContentfulPaint',
       key: 'firstContentfulPaint',
       width: 200,
-      render: (_: string, record: {
-        audit_first_contentful_paint_display_value: string
-      }) => (
-          <span className="text-sm">
-            {record.audit_first_contentful_paint_display_value}
-          </span>
-        ),
+      render: (
+        _: string,
+        record: {
+          audit_first_contentful_paint_display_value: string
+        }
+      ) => (
+        <span className="text-sm">
+          {record.audit_first_contentful_paint_display_value}
+        </span>
+      ),
     },
     {
       title: (
@@ -66,22 +69,28 @@ const LinkDetails = (props: any) => {
       dataIndex: 'firstMeaningfulPaint',
       key: 'firstMeaningfulPaint',
       width: 200,
-      render: (_: string, record: {
-        audit_first_meaningful_paint_display_value: string
-      }) => (
-          <span className="text-sm">
-            {record.audit_first_meaningful_paint_display_value}
-          </span>
-        ),
+      render: (
+        _: string,
+        record: {
+          audit_first_meaningful_paint_display_value: string
+        }
+      ) => (
+        <span className="text-sm">
+          {record.audit_first_meaningful_paint_display_value}
+        </span>
+      ),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">PWA Score</span>,
       dataIndex: 'pwaScore',
       key: 'pwaScore',
       width: 200,
-      render: (_: string, record: {
-        categories_pwa_score: number
-      }) => calculateProgress(record.categories_pwa_score)
+      render: (
+        _: string,
+        record: {
+          categories_pwa_score: number
+        }
+      ) => calculateProgress(record.categories_pwa_score),
     },
     {
       title: (
@@ -92,18 +101,24 @@ const LinkDetails = (props: any) => {
       dataIndex: 'bestPracticesScore',
       key: 'bestPracticesScore',
       width: 200,
-      render: (_: string, record: {
-        categories_best_practices_score: number
-      }) => calculateProgress(record.categories_best_practices_score)
+      render: (
+        _: string,
+        record: {
+          categories_best_practices_score: number
+        }
+      ) => calculateProgress(record.categories_best_practices_score),
     },
     {
       title: <span className="text-xs uppercase text-gray-700">SEO Score</span>,
       dataIndex: 'seoScore',
       key: 'seoScore',
       width: 200,
-      render: (_: string, record: {
-        categories_seo_score: number
-      }) => calculateProgress(record.categories_seo_score)
+      render: (
+        _: string,
+        record: {
+          categories_seo_score: number
+        }
+      ) => calculateProgress(record.categories_seo_score),
     },
     {
       title: (
@@ -114,9 +129,12 @@ const LinkDetails = (props: any) => {
       dataIndex: 'performanceScore',
       key: 'performanceScore',
       width: 200,
-      render: (_: string, record: {
-        categories_performance_score: number
-      }) => calculateProgress(record.categories_performance_score)
+      render: (
+        _: string,
+        record: {
+          categories_performance_score: number
+        }
+      ) => calculateProgress(record.categories_performance_score),
     },
   ]
 
@@ -135,15 +153,20 @@ const LinkDetails = (props: any) => {
     <>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
         <PageHeader
-          onBack={() => Router.push(`/sites/show?id=${props.siteId}`, `/sites/${props.siteId}`)}
+          onBack={() =>
+            Router.push(
+              `/sites/show?id=${props.siteId}`,
+              `/sites/${props.siteId}`
+            )
+          }
           title={`Audits for ${url_by_pk.link}`}
         >
-          <p className="text-xs text-gray-500 font-hairline">
-            {!!url_by_pk.audits.length ?
-              `Last audit was ${dayjs(url_by_pk.audits[0].created_at).fromNow()}`
-              :
-              "Link will be audited soon"
-            }
+          <p className="text-xs text-gray-500 font-hairline mb-0">
+            {!!url_by_pk.audits.length
+              ? `Last audit was ${dayjs(
+                  url_by_pk.audits[0].created_at
+                ).fromNow()}`
+              : 'Link will be audited soon'}
           </p>
         </PageHeader>
       </div>

@@ -132,7 +132,7 @@ class SitesEdit extends Component {
                   onBack={() => Router.push('/sites')}
                   title={`Edit ${name}`}
                 >
-                  <p className="text-gray-600 mb-0">
+                  <p className="text-xs text-gray-500 font-hairline mb-0">
                     You can edit {name} by providing the necessary details
                   </p>
                 </PageHeader>

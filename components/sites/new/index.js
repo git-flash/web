@@ -93,7 +93,7 @@ const SitesNew = props => {
           onBack={() => Router.push('/sites')}
           title="Create New Site"
         >
-          <p className="text-gray-600 mb-0">
+          <p className="text-xs text-gray-500 font-hairline mb-0">
             You can add a new site by providing the necessary details
           </p>
         </PageHeader>

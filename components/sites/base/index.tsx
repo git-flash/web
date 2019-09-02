@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Button, Table, PageHeader } from 'antd'
+import { Button, Table, PageHeader, Icon } from 'antd'
 import Link from 'next/link'
 import truncate from 'lodash/truncate'
 
@@ -37,7 +37,19 @@ const fetchSitesSubscription = gql`
   }
 `
 
-const SitesIndex = () => {
+const deleteSiteMutation = gql`
+  mutation($id: uuid!) {
+    delete_site(where: { id: { _eq: $id } }) {
+      returning {
+        id
+      }
+    }
+  }
+`
+
+const SitesIndex = (props: any) => {
+  const ButtonGroup = Button.Group
+
   const columns: any = [
     {
       title: () => (
@@ -118,6 +130,31 @@ const SitesIndex = () => {
     },
     {
       title: () => (
+        <span className="text-xs uppercase text-gray-700">Performance</span>
+      ),
+      dataIndex: 'performance',
+      key: 'performance',
+      width: 150,
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [
+              {
+                audits: [{ categories_performance_score: number }]
+              }
+            ]
+          }
+        }
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0].categories_performance_score
+        ),
+    },
+    {
+      title: () => (
         <span className="text-xs uppercase text-gray-700">Accessibility</span>
       ),
       dataIndex: 'a11y',
@@ -140,6 +177,29 @@ const SitesIndex = () => {
         calculateProgress(
           record.urls_aggregate.nodes[0].audits[0]
             .categories_accessibility_score
+        ),
+    },
+    {
+      title: () => <span className="text-xs uppercase text-gray-700">SEO</span>,
+      dataIndex: 'seo',
+      key: 'seo',
+      width: 150,
+      render: (
+        _: string,
+        record: {
+          urls_aggregate: {
+            nodes: [
+              {
+                audits: [{ categories_seo_score: number }]
+              }
+            ]
+          }
+        }
+      ) =>
+        !!record.urls_aggregate.nodes.length &&
+        !!record.urls_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.urls_aggregate.nodes[0].audits[0].categories_seo_score
         ),
     },
     {
@@ -169,31 +229,6 @@ const SitesIndex = () => {
         ),
     },
     {
-      title: () => (
-        <span className="text-xs uppercase text-gray-700">Performance</span>
-      ),
-      dataIndex: 'performance',
-      key: 'performance',
-      width: 150,
-      render: (
-        _: string,
-        record: {
-          urls_aggregate: {
-            nodes: [
-              {
-                audits: [{ categories_performance_score: number }]
-              }
-            ]
-          }
-        }
-      ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
-        calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0].categories_performance_score
-        ),
-    },
-    {
       title: () => <span className="text-xs uppercase text-gray-700">PWA</span>,
       dataIndex: 'pwa',
       key: 'pwa',
@@ -217,29 +252,6 @@ const SitesIndex = () => {
         ),
     },
     {
-      title: () => <span className="text-xs uppercase text-gray-700">SEO</span>,
-      dataIndex: 'seo',
-      key: 'seo',
-      width: 150,
-      render: (
-        _: string,
-        record: {
-          urls_aggregate: {
-            nodes: [
-              {
-                audits: [{ categories_seo_score: number }]
-              }
-            ]
-          }
-        }
-      ) =>
-        !!record.urls_aggregate.nodes.length &&
-        !!record.urls_aggregate.nodes[0].audits.length &&
-        calculateProgress(
-          record.urls_aggregate.nodes[0].audits[0].categories_seo_score
-        ),
-    },
-    {
       title: () => (
         <span className="text-xs uppercase text-gray-700">Pages</span>
       ),
@@ -253,6 +265,42 @@ const SitesIndex = () => {
           {record.urls_aggregate.aggregate.count}
           <span className="text-gray-500 text-xs"> /50</span>
         </span>
+      ),
+    },
+    {
+      title: <span className="text-xs uppercase text-gray-700">Actions</span>,
+      dataIndex: 'actions',
+      key: 'actions',
+      render: (
+        _: string,
+        record: {
+          id: number
+        }
+      ) => (
+        <div>
+          <ButtonGroup>
+            <Link
+              href={`/sites/show?id=${record.id}`}
+              as={`/sites/${record.id}`}
+            >
+              <Button>
+                <Icon type="highlight" />
+              </Button>
+            </Link>
+            <Button
+              onClick={() => {
+                props.client.mutate({
+                  mutation: deleteSiteMutation,
+                  variables: {
+                    id: record.id,
+                  },
+                })
+              }}
+            >
+              <Icon type="delete" />
+            </Button>
+          </ButtonGroup>
+        </div>
       ),
     },
   ]
@@ -278,7 +326,9 @@ const SitesIndex = () => {
             </div>
           }
         >
-          <p className="text-gray-600 mb-0">A list of all your sites</p>
+          <p className="text-xs text-gray-500 font-hairline mb-0">
+            A list of all your sites
+          </p>
         </PageHeader>
       </div>
       <div className="p-8">
