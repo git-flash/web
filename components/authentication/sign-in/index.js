@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { Form, Button, Input, Card, Alert } from 'antd'
+import { Form, Button, Input, Alert } from 'antd'
 import Router from 'next/router'
 
 const SignIn = props => {
@@ -7,7 +7,9 @@ const SignIn = props => {
   const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
+
     props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoading(true)
@@ -22,8 +24,6 @@ const SignIn = props => {
             body: JSON.stringify({
               email: values.email,
               password: values.password,
-              confirmPassword: values.password,
-              username: values.username,
             }),
           })
 
@@ -76,18 +76,6 @@ const SignIn = props => {
               />
             )}
           </Form.Item>
-          <Form.Item label="Username">
-            {getFieldDecorator('username', {
-              rules: [{ required: true, message: 'Please enter username!' }],
-              initialValue: '',
-            })(
-              <Input
-                placeholder="Please enter username"
-                size="large"
-                type="username"
-              />
-            )}
-          </Form.Item>
           <Form.Item label="Password">
             {getFieldDecorator('password', {
               rules: [{ required: true, message: 'Please enter password!' }],
@@ -100,20 +88,20 @@ const SignIn = props => {
               />
             )}
           </Form.Item>
+          <div className="flex justify-end mt-12">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={handleSubmit}
+              size="large"
+              icon="check-circle"
+              block
+              loading={isLoading}
+            >
+              Sign In
+            </Button>
+          </div>
         </Form>
-        <div className="flex justify-end mt-12">
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={handleSubmit}
-            size="large"
-            icon="check-circle"
-            block
-            loading={isLoading}
-          >
-            Sign In
-          </Button>
-        </div>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Form, Button, Input } from 'antd'
+import { Form, Button, Input, Alert } from 'antd'
 import Router from 'next/router'
 
 const SignUp = props => {
@@ -8,7 +8,9 @@ const SignUp = props => {
   const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
+
     props.form.validateFields(async (err, values) => {
       if (!err) {
         setIsLoading(true)
@@ -23,8 +25,6 @@ const SignUp = props => {
             body: JSON.stringify({
               email: values.email,
               password: values.password,
-              confirmPassword: values.password,
-              username: values.username,
             }),
           })
 
@@ -46,7 +46,8 @@ const SignUp = props => {
             setIsLoading(false)
           }
         } catch (error) {
-          setError(error)
+          setError('Invalid credentials')
+
           setIsLoading(false)
 
           console.error(error)
@@ -56,60 +57,55 @@ const SignUp = props => {
   }
 
   return (
-    <div className="mt-4">
-      <Form layout="vertical" onSubmit={handleSubmit}>
-        <Form.Item label="Email">
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                required: true,
-                message: 'Please enter email!',
-              },
-            ],
-            initialValue: '',
-          })(
-            <Input placeholder="Please enter email" size="large" type="email" />
-          )}
-        </Form.Item>
-        <Form.Item label="Username">
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please enter username!' }],
-            initialValue: '',
-          })(
-            <Input
-              placeholder="Please enter username"
+    <>
+      {error && <Alert message={error} type="error" />}
+      <div className="mt-4">
+        <Form layout="vertical" onSubmit={handleSubmit}>
+          <Form.Item label="Email">
+            {getFieldDecorator('email', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please enter email!',
+                },
+              ],
+              initialValue: '',
+            })(
+              <Input
+                placeholder="Please enter email"
+                size="large"
+                type="email"
+              />
+            )}
+          </Form.Item>
+          <Form.Item label="Password">
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: 'Please enter password!' }],
+              initialValue: '',
+            })(
+              <Input
+                placeholder="Please enter password"
+                size="large"
+                type="password"
+              />
+            )}
+          </Form.Item>
+          <div className="flex justify-end mt-12">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={handleSubmit}
               size="large"
-              type="username"
-            />
-          )}
-        </Form.Item>
-        <Form.Item label="Password">
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please enter password!' }],
-            initialValue: '',
-          })(
-            <Input
-              placeholder="Please enter password"
-              size="large"
-              type="password"
-            />
-          )}
-        </Form.Item>
-      </Form>
-      <div className="flex justify-end mt-12">
-        <Button
-          type="primary"
-          htmlType="submit"
-          onClick={handleSubmit}
-          size="large"
-          icon="check-circle"
-          block
-          loading={isLoading}
-        >
-          Sign Up
-        </Button>
+              icon="check-circle"
+              block
+              loading={isLoading}
+            >
+              Sign Up
+            </Button>
+          </div>
+        </Form>
       </div>
-    </div>
+    </>
   )
 }
 
