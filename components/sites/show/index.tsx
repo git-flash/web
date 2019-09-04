@@ -351,7 +351,7 @@ const SitesShow = (props: any) => {
             columns={columns}
             dataSource={pages}
             pagination={false}
-            scroll={{ x: 1200 }}
+            scroll={{ x: 1300 }}
           />
         </div>
       </div>

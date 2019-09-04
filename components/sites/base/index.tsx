@@ -338,7 +338,7 @@ const SitesIndex = (props: any) => {
             dataSource={data.site}
             columns={columns}
             pagination={false}
-            scroll={{ x: 1200 }}
+            scroll={{ x: 1300 }}
           />
         </div>
       </div>
