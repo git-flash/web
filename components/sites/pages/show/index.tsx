@@ -14,6 +14,7 @@ import PerformanceChart from './performance-chart'
 import AccessibilityChart from './accessibility-chart'
 import BestPracticesChart from './best-practices-chart'
 import SEOChart from './seo-chart'
+import NetworkRequestsTable from './network-requests-table'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -273,6 +274,9 @@ const PageDetails = (props: any) => {
             </div>
           </TabPane>
         </Tabs>
+      </div>
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+        <NetworkRequestsTable id={props.id} />
       </div>
     </>
   )
