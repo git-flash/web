@@ -182,7 +182,7 @@ const PageDetails = (props: any) => {
 
   return (
     <>
-      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
+      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
           onBack={() =>
             Router.push(
@@ -198,7 +198,7 @@ const PageDetails = (props: any) => {
           <p className="text-xs text-gray-500 font-hairline mb-0">
             {!!page_by_pk.audits.length
               ? `Last audit was ${dayjs(
-                  page_by_pk.audits[0].created_at
+                  page_by_pk.audits[0].fetch_time
                 ).fromNow()}`
               : 'Page will be audited soon'}
           </p>

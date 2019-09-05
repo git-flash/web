@@ -123,7 +123,7 @@ const SitesEdit = props => {
 
         return (
           <Fragment>
-            <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
+            <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
               <PageHeader
                 onBack={() => Router.push('/sites')}
                 title={`Edit ${name}`}

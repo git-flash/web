@@ -26,9 +26,9 @@ const fetchSiteSubscription = gql`
       pages {
         id
         link
-        audits(limit: 1, order_by: { fetch_time: desc }) {
+        audits(limit: 1, order_by: { created_at: desc }) {
           id
-          created_at
+          fetch_time
           categories_performance_score
           categories_seo_score
           categories_best_practices_score
@@ -79,7 +79,7 @@ const SitesShow = (props: any) => {
           audits: [
             {
               link: string
-              created_at: string
+              fetch_time: string
             }
           ]
         }
@@ -95,7 +95,7 @@ const SitesShow = (props: any) => {
             <div className="text-xs mt-1 text-gray-500 font-hairline">
               {!!record.audits.length
                 ? `Last audit was ${dayjs(
-                    record.audits[0].created_at
+                    record.audits[0].fetch_time
                   ).fromNow()}`
                 : 'Link will be audited soon'}
             </div>
@@ -330,7 +330,7 @@ const SitesShow = (props: any) => {
 
   return (
     <>
-      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0">
+      <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
           onBack={() => Router.push('/sites')}
           title={truncate(name, { length: 40, separator: '...' })}
