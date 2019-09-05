@@ -21,11 +21,11 @@ const fetchSitesSubscription = gql`
         nodes {
           id
           audits(limit: 1, order_by: { fetch_time: desc }) {
-            categories_accessibility_score
-            categories_best_practices_score
             categories_performance_score
-            categories_pwa_score
             categories_seo_score
+            categories_best_practices_score
+            categories_accessibility_score
+            categories_pwa_score
             audit_screenshot_thumbnails
           }
         }
@@ -53,7 +53,7 @@ const SitesIndex = (props: any) => {
   const columns: any = [
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Name</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">Name</span>
       ),
       dataIndex: 'name',
       key: 'name',
@@ -130,7 +130,9 @@ const SitesIndex = (props: any) => {
     },
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Performance</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Performance
+        </span>
       ),
       dataIndex: 'performance',
       key: 'performance',
@@ -155,32 +157,8 @@ const SitesIndex = (props: any) => {
     },
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Accessibility</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">SEO</span>
       ),
-      dataIndex: 'a11y',
-      key: 'a11y',
-      width: 150,
-      render: (
-        _: string,
-        record: {
-          pages_aggregate: {
-            nodes: [
-              {
-                audits: [{ categories_accessibility_score: number }]
-              }
-            ]
-          }
-        }
-      ) =>
-        !!record.pages_aggregate.nodes.length &&
-        !!record.pages_aggregate.nodes[0].audits.length &&
-        calculateProgress(
-          record.pages_aggregate.nodes[0].audits[0]
-            .categories_accessibility_score
-        ),
-    },
-    {
-      title: () => <span className="text-xs uppercase text-gray-700">SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
       width: 150,
@@ -204,7 +182,9 @@ const SitesIndex = (props: any) => {
     },
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Best Practices</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Best Practices
+        </span>
       ),
       dataIndex: 'bestPractices',
       key: 'bestPractices',
@@ -229,7 +209,37 @@ const SitesIndex = (props: any) => {
         ),
     },
     {
-      title: () => <span className="text-xs uppercase text-gray-700">PWA</span>,
+      title: () => (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Accessibility
+        </span>
+      ),
+      dataIndex: 'a11y',
+      key: 'a11y',
+      width: 150,
+      render: (
+        _: string,
+        record: {
+          pages_aggregate: {
+            nodes: [
+              {
+                audits: [{ categories_accessibility_score: number }]
+              }
+            ]
+          }
+        }
+      ) =>
+        !!record.pages_aggregate.nodes.length &&
+        !!record.pages_aggregate.nodes[0].audits.length &&
+        calculateProgress(
+          record.pages_aggregate.nodes[0].audits[0]
+            .categories_accessibility_score
+        ),
+    },
+    {
+      title: () => (
+        <span className="text-xs uppercase text-gray-700 font-bold">PWA</span>
+      ),
       dataIndex: 'pwa',
       key: 'pwa',
       width: 150,
@@ -253,7 +263,7 @@ const SitesIndex = (props: any) => {
     },
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Pages</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">Pages</span>
       ),
       dataIndex: 'pages',
       key: 'pages',
@@ -268,7 +278,11 @@ const SitesIndex = (props: any) => {
       ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">Actions</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Actions
+        </span>
+      ),
       dataIndex: 'actions',
       key: 'actions',
       render: (

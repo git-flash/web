@@ -25,12 +25,13 @@ const fetchPagesSubscription = gql`
       link
       audits(limit: 1, order_by: { fetch_time: desc }) {
         id
+        categories_performance_score
+        categories_seo_score
+        categories_best_practices_score
+        categories_accessibility_score
+        categories_pwa_score
         audit_first_contentful_paint_display_value
         audit_first_meaningful_paint_display_value
-        categories_pwa_score
-        categories_best_practices_score
-        categories_seo_score
-        categories_performance_score
         fetch_time
       }
     }
@@ -41,11 +42,91 @@ const PageDetails = (props: any) => {
   const columns: any = [
     {
       title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Performance Score
+        </span>
+      ),
+      dataIndex: 'performanceScore',
+      key: 'performanceScore',
+      width: 200,
+      render: (
+        _: string,
+        record: {
+          categories_performance_score: number
+        }
+      ) => calculateProgress(record.categories_performance_score),
+    },
+    {
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          SEO Score
+        </span>
+      ),
+      dataIndex: 'seoScore',
+      key: 'seoScore',
+      width: 200,
+      render: (
+        _: string,
+        record: {
+          categories_seo_score: number
+        }
+      ) => calculateProgress(record.categories_seo_score),
+    },
+    {
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Best Practices Score
+        </span>
+      ),
+      dataIndex: 'bestPracticesScore',
+      key: 'bestPracticesScore',
+      width: 200,
+      render: (
+        _: string,
+        record: {
+          categories_best_practices_score: number
+        }
+      ) => calculateProgress(record.categories_best_practices_score),
+    },
+    {
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Accessibility Score
+        </span>
+      ),
+      dataIndex: 'accessibilityScore',
+      key: 'accessibilityScore',
+      width: 200,
+      render: (
+        _: string,
+        record: {
+          categories_accessibility_score: number
+        }
+      ) => calculateProgress(record.categories_accessibility_score),
+    },
+    {
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          PWA Score
+        </span>
+      ),
+      dataIndex: 'pwaScore',
+      key: 'pwaScore',
+      width: 200,
+      render: (
+        _: string,
+        record: {
+          categories_pwa_score: number
+        }
+      ) => calculateProgress(record.categories_pwa_score),
+    },
+    {
+      title: (
         <Popover
           title="First Contentful Paint"
           content="First Contentful Paint marks the time at which the first text or image is painted"
         >
-          <span className="text-xs uppercase text-gray-700">FCP</span>
+          <span className="text-xs uppercase text-gray-700 font-bold">FCP</span>
         </Popover>
       ),
       dataIndex: 'firstContentfulPaint',
@@ -68,7 +149,7 @@ const PageDetails = (props: any) => {
           title="First Meaningful Paint"
           content="First Meaningful Paint measures when the primary content of a page is visible"
         >
-          <span className="text-xs uppercase text-gray-700">FMP</span>
+          <span className="text-xs uppercase text-gray-700 font-bold">FMP</span>
         </Popover>
       ),
       dataIndex: 'firstMeaningfulPaint',
@@ -84,62 +165,6 @@ const PageDetails = (props: any) => {
           {record.audit_first_meaningful_paint_display_value}
         </span>
       ),
-    },
-    {
-      title: <span className="text-xs uppercase text-gray-700">PWA Score</span>,
-      dataIndex: 'pwaScore',
-      key: 'pwaScore',
-      width: 200,
-      render: (
-        _: string,
-        record: {
-          categories_pwa_score: number
-        }
-      ) => calculateProgress(record.categories_pwa_score),
-    },
-    {
-      title: (
-        <span className="text-xs uppercase text-gray-700">
-          Best Practices Score
-        </span>
-      ),
-      dataIndex: 'bestPracticesScore',
-      key: 'bestPracticesScore',
-      width: 200,
-      render: (
-        _: string,
-        record: {
-          categories_best_practices_score: number
-        }
-      ) => calculateProgress(record.categories_best_practices_score),
-    },
-    {
-      title: <span className="text-xs uppercase text-gray-700">SEO Score</span>,
-      dataIndex: 'seoScore',
-      key: 'seoScore',
-      width: 200,
-      render: (
-        _: string,
-        record: {
-          categories_seo_score: number
-        }
-      ) => calculateProgress(record.categories_seo_score),
-    },
-    {
-      title: (
-        <span className="text-xs uppercase text-gray-700">
-          Performance Score
-        </span>
-      ),
-      dataIndex: 'performanceScore',
-      key: 'performanceScore',
-      width: 200,
-      render: (
-        _: string,
-        record: {
-          categories_performance_score: number
-        }
-      ) => calculateProgress(record.categories_performance_score),
     },
   ]
 
@@ -191,7 +216,6 @@ const PageDetails = (props: any) => {
       <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
         <Tabs
           defaultActiveKey="performance"
-          onChange={key => console.log(key)}
           size="large"
           tabBarStyle={{
             backgroundColor: '#fafafa',
@@ -200,52 +224,52 @@ const PageDetails = (props: any) => {
         >
           <TabPane
             tab={
-              <span className="text-xs uppercase text-gray-700 px-8">
+              <span className="text-xs uppercase text-gray-700 font-bold px-8">
                 <Icon type="thunderbolt" className="text-base" /> Performance
               </span>
             }
             key="performance"
           >
-            <div className="pr-2">
+            <div className="pr-2" style={{ minHeight: '400px' }}>
               <PerformanceChart id={props.id} />
             </div>
           </TabPane>
           <TabPane
             tab={
-              <span className="text-xs uppercase text-gray-700 px-8">
-                <Icon type="property-safety" className="text-base" />{' '}
-                Accessibility
+              <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                <Icon type="file-search" className="text-base" /> SEO
               </span>
             }
-            key="accessibility"
+            key="seo"
           >
-            <div className="pr-2">
-              <AccessibilityChart id={props.id} />
+            <div className="pr-2" style={{ minHeight: '400px' }}>
+              <SEOChart id={props.id} />
             </div>
           </TabPane>
           <TabPane
             tab={
-              <span className="text-xs uppercase text-gray-700 px-8">
+              <span className="text-xs uppercase text-gray-700 font-bold px-8">
                 <Icon type="issues-close" className="text-base" /> Best
                 Practices
               </span>
             }
             key="best-practices"
           >
-            <div className="pr-2">
+            <div className="pr-2" style={{ minHeight: '400px' }}>
               <BestPracticesChart id={props.id} />
             </div>
           </TabPane>
           <TabPane
             tab={
-              <span className="text-xs uppercase text-gray-700 px-8">
-                <Icon type="file-search" className="text-base" /> SEO
+              <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                <Icon type="property-safety" className="text-base" />{' '}
+                Accessibility
               </span>
             }
-            key="seo"
+            key="accessibility"
           >
-            <div className="pr-2">
-              <SEOChart id={props.id} />
+            <div className="pr-2" style={{ minHeight: '400px' }}>
+              <AccessibilityChart id={props.id} />
             </div>
           </TabPane>
         </Tabs>

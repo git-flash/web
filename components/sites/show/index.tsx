@@ -29,11 +29,11 @@ const fetchSiteSubscription = gql`
         audits(limit: 1, order_by: { fetch_time: desc }) {
           id
           created_at
-          categories_accessibility_score
-          categories_best_practices_score
           categories_performance_score
-          categories_pwa_score
           categories_seo_score
+          categories_best_practices_score
+          categories_accessibility_score
+          categories_pwa_score
           page {
             link
           }
@@ -65,7 +65,7 @@ const SitesShow = (props: any) => {
   const columns: any = [
     {
       title: () => (
-        <span className="text-xs uppercase text-gray-700">Page</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">Page</span>
       ),
       dataIndex: 'id',
       key: 'id',
@@ -85,7 +85,7 @@ const SitesShow = (props: any) => {
         }
       ) => (
         <Link
-          href={`/sites/pages?id=${record.id}&siteId=${props.id}`}
+          href={`/sites/pages/show?id=${record.id}&siteId=${props.id}`}
           as={`/sites/${props.id}/pages/${record.id}`}
         >
           <a className="font-base w-full flex-col">
@@ -105,7 +105,9 @@ const SitesShow = (props: any) => {
     },
     {
       title: (
-        <span className="text-xs uppercase text-gray-700">Performance</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Performance
+        </span>
       ),
       dataIndex: 'performance',
       key: 'performance',
@@ -128,29 +130,8 @@ const SitesShow = (props: any) => {
     },
     {
       title: (
-        <span className="text-xs uppercase text-gray-700">Accessibility</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">SEO</span>
       ),
-      dataIndex: 'accessibility',
-      key: 'accessibility',
-      width: 150,
-      render: (
-        _: string,
-        record: {
-          audits: [
-            {
-              categories_accessibility_score: number
-            }
-          ]
-        }
-      ) =>
-        calculatePerformanceScore(
-          record,
-          !!record.audits.length &&
-            record.audits[0].categories_accessibility_score
-        ),
-    },
-    {
-      title: <span className="text-xs uppercase text-gray-700">SEO</span>,
       dataIndex: 'seo',
       key: 'seo',
       width: 150,
@@ -171,7 +152,9 @@ const SitesShow = (props: any) => {
     },
     {
       title: (
-        <span className="text-xs uppercase text-gray-700">Best Practices</span>
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Best Practices
+        </span>
       ),
       dataIndex: 'bestPractices',
       key: 'bestPractices',
@@ -193,7 +176,34 @@ const SitesShow = (props: any) => {
         ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">PWA</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Accessibility
+        </span>
+      ),
+      dataIndex: 'accessibility',
+      key: 'accessibility',
+      width: 150,
+      render: (
+        _: string,
+        record: {
+          audits: [
+            {
+              categories_accessibility_score: number
+            }
+          ]
+        }
+      ) =>
+        calculatePerformanceScore(
+          record,
+          !!record.audits.length &&
+            record.audits[0].categories_accessibility_score
+        ),
+    },
+    {
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">PWA</span>
+      ),
       dataIndex: 'pwa',
       key: 'pwa',
       width: 150,
@@ -213,7 +223,11 @@ const SitesShow = (props: any) => {
         ),
     },
     {
-      title: <span className="text-xs uppercase text-gray-700">Actions</span>,
+      title: (
+        <span className="text-xs uppercase text-gray-700 font-bold">
+          Actions
+        </span>
+      ),
       dataIndex: 'actions',
       key: 'actions',
       render: (
@@ -225,7 +239,7 @@ const SitesShow = (props: any) => {
         <div>
           <ButtonGroup>
             <Link
-              href={`/sites/pages?id=${record.id}&siteId=${props.id}`}
+              href={`/sites/pages/show?id=${record.id}&siteId=${props.id}`}
               as={`/sites/${props.id}/pages/${record.id}`}
             >
               <Button>
