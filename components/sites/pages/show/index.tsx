@@ -1,14 +1,19 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Popover, PageHeader } from 'antd'
+import { Table, Popover, PageHeader, Tabs, Icon } from 'antd'
 import Router from 'next/router'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import truncate from 'lodash/truncate'
 
 import Loader from '../../../common/loader'
 import calculateProgress from '../../../../lib/calculate-progress'
+import PerformanceChart from './performance-chart'
+import AccessibilityChart from './accessibility-chart'
+import BestPracticesChart from './best-practices-chart'
+import SEOChart from './seo-chart'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
@@ -148,6 +153,7 @@ const PageDetails = (props: any) => {
   if (error) return <p>Error: {error.message}</p>
 
   const { page_by_pk } = data
+  const { TabPane } = Tabs
 
   return (
     <>
@@ -159,7 +165,10 @@ const PageDetails = (props: any) => {
               `/sites/${props.siteId}`
             )
           }
-          title={`Audits for ${page_by_pk.link}`}
+          title={`Audits for ${truncate(page_by_pk.link, {
+            length: 40,
+            separator: '...',
+          })}`}
         >
           <p className="text-xs text-gray-500 font-hairline mb-0">
             {!!page_by_pk.audits.length
@@ -170,16 +179,76 @@ const PageDetails = (props: any) => {
           </p>
         </PageHeader>
       </div>
-      <div className="p-8">
-        <div className="bg-white rounded mx-auto border border-b-0 border-solid border-gray-300 shadow-lg">
-          <Table
-            rowKey="id"
-            columns={columns}
-            dataSource={!!page_by_pk.id ? page_by_pk.audits : []}
-            pagination={false}
-            scroll={{ x: 1200 }}
-          />
-        </div>
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={!!page_by_pk.id ? page_by_pk.audits : []}
+          pagination={false}
+          scroll={{ x: 1200 }}
+        />
+      </div>
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+        <Tabs
+          defaultActiveKey="performance"
+          onChange={key => console.log(key)}
+          size="large"
+          tabBarStyle={{
+            backgroundColor: '#fafafa',
+            borderBottom: '1px solid #e8e8e8',
+          }}
+        >
+          <TabPane
+            tab={
+              <span className="text-xs uppercase text-gray-700 px-8">
+                <Icon type="thunderbolt" className="text-base" /> Performance
+              </span>
+            }
+            key="performance"
+          >
+            <div className="pr-2">
+              <PerformanceChart id={props.id} />
+            </div>
+          </TabPane>
+          <TabPane
+            tab={
+              <span className="text-xs uppercase text-gray-700 px-8">
+                <Icon type="property-safety" className="text-base" />{' '}
+                Accessibility
+              </span>
+            }
+            key="accessibility"
+          >
+            <div className="pr-2">
+              <AccessibilityChart id={props.id} />
+            </div>
+          </TabPane>
+          <TabPane
+            tab={
+              <span className="text-xs uppercase text-gray-700 px-8">
+                <Icon type="issues-close" className="text-base" /> Best
+                Practices
+              </span>
+            }
+            key="best-practices"
+          >
+            <div className="pr-2">
+              <BestPracticesChart id={props.id} />
+            </div>
+          </TabPane>
+          <TabPane
+            tab={
+              <span className="text-xs uppercase text-gray-700 px-8">
+                <Icon type="file-search" className="text-base" /> SEO
+              </span>
+            }
+            key="seo"
+          >
+            <div className="pr-2">
+              <SEOChart id={props.id} />
+            </div>
+          </TabPane>
+        </Tabs>
       </div>
     </>
   )

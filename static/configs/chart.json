@@ -1,0 +1,36 @@
+{
+  "dataLabels": {
+    "enabled": false
+  },
+  "colors": ["#2196f3"],
+  "xaxis": {
+    "type": "datetime",
+    "labels": {
+      "style": {
+        "fontSize": "12px",
+        "cssClass": "font-bold"
+      }
+    },
+    "axisBorder": {
+      "show": false
+    }
+  },
+  "yaxis": {
+    "min": 0,
+    "max": 100,
+    "labels": {
+      "style": {
+        "fontSize": "12px",
+        "cssClass": "font-bold"
+      }
+    }
+  },
+  "chart": {
+    "toolbar": {
+      "show": false
+    }
+  },
+  "grid": {
+    "borderColor": "#e8e8e89e"
+  }
+}

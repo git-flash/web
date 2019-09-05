@@ -42,7 +42,7 @@ app
     })
 
     server.get('/sites/:siteId/pages/:id', (req: any, res: any) => {
-      app.render(req, res, '/sites/pages', {
+      app.render(req, res, '/sites/pages/show', {
         siteId: req.params.siteId,
         id: req.params.id,
       })

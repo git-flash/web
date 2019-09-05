@@ -331,16 +331,14 @@ const SitesIndex = (props: any) => {
           </p>
         </PageHeader>
       </div>
-      <div className="p-8">
-        <div className="bg-white rounded mx-auto border border-b-0 border-solid border-gray-300 shadow-lg">
-          <Table
-            rowKey="id"
-            dataSource={data.site}
-            columns={columns}
-            pagination={false}
-            scroll={{ x: 1300 }}
-          />
-        </div>
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+        <Table
+          rowKey="id"
+          dataSource={data.site}
+          columns={columns}
+          pagination={false}
+          scroll={{ x: 1300 }}
+        />
       </div>
     </Fragment>
   )
