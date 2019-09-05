@@ -35,11 +35,11 @@ const BestPracticesChart = props => {
       ),
       dataIndex: 'url',
       key: 'url',
-      width: 600,
+      width: 350,
       fixed: 'left',
       render: (_, record) => (
         <div className="text-sm font-semibold">
-          {truncate(record.url, { length: 60, separator: '...' })}
+          {truncate(record.url, { length: 40, separator: '...' })}
         </div>
       ),
     },
@@ -146,7 +146,7 @@ const BestPracticesChart = props => {
           : []
       }
       pagination={false}
-      scroll={{ x: 2000, y: 400 }}
+      scroll={{ x: 1750, y: 400 }}
     />
   )
 }
