@@ -23,7 +23,7 @@ const fetchPagesSubscription = gql`
     page_by_pk(id: $id) {
       id
       link
-      audits(limit: 1, order_by: { fetch_time: desc }) {
+      audits(limit: 1, order_by: { fetch_time: asc }) {
         id
         categories_performance_score
         categories_seo_score

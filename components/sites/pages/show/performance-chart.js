@@ -17,7 +17,7 @@ const fetchPerformanceSubscription = gql`
   subscription($id: uuid!) {
     page_by_pk(id: $id) {
       id
-      audits(limit: 10, order_by: { fetch_time: desc }) {
+      audits(limit: 10, order_by: { fetch_time: asc }) {
         id
         categories_performance_score
         fetch_time
