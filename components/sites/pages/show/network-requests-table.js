@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
-import { Table, Popover, PageHeader, Tabs, Icon } from 'antd'
+import { Table, Popover, PageHeader, Tabs, Icon, Tag } from 'antd'
 import Router from 'next/router'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -98,6 +98,7 @@ const BestPracticesChart = props => {
       dataIndex: 'statusCode',
       key: 'statusCode',
       width: 200,
+      render: (_, record) => <Tag color="blue">{record.statusCode}</Tag>,
       sorter: (a, b) => a.statusCode - b.statusCode,
     },
     {
