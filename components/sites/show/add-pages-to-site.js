@@ -37,14 +37,7 @@ const AddPagesToSite = props => {
 
   return (
     <Mutation mutation={createPageMutation}>
-      {({ loading, error }) => {
-        if (loading)
-          return (
-            <p className="flex justify-center items-center min-h-screen">
-              Loading...
-            </p>
-          )
-
+      {({ error }) => {
         if (error) return <p>Error: {error.message}</p>
 
         return (

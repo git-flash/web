@@ -11,7 +11,7 @@ import Gravatar from 'react-gravatar'
 import truncate from 'lodash/truncate'
 
 import Loader from '../../common/loader'
-import AddLinkModal from './add-link-modal'
+import AddPagesToSiteModal from './add-pages-to-site'
 import AddUsersToSiteModal from './add-users-to-site'
 import calculateProgress from '../../../lib/calculate-progress'
 
@@ -352,7 +352,7 @@ const SitesShow = (props: any) => {
                   siteName={name}
                   siteUsers={users}
                 />
-                <AddLinkModal siteId={id} />
+                <AddPagesToSiteModal siteId={id} />
               </ButtonGroup>
               <Link href={`/sites/edit?id=${id}`} as={`/sites/${id}/edit`}>
                 <Button type="primary" icon="highlight" size="large">

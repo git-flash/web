@@ -7,8 +7,6 @@ import Link from 'next/link'
 import Gravatar from 'react-gravatar'
 import includes from 'lodash/includes'
 
-import Loader from '../../common/loader'
-
 const fetchUsersSubscription = gql`
   subscription {
     user {
@@ -37,8 +35,6 @@ const AddUsersToSiteModal = props => {
   const { data, loading, error } = useSubscription(fetchUsersSubscription, {
     fetchPolicy: 'network-only',
   })
-
-  if (loading) return <Loader />
 
   if (error) return <p>Error: {error.message}</p>
 
@@ -122,7 +118,7 @@ const AddUsersToSiteModal = props => {
       >
         Add Users
       </Button>
-      {modalNode()}
+      {!loading && modalNode()}
     </>
   )
 }
