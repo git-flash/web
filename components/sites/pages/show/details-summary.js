@@ -25,7 +25,7 @@ const fetchPageDetailsQuery = gql`
   query($id: uuid!) {
     page_by_pk(id: $id) {
       id
-      audits(limit: 10, order_by: { fetch_time: asc }) {
+      audits(limit: 10, order_by: { fetch_time: desc }) {
         id
         categories_performance_score
         categories_seo_score
@@ -151,18 +151,18 @@ const DetailsSummary = props => {
               </div>
             }
             value={calculateScorePercentage(
-              page_by_pk.audits[1].categories_performance_score,
-              page_by_pk.audits[0].categories_performance_score
+              page_by_pk.audits[0].categories_performance_score,
+              page_by_pk.audits[1].categories_performance_score
             )}
             valueStyle={{
               color: calculateScoreColor(
-                page_by_pk.audits[1].categories_performance_score,
-                page_by_pk.audits[0].categories_performance_score
+                page_by_pk.audits[0].categories_performance_score,
+                page_by_pk.audits[1].categories_performance_score
               ),
             }}
             prefix={calculateScoreIcon(
-              page_by_pk.audits[1].categories_performance_score,
-              page_by_pk.audits[0].categories_performance_score
+              page_by_pk.audits[0].categories_performance_score,
+              page_by_pk.audits[1].categories_performance_score
             )}
           />
           {chartNode('Performance', performanceScore)}
@@ -177,18 +177,18 @@ const DetailsSummary = props => {
               </div>
             }
             value={calculateScorePercentage(
-              page_by_pk.audits[1].categories_seo_score,
-              page_by_pk.audits[0].categories_seo_score
+              page_by_pk.audits[0].categories_seo_score,
+              page_by_pk.audits[1].categories_seo_score
             )}
             valueStyle={{
               color: calculateScoreColor(
-                page_by_pk.audits[1].categories_seo_score,
-                page_by_pk.audits[0].categories_seo_score
+                page_by_pk.audits[0].categories_seo_score,
+                page_by_pk.audits[1].categories_seo_score
               ),
             }}
             prefix={calculateScoreIcon(
-              page_by_pk.audits[1].categories_seo_score,
-              page_by_pk.audits[0].categories_seo_score
+              page_by_pk.audits[0].categories_seo_score,
+              page_by_pk.audits[1].categories_seo_score
             )}
           />
           {chartNode('SEO', seoScore)}
@@ -203,18 +203,18 @@ const DetailsSummary = props => {
               </div>
             }
             value={calculateScorePercentage(
-              page_by_pk.audits[1].categories_best_practices_score,
-              page_by_pk.audits[0].categories_best_practices_score
+              page_by_pk.audits[0].categories_best_practices_score,
+              page_by_pk.audits[1].categories_best_practices_score
             )}
             valueStyle={{
               color: calculateScoreColor(
-                page_by_pk.audits[1].categories_best_practices_score,
-                page_by_pk.audits[0].categories_best_practices_score
+                page_by_pk.audits[0].categories_best_practices_score,
+                page_by_pk.audits[1].categories_best_practices_score
               ),
             }}
             prefix={calculateScoreIcon(
-              page_by_pk.audits[1].categories_best_practices_score,
-              page_by_pk.audits[0].categories_best_practices_score
+              page_by_pk.audits[0].categories_best_practices_score,
+              page_by_pk.audits[1].categories_best_practices_score
             )}
           />
           {chartNode('Best Practices', bestPracticesScore)}
@@ -229,18 +229,18 @@ const DetailsSummary = props => {
               </div>
             }
             value={calculateScorePercentage(
-              page_by_pk.audits[1].categories_accessibility_score,
-              page_by_pk.audits[0].categories_accessibility_score
+              page_by_pk.audits[0].categories_accessibility_score,
+              page_by_pk.audits[1].categories_accessibility_score
             )}
             valueStyle={{
               color: calculateScoreColor(
-                page_by_pk.audits[1].categories_accessibility_score,
-                page_by_pk.audits[0].categories_accessibility_score
+                page_by_pk.audits[0].categories_accessibility_score,
+                page_by_pk.audits[1].categories_accessibility_score
               ),
             }}
             prefix={calculateScoreIcon(
-              page_by_pk.audits[1].categories_accessibility_score,
-              page_by_pk.audits[0].categories_accessibility_score
+              page_by_pk.audits[0].categories_accessibility_score,
+              page_by_pk.audits[1].categories_accessibility_score
             )}
           />
           {chartNode('Accessibility', accessibilityScore)}
