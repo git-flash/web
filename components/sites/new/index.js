@@ -91,12 +91,13 @@ const SitesNew = props => {
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
           onBack={() => Router.push('/sites')}
-          title="Create New Site"
-        >
-          <p className="text-xs text-gray-500 font-hairline mb-0">
-            You can add a new site by providing the necessary details
-          </p>
-        </PageHeader>
+          title={<div style={{ margin: '12px 0 0 12px' }}>Create New Site</div>}
+          backIcon={
+            <div style={{ margin: '12px -12px 0 12px' }}>
+              <Icon type="arrow-left" />
+            </div>
+          }
+        />
       </div>
       <Row>
         <Col sm={24} md={18}>

@@ -279,7 +279,7 @@ const SitesIndex = (props: any) => {
     <Fragment>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
-          title="Sites"
+          title={<div style={{ margin: '12px 0 0 12px' }}>Sites</div>}
           extra={
             <div className="m-2">
               <Link href={`/sites/new`} as={`/sites/new`}>
@@ -289,11 +289,7 @@ const SitesIndex = (props: any) => {
               </Link>
             </div>
           }
-        >
-          <p className="text-xs text-gray-500 font-hairline mb-0">
-            A list of all your sites
-          </p>
-        </PageHeader>
+        />
       </div>
       <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
         <Table

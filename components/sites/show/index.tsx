@@ -333,7 +333,16 @@ const SitesShow = (props: any) => {
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
           onBack={() => Router.push('/sites')}
-          title={truncate(name, { length: 40, separator: '...' })}
+          title={
+            <div style={{ margin: '12px 0 0 12px' }}>
+              {truncate(name, { length: 40, separator: '...' })}
+            </div>
+          }
+          backIcon={
+            <div style={{ margin: '12px -12px 0 12px' }}>
+              <Icon type="arrow-left" />
+            </div>
+          }
           extra={
             <div className="m-2 flex items-center">
               {userAvatarsNode()}
@@ -352,11 +361,7 @@ const SitesShow = (props: any) => {
               </Link>
             </div>
           }
-        >
-          <p className="text-xs text-gray-500 font-hairline mb-0">
-            Details for {truncate(name, { length: 40, separator: '...' })}
-          </p>
-        </PageHeader>
+        />
       </div>
       <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
         <Table

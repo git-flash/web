@@ -55,19 +55,20 @@ const PageDetails = (props: any) => {
               `/sites/${props.siteId}`
             )
           }
-          title={`Audits for ${truncate(page_by_pk.link, {
-            length: 40,
-            separator: '...',
-          })}`}
-        >
-          <p className="text-xs text-gray-500 font-hairline mb-0">
-            {!!page_by_pk.audits.length
-              ? `Last audit was ${dayjs(
-                  page_by_pk.audits[0].fetch_time
-                ).fromNow()}`
-              : 'Page will be audited soon'}
-          </p>
-        </PageHeader>
+          title={
+            <div style={{ margin: '12px 0 0 12px' }}>
+              {truncate(page_by_pk.link, {
+                length: 40,
+                separator: '...',
+              })}
+            </div>
+          }
+          backIcon={
+            <div style={{ margin: '12px -12px 0 12px' }}>
+              <Icon type="arrow-left" />
+            </div>
+          }
+        />
       </div>
       <div className="m-8">
         <DetailsSummary id={props.id} />
