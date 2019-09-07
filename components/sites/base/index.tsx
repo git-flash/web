@@ -13,7 +13,6 @@ const fetchSitesSubscription = gql`
     site(order_by: { created_at: desc }) {
       id
       name
-      login_url
       pages_aggregate {
         aggregate {
           count
@@ -26,12 +25,8 @@ const fetchSitesSubscription = gql`
             categories_best_practices_score
             categories_accessibility_score
             categories_pwa_score
-            audit_screenshot_thumbnails
           }
         }
-      }
-      users {
-        id
       }
     }
   }
@@ -64,65 +59,20 @@ const SitesIndex = (props: any) => {
         record: {
           id: number
           name: string
-          pages_aggregate: {
-            nodes: [
-              {
-                audits: [
-                  {
-                    audit_screenshot_thumbnails: {
-                      items: [
-                        {
-                          data: string
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
         }
       ) => {
-        const thumbnails =
-          record.pages_aggregate.nodes.length &&
-          record.pages_aggregate.nodes[0].audits.length &&
-          record.pages_aggregate.nodes[0].audits[0]
-            .audit_screenshot_thumbnails &&
-          record.pages_aggregate.nodes[0].audits[0].audit_screenshot_thumbnails
-            .items
-
         return (
           <Link href={`/sites/show?id=${record.id}`} as={`/sites/${record.id}`}>
             <a className="font-base w-full flex-col">
-              {!!thumbnails ? (
-                <div className="flex items-center">
-                  <img
-                    src={thumbnails[thumbnails.length - 1].data}
-                    alt={record.name}
-                    width={20}
-                  />
-                  <div className="ml-4">
-                    <div className="text-sm font-semibold">
-                      {truncate(record.name, { length: 40, separator: '...' })}
-                    </div>
-                    <div className="text-xs mt-1 text-gray-500 font-hairline">
-                      {record.id}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="ml-10">
-                  <div className="text-sm font-semibold">
-                    {truncate(record.name, {
-                      length: 40,
-                      separator: '...',
-                    })}
-                  </div>
-                  <div className="text-xs mt-1 text-gray-500 font-hairline">
-                    {record.id}
-                  </div>
-                </div>
-              )}
+              <div className="text-sm font-semibold">
+                {truncate(record.name, {
+                  length: 40,
+                  separator: '...',
+                })}
+              </div>
+              <div className="text-xs mt-1 text-gray-500 font-hairline">
+                {record.id}
+              </div>
             </a>
           </Link>
         )
