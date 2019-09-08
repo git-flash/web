@@ -58,6 +58,7 @@ const AddPagesToSite = props => {
                 setVisibility(false)
               }}
               onCancel={() => setVisibility(false)}
+              okText="Add"
             >
               <Form layout="vertical" onSubmit={() => handleSubmit(props)}>
                 <Form.Item label="Page">

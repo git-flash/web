@@ -73,69 +73,77 @@ const PageDetails = (props: any) => {
       <div className="m-8">
         <DetailsSummary id={props.id} />
       </div>
-      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
-        <Tabs
-          defaultActiveKey="performance"
-          size="large"
-          tabBarStyle={{
-            backgroundColor: '#fafafa',
-            borderBottom: '1px solid #e8e8e8',
-          }}
-        >
-          <TabPane
-            tab={
-              <span className="text-xs uppercase text-gray-700 font-bold px-8">
-                <Icon type="thunderbolt" className="text-base" /> Performance
-              </span>
-            }
-            key="performance"
+      <div className="m-8">
+        <h2 className="mb-2 uppercase text-lg text-gray-700">Summary</h2>
+        <div className="bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+          <Tabs
+            defaultActiveKey="performance"
+            size="large"
+            tabBarStyle={{
+              backgroundColor: '#fafafa',
+              borderBottom: '1px solid #e8e8e8',
+            }}
           >
-            <div className="pr-2" style={{ minHeight: '400px' }}>
-              <PerformanceChart id={props.id} />
-            </div>
-          </TabPane>
-          <TabPane
-            tab={
-              <span className="text-xs uppercase text-gray-700 font-bold px-8">
-                <Icon type="file-search" className="text-base" /> SEO
-              </span>
-            }
-            key="seo"
-          >
-            <div className="pr-2" style={{ minHeight: '400px' }}>
-              <SEOChart id={props.id} />
-            </div>
-          </TabPane>
-          <TabPane
-            tab={
-              <span className="text-xs uppercase text-gray-700 font-bold px-8">
-                <Icon type="issues-close" className="text-base" /> Best
-                Practices
-              </span>
-            }
-            key="best-practices"
-          >
-            <div className="pr-2" style={{ minHeight: '400px' }}>
-              <BestPracticesChart id={props.id} />
-            </div>
-          </TabPane>
-          <TabPane
-            tab={
-              <span className="text-xs uppercase text-gray-700 font-bold px-8">
-                <Icon type="property-safety" className="text-base" />{' '}
-                Accessibility
-              </span>
-            }
-            key="accessibility"
-          >
-            <div className="pr-2" style={{ minHeight: '400px' }}>
-              <AccessibilityChart id={props.id} />
-            </div>
-          </TabPane>
-        </Tabs>
+            <TabPane
+              tab={
+                <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                  <Icon type="thunderbolt" className="text-base" /> Performance
+                </span>
+              }
+              key="performance"
+            >
+              <div className="pr-2" style={{ minHeight: '400px' }}>
+                <PerformanceChart id={props.id} />
+              </div>
+            </TabPane>
+            <TabPane
+              tab={
+                <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                  <Icon type="file-search" className="text-base" /> SEO
+                </span>
+              }
+              key="seo"
+            >
+              <div className="pr-2" style={{ minHeight: '400px' }}>
+                <SEOChart id={props.id} />
+              </div>
+            </TabPane>
+            <TabPane
+              tab={
+                <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                  <Icon type="issues-close" className="text-base" /> Best
+                  Practices
+                </span>
+              }
+              key="best-practices"
+            >
+              <div className="pr-2" style={{ minHeight: '400px' }}>
+                <BestPracticesChart id={props.id} />
+              </div>
+            </TabPane>
+            <TabPane
+              tab={
+                <span className="text-xs uppercase text-gray-700 font-bold px-8">
+                  <Icon type="property-safety" className="text-base" />{' '}
+                  Accessibility
+                </span>
+              }
+              key="accessibility"
+            >
+              <div className="pr-2" style={{ minHeight: '400px' }}>
+                <AccessibilityChart id={props.id} />
+              </div>
+            </TabPane>
+          </Tabs>
+        </div>
       </div>
-      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
-        <NetworkRequestsTable id={props.id} />
+      <div className="m-8">
+        <h2 className="mb-2 uppercase text-lg text-gray-700">
+          Network Requests
+        </h2>
+        <div className="bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+          <NetworkRequestsTable id={props.id} />
+        </div>
       </div>
     </>
   )

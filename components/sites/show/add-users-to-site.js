@@ -74,6 +74,7 @@ const AddUsersToSiteModal = props => {
         destroyOnClose
         visible={visible}
         centered
+        okText="Add"
       >
         <Form layout="vertical" onSubmit={() => handleSubmit(props)}>
           <Form.Item label="Users">
