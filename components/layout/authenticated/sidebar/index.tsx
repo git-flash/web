@@ -13,7 +13,7 @@ const AuthenticatedSidebar = (props: any) => {
 
   const getClassName = (key: string) => {
     if (props.router.asPath === key) {
-      return 'ant-menu-item-selected'
+      return 'ant-menu-item-selected border-solid border-0 border-l-2 border-gray-300 bg-black'
     }
 
     return ''
