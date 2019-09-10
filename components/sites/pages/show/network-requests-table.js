@@ -18,7 +18,7 @@ const fetchBestPracticesSubscription = gql`
   subscription($id: uuid!) {
     page_by_pk(id: $id) {
       id
-      audits(limit: 1, order_by: { fetch_time: asc }) {
+      audits(limit: 1, order_by: { fetch_time: desc }) {
         id
         audit_network_requests_details
         fetch_time
@@ -143,7 +143,7 @@ const BestPracticesChart = props => {
       columns={columns}
       dataSource={
         !!page_by_pk.id
-          ? page_by_pk.audits[0].audit_network_requests_details.items
+          ? page_by_pk.audits[0].audit_network_requests_details.items.reverse()
           : []
       }
       pagination={false}
