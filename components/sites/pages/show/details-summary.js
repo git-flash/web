@@ -147,7 +147,7 @@ const DetailsSummary = props => {
   return (
     <Row gutter={32}>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-lg" style={{ minHeight: '170px' }}>
+        <Card className="shadow-lg rounded" style={{ minHeight: '170px' }}>
           <Statistic
             title={
               <div className="uppercase uppercase text-gray-500 font-sm">
@@ -173,7 +173,7 @@ const DetailsSummary = props => {
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-lg" style={{ minHeight: '170px' }}>
+        <Card className="shadow-lg rounded" style={{ minHeight: '170px' }}>
           <Statistic
             title={
               <div className="uppercase uppercase text-gray-500 font-sm">
@@ -199,7 +199,7 @@ const DetailsSummary = props => {
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-lg" style={{ minHeight: '170px' }}>
+        <Card className="shadow-lg rounded" style={{ minHeight: '170px' }}>
           <Statistic
             title={
               <div className="uppercase uppercase text-gray-500 font-sm">
@@ -225,7 +225,7 @@ const DetailsSummary = props => {
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-lg" style={{ minHeight: '170px' }}>
+        <Card className="shadow-lg rounded" style={{ minHeight: '170px' }}>
           <Statistic
             title={
               <div className="uppercase uppercase text-gray-500 font-sm">
