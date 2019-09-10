@@ -92,7 +92,10 @@ const PageDetails = (props: any) => {
               }
               key="performance"
             >
-              <div className="pr-2" style={{ minHeight: '400px' }}>
+              <div
+                className="pr-2 flex items-center justify-center"
+                style={{ minHeight: '400px' }}
+              >
                 <PerformanceChart id={props.id} />
               </div>
             </TabPane>
@@ -104,7 +107,10 @@ const PageDetails = (props: any) => {
               }
               key="seo"
             >
-              <div className="pr-2" style={{ minHeight: '400px' }}>
+              <div
+                className="pr-2 flex items-center justify-center"
+                style={{ minHeight: '400px' }}
+              >
                 <SEOChart id={props.id} />
               </div>
             </TabPane>
@@ -117,7 +123,10 @@ const PageDetails = (props: any) => {
               }
               key="best-practices"
             >
-              <div className="pr-2" style={{ minHeight: '400px' }}>
+              <div
+                className="pr-2 flex items-center justify-center"
+                style={{ minHeight: '400px' }}
+              >
                 <BestPracticesChart id={props.id} />
               </div>
             </TabPane>
@@ -130,7 +139,10 @@ const PageDetails = (props: any) => {
               }
               key="accessibility"
             >
-              <div className="pr-2" style={{ minHeight: '400px' }}>
+              <div
+                className="pr-2 flex items-center justify-center"
+                style={{ minHeight: '400px' }}
+              >
                 <AccessibilityChart id={props.id} />
               </div>
             </TabPane>

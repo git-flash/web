@@ -140,6 +140,10 @@ const DetailsSummary = props => {
     )
   }
 
+  if (page_by_pk.audits.length < 2) {
+    return false
+  }
+
   return (
     <Row gutter={32}>
       <Col sm={24} md={12} lg={6}>
