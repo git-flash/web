@@ -47,7 +47,7 @@
     "react-dom": "^16.9.0",
     "react-gravatar": "^2.6.3",
     "subscriptions-transport-ws": "^0.9.16",
-    "webpack": "^4.39.3"
+    "webpack": "^4.40.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.1",
