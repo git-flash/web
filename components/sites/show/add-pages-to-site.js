@@ -5,10 +5,10 @@ import { graphql, withApollo, Mutation } from 'react-apollo'
 import Link from 'next/link'
 
 const createPageMutation = gql`
-  mutation($page: String, $site_id: uuid) {
-    insert_page(objects: { page: $page, site_id: $site_id }) {
+  mutation($link: String, $site_id: uuid) {
+    insert_page(objects: { link: $link, site_id: $site_id }) {
       returning {
-        page
+        link
         id
       }
     }
@@ -21,7 +21,7 @@ const handleSubmit = props => {
       await props.client.mutate({
         mutation: createPageMutation,
         variables: {
-          page: values.page,
+          link: values.link,
           site_id: props.siteId,
         },
       })
@@ -61,10 +61,10 @@ const AddPagesToSite = props => {
               okText="Add"
             >
               <Form layout="vertical" onSubmit={() => handleSubmit(props)}>
-                <Form.Item label="Page">
-                  {getFieldDecorator('page', {
-                    rules: [{ required: true, message: 'Please enter page!' }],
-                  })(<Input placeholder="Please enter page" size="large" />)}
+                <Form.Item label="Link">
+                  {getFieldDecorator('link', {
+                    rules: [{ required: true, message: 'Please enter link!' }],
+                  })(<Input placeholder="Please enter link" size="large" />)}
                 </Form.Item>
               </Form>
             </Modal>
