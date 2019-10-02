@@ -57,7 +57,7 @@
     "@types/react-dom": "^16.9.1",
     "autoprefixer": "^9.6.1",
     "cross-env": "^6.0.0",
-    "husky": "^3.0.7",
+    "husky": "^3.0.8",
     "lessc": "^1.0.2",
     "lint-staged": "^9.4.1",
     "nodemon": "^1.19.3",
