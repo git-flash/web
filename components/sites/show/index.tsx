@@ -334,7 +334,7 @@ const SitesShow = (props: any) => {
         <PageHeader
           onBack={() => Router.push('/sites')}
           title={
-            <div style={{ margin: '12px 0 0 12px' }}>
+            <div className="text-xl" style={{ margin: '12px 0 0 12px' }}>
               {truncate(name, { length: 40, separator: '...' })}
             </div>
           }
@@ -363,7 +363,7 @@ const SitesShow = (props: any) => {
           }
         />
       </div>
-      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-lg">
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-md">
         <Table
           rowKey="id"
           columns={columns}
