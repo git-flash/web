@@ -923,10 +923,10 @@
   dependencies:
     "@hapi/hoek" "8.x.x"
 
-"@next/bundle-analyzer@^9.0.7":
-  version "9.0.7"
-  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-9.0.7.tgz#2b0ac78226b137a54962d9ce13c51cffd284f149"
-  integrity sha512-uz/WoR6IN59TDJF5UTn64KG0O9KsXaMRFOX6XAq9Wr3sUzQ7qsnqss74vP9w73z1swbpqOwKnAChetx8JCzvww==
+"@next/bundle-analyzer@^9.0.8":
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-9.0.8.tgz#5780db2a64740ac7d241555d4b96d741c0c80754"
+  integrity sha512-1uijvZHbWed8WgDLoR4woOYXSjhaCE5tQ5KMCMBLs1sRcgbIJsv7k17Z158tOxP+Lb6bRfA987Vas4raSDHLxQ==
   dependencies:
     webpack-bundle-analyzer "3.3.2"
 
