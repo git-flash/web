@@ -21,37 +21,6 @@ app
       server.use(compression())
     }
 
-    server.get('/sites', (req: any, res: any) => {
-      app.render(req, res, '/sites')
-    })
-
-    server.get('/sites/new', (req: any, res: any) => {
-      app.render(req, res, '/sites/new')
-    })
-
-    server.get('/sites/:id/edit', (req: any, res: any) => {
-      app.render(req, res, '/sites/edit', {
-        id: req.params.id,
-      })
-    })
-
-    server.get('/sites/:id', (req: any, res: any) => {
-      app.render(req, res, '/sites/show', {
-        id: req.params.id,
-      })
-    })
-
-    server.get('/sites/:siteId/pages/:id', (req: any, res: any) => {
-      app.render(req, res, '/sites/pages/show', {
-        siteId: req.params.siteId,
-        id: req.params.id,
-      })
-    })
-
-    server.get('/authentication', (req: any, res: any) => {
-      app.render(req, res, '/authentication')
-    })
-
     server.get('*', (req: any, res: any) => {
       const parsedUrl = parse(req.url, true)
       const { pathname } = parsedUrl

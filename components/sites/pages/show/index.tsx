@@ -51,7 +51,7 @@ const PageDetails = (props: any) => {
         <PageHeader
           onBack={() =>
             Router.push(
-              `/sites/show?id=${props.siteId}`,
+              `/sites/[siteId]?id=${props.siteId}`,
               `/sites/${props.siteId}`
             )
           }

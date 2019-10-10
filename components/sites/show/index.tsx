@@ -85,7 +85,7 @@ const SitesShow = (props: any) => {
         }
       ) => (
         <Link
-          href={`/sites/pages/show?id=${record.id}&siteId=${props.id}`}
+          href={`/sites/[siteId]/pages/[id]?id=${record.id}&siteId=${props.id}`}
           as={`/sites/${props.id}/pages/${record.id}`}
         >
           <a className="font-base w-full flex-col">
@@ -239,7 +239,7 @@ const SitesShow = (props: any) => {
         <div>
           <ButtonGroup>
             <Link
-              href={`/sites/pages/show?id=${record.id}&siteId=${props.id}`}
+              href={`/sites/[siteId]/pages/[id]?id=${record.id}&siteId=${props.id}`}
               as={`/sites/${props.id}/pages/${record.id}`}
             >
               <Button>
@@ -354,7 +354,10 @@ const SitesShow = (props: any) => {
                 />
                 <AddPagesToSiteModal siteId={id} />
               </ButtonGroup>
-              <Link href={`/sites/edit?id=${id}`} as={`/sites/${id}/edit`}>
+              <Link
+                href={`/sites/[siteId]/edit?id=${id}`}
+                as={`/sites/${id}/edit`}
+              >
                 <Button type="primary" icon="highlight" size="large">
                   Edit Site Details
                 </Button>

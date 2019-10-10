@@ -62,7 +62,10 @@ const SitesIndex = (props: any) => {
         }
       ) => {
         return (
-          <Link href={`/sites/show?id=${record.id}`} as={`/sites/${record.id}`}>
+          <Link
+            href={`/sites/[siteId]?siteId=${record.id}`}
+            as={`/sites/${record.id}`}
+          >
             <a className="font-base w-full flex-col">
               <div className="text-sm font-semibold">
                 {truncate(record.name, {
@@ -244,7 +247,7 @@ const SitesIndex = (props: any) => {
         <div>
           <ButtonGroup>
             <Link
-              href={`/sites/show?id=${record.id}`}
+              href={`/sites/[siteId]?id=${record.id}`}
               as={`/sites/${record.id}`}
             >
               <Button>

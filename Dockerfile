@@ -6,12 +6,12 @@ WORKDIR /web-app
 
 RUN apk update && apk upgrade && apk add --no-cache bash git
 
-ENV PATH /web-app/node_modules/.bin:$PATH
-
 COPY . /web-app/
 
 RUN yarn global add nodemon ts-node typescript
 
 RUN yarn install
+
+EXPOSE 3000
 
 CMD ["yarn", "dev"]

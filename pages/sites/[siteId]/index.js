@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { withRouter } from 'next/router'
 
-import withApollo from '../../lib/with-apollo'
-import withLayout from '../../lib/with-layout'
-import Site from '../../components/sites/show'
+import withApollo from '../../../lib/with-apollo'
+import withLayout from '../../../lib/with-layout'
+import Site from '../../../components/sites/show'
 
 const SitesShowPage = props => {
   return (
@@ -12,7 +12,7 @@ const SitesShowPage = props => {
       <Head>
         <title>Site Details - Perfy</title>
       </Head>
-      <Site id={props.router.query.id} />
+      <Site id={props.router.query.siteId} />
     </Fragment>
   )
 }

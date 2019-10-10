@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { withRouter } from 'next/router'
 
-import withApollo from '../../../lib/with-apollo'
-import withLayout from '../../../lib/with-layout'
-import Pages from '../../../components/sites/pages/show'
+import withApollo from '../../../../lib/with-apollo'
+import withLayout from '../../../../lib/with-layout'
+import Pages from '../../../../components/sites/pages/show'
 
 const PagesIndexPage = props => {
   return (
