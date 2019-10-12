@@ -2,6 +2,10 @@
   "dataLabels": {
     "enabled": false
   },
+  "stroke": {
+    "curve": "straight",
+    "width": 2
+  },
   "colors": ["#2196f3"],
   "xaxis": {
     "type": "datetime",

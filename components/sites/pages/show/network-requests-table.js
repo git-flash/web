@@ -5,7 +5,6 @@ import { Table, Popover, PageHeader, Tabs, Icon, Tag } from 'antd'
 import Router from 'next/router'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import truncate from 'lodash/truncate'
 import dynamic from 'next/dynamic'
 
 import Loader from '../../../common/loader'
@@ -35,12 +34,10 @@ const BestPracticesChart = props => {
       ),
       dataIndex: 'url',
       key: 'url',
-      width: 350,
+      width: 700,
       fixed: 'left',
       render: (_, record) => (
-        <div className="text-sm font-semibold">
-          {truncate(record.url, { length: 40, separator: '...' })}
-        </div>
+        <div className="text-sm font-semibold w-full">{record.url}</div>
       ),
     },
     {
@@ -148,6 +145,7 @@ const BestPracticesChart = props => {
       }
       pagination={false}
       scroll={{ x: 1750, y: 400 }}
+      className="border-0 border-t border-solid border-gray-300"
     />
   )
 }
