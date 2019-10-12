@@ -34,7 +34,7 @@ const BestPracticesChart = props => {
       ),
       dataIndex: 'url',
       key: 'url',
-      width: 700,
+      width: 750,
       fixed: 'left',
       render: (_, record) => (
         <div className="text-sm font-semibold w-full">{record.url}</div>
@@ -144,7 +144,7 @@ const BestPracticesChart = props => {
           : []
       }
       pagination={false}
-      scroll={{ x: 1750, y: 400 }}
+      scroll={{ x: 2150, y: 400 }}
       className="border-0 border-t border-solid border-gray-300"
     />
   )
