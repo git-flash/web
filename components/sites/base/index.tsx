@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Card, Button, PageHeader, Icon, Row, Col, Progress } from 'antd'
+import { Card, Button, PageHeader, Row, Col, Progress } from 'antd'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
@@ -31,7 +31,6 @@ const deleteSiteMutation = gql`
 `
 
 const SitesIndex = (props: any) => {
-  const { Meta } = Card
   const { data, loading, error } = useSubscription(fetchSitesSubscription)
 
   if (loading) return <Loader />
@@ -68,11 +67,20 @@ const SitesIndex = (props: any) => {
                   as={`/sites/${site.id}`}
                 >
                   <Card
-                    className="rounded mb-8"
+                    className="rounded mb-8 shadow"
                     hoverable
-                    actions={[
+                    title={
+                      <span className="text-gray-700 font-bold">
+                        {site.name}
+                      </span>
+                    }
+                    type="inner"
+                    extra={
                       <Button
                         type="link"
+                        size="small"
+                        icon="delete"
+                        className="text-red-700"
                         onClick={() => {
                           props.client.mutate({
                             mutation: deleteSiteMutation,
@@ -81,19 +89,9 @@ const SitesIndex = (props: any) => {
                             },
                           })
                         }}
-                      >
-                        <Icon type="delete" />
-                      </Button>,
-                    ]}
+                      />
+                    }
                   >
-                    <Meta
-                      title={
-                        <span className="text-gray-700 font-bold">
-                          {site.name}
-                        </span>
-                      }
-                      description={<span className="text-xs">{site.id}</span>}
-                    />
                     <Progress
                       className="mt-4"
                       percent={
