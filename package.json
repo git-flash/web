@@ -42,7 +42,7 @@
     "react-dom": "^16.10.2",
     "react-gravatar": "^2.6.3",
     "subscriptions-transport-ws": "^0.9.16",
-    "ui": "https://github.com/perfy-io/ui",
+    "ui": "git+https://github.com/perfy-io/ui.git",
     "webpack": "^4.41.0"
   },
   "devDependencies": {

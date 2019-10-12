@@ -4,6 +4,8 @@ RUN mkdir /web-app
 
 WORKDIR /web-app
 
+RUN apk update && apk upgrade && apk add --no-cache git
+
 COPY package.json /web-app/package.json
 
 RUN yarn install

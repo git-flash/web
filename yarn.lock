@@ -8577,9 +8577,9 @@ ua-parser-js@^0.7.18:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.20.tgz#7527178b82f6a62a0f243d1f94fd30e3e3c21098"
   integrity sha512-8OaIKfzL5cpx8eCMAhhvTlft8GYF8b2eQr6JkCyVdrgjcytyOmPCXrqXFcUnhonRpLlh5yxEZVohm6mzaowUOw==
 
-"ui@https://github.com/perfy-io/ui":
+"ui@git+https://github.com/perfy-io/ui.git":
   version "0.0.1"
-  resolved "https://github.com/perfy-io/ui#1ef06da95f5b538ac3a3a3d7b2a2b66bd9965fa5"
+  resolved "git+https://github.com/perfy-io/ui.git#1ef06da95f5b538ac3a3a3d7b2a2b66bd9965fa5"
   dependencies:
     antd "^3.23.6"
 

@@ -6,13 +6,13 @@ import withApollo from '../../../../lib/with-apollo'
 import withLayout from '../../../../lib/with-layout'
 import Pages from '../../../../components/sites/pages/show'
 
-const PagesIndexPage = props => {
+const PagesIndexPage = (props: any) => {
   return (
     <Fragment>
       <Head>
         <title>Page Details - Perfy</title>
       </Head>
-      <Pages id={props.router.query.id} siteId={props.router.query.siteId} />
+      <Pages {...props.router.query} />
     </Fragment>
   )
 }

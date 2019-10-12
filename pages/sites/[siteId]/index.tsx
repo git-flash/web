@@ -6,13 +6,13 @@ import withApollo from '../../../lib/with-apollo'
 import withLayout from '../../../lib/with-layout'
 import Site from '../../../components/sites/show'
 
-const SitesShowPage = props => {
+const SitesShowPage = (props: any) => {
   return (
     <Fragment>
       <Head>
         <title>Site Details - Perfy</title>
       </Head>
-      <Site id={props.router.query.siteId} />
+      <Site {...props.router.query} />
     </Fragment>
   )
 }
