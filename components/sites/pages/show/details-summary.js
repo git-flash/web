@@ -70,16 +70,12 @@ const DetailsSummary = props => {
   const fetchTimes = page_by_pk.audits.map(audit => audit.fetch_time)
 
   const calculateScorePercentage = (firstScore, lastScore) => {
-    if (firstScore === lastScore) return `${Math.round(firstScore * 100)} (0 %)`
+    if (firstScore === lastScore) return `0%`
 
     if (firstScore < lastScore)
-      return `${Math.round(firstScore * 100)} (${Math.round(
-        lastScore / firstScore
-      ) / 100} %)`
+      return `- ${Math.round(lastScore / firstScore) / 100}%`
 
-    return `${Math.round(firstScore * 100)} (${Math.round(
-      firstScore / lastScore
-    ) / 100} %)`
+    return `+ ${Math.round(firstScore / lastScore) / 100}%`
   }
 
   const calculateScoreColor = (firstScore, lastScore) => {
@@ -91,11 +87,11 @@ const DetailsSummary = props => {
   }
 
   const calculateScoreIcon = (firstScore, lastScore) => {
-    if (firstScore === lastScore) return <Icon type="rocket" />
+    if (firstScore === lastScore) return <Icon type="dash" />
 
-    if (firstScore > lastScore) return <Icon type="rise" />
+    if (firstScore > lastScore) return <Icon type="caret-up" />
 
-    return <Icon type="fall" />
+    return <Icon type="caret-down" />
   }
 
   const chartNode = (key, score) => {
@@ -147,106 +143,132 @@ const DetailsSummary = props => {
   return (
     <Row gutter={32}>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-md rounded" style={{ minHeight: '170px' }}>
-          <Statistic
-            title={
-              <div className="uppercase uppercase text-gray-500 font-sm">
-                Performance
-              </div>
-            }
-            value={calculateScorePercentage(
-              page_by_pk.audits[0].categories_performance_score,
-              page_by_pk.audits[1].categories_performance_score
+        <Card className="shadow rounded" style={{ minHeight: '170px' }}>
+          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+            Performance
+          </div>
+          <div className="text-black text-4xl text-center mb-2">
+            {Math.round(
+              page_by_pk.audits[0].categories_performance_score * 100
             )}
-            valueStyle={{
+          </div>
+          <div
+            style={{
               color: calculateScoreColor(
                 page_by_pk.audits[0].categories_performance_score,
                 page_by_pk.audits[1].categories_performance_score
               ),
             }}
-            prefix={calculateScoreIcon(
+            className="font-semibold text-center mb-4 text-sm"
+          >
+            {calculateScorePercentage(
               page_by_pk.audits[0].categories_performance_score,
               page_by_pk.audits[1].categories_performance_score
             )}
-          />
+            <span className="ml-2">
+              {calculateScoreIcon(
+                page_by_pk.audits[0].categories_performance_score,
+                page_by_pk.audits[1].categories_performance_score
+              )}
+            </span>
+          </div>
           {chartNode('Performance', performanceScore)}
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-md rounded" style={{ minHeight: '170px' }}>
-          <Statistic
-            title={
-              <div className="uppercase uppercase text-gray-500 font-sm">
-                SEO
-              </div>
-            }
-            value={calculateScorePercentage(
-              page_by_pk.audits[0].categories_seo_score,
-              page_by_pk.audits[1].categories_seo_score
-            )}
-            valueStyle={{
+        <Card className="shadow rounded" style={{ minHeight: '170px' }}>
+          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+            SEO
+          </div>
+          <div className="text-black text-4xl text-center mb-2">
+            {Math.round(page_by_pk.audits[0].categories_seo_score * 100)}
+          </div>
+          <div
+            style={{
               color: calculateScoreColor(
                 page_by_pk.audits[0].categories_seo_score,
                 page_by_pk.audits[1].categories_seo_score
               ),
             }}
-            prefix={calculateScoreIcon(
+            className="font-semibold text-center mb-4 text-sm"
+          >
+            {calculateScorePercentage(
               page_by_pk.audits[0].categories_seo_score,
               page_by_pk.audits[1].categories_seo_score
             )}
-          />
+            <span className="ml-2">
+              {calculateScoreIcon(
+                page_by_pk.audits[0].categories_seo_score,
+                page_by_pk.audits[1].categories_seo_score
+              )}
+            </span>
+          </div>
           {chartNode('SEO', seoScore)}
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-md rounded" style={{ minHeight: '170px' }}>
-          <Statistic
-            title={
-              <div className="uppercase uppercase text-gray-500 font-sm">
-                Best Practices
-              </div>
-            }
-            value={calculateScorePercentage(
-              page_by_pk.audits[0].categories_best_practices_score,
-              page_by_pk.audits[1].categories_best_practices_score
+        <Card className="shadow rounded" style={{ minHeight: '170px' }}>
+          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+            Best Practices
+          </div>
+          <div className="text-black text-4xl text-center mb-2">
+            {Math.round(
+              page_by_pk.audits[0].categories_best_practices_score * 100
             )}
-            valueStyle={{
+          </div>
+          <div
+            style={{
               color: calculateScoreColor(
                 page_by_pk.audits[0].categories_best_practices_score,
                 page_by_pk.audits[1].categories_best_practices_score
               ),
             }}
-            prefix={calculateScoreIcon(
+            className="font-semibold text-center mb-4 text-sm"
+          >
+            {calculateScorePercentage(
               page_by_pk.audits[0].categories_best_practices_score,
               page_by_pk.audits[1].categories_best_practices_score
             )}
-          />
+            <span className="ml-2">
+              {calculateScoreIcon(
+                page_by_pk.audits[0].categories_best_practices_score,
+                page_by_pk.audits[1].categories_best_practices_score
+              )}
+            </span>
+          </div>
           {chartNode('Best Practices', bestPracticesScore)}
         </Card>
       </Col>
       <Col sm={24} md={12} lg={6}>
-        <Card className="shadow-md rounded" style={{ minHeight: '170px' }}>
-          <Statistic
-            title={
-              <div className="uppercase uppercase text-gray-500 font-sm">
-                Accessibility
-              </div>
-            }
-            value={calculateScorePercentage(
-              page_by_pk.audits[0].categories_accessibility_score,
-              page_by_pk.audits[1].categories_accessibility_score
+        <Card className="shadow rounded" style={{ minHeight: '170px' }}>
+          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+            Accessibility
+          </div>
+          <div className="text-black text-4xl text-center mb-2">
+            {Math.round(
+              page_by_pk.audits[0].categories_accessibility_score * 100
             )}
-            valueStyle={{
+          </div>
+          <div
+            style={{
               color: calculateScoreColor(
                 page_by_pk.audits[0].categories_accessibility_score,
                 page_by_pk.audits[1].categories_accessibility_score
               ),
             }}
-            prefix={calculateScoreIcon(
+            className="font-semibold text-center mb-4 text-sm"
+          >
+            {calculateScorePercentage(
               page_by_pk.audits[0].categories_accessibility_score,
               page_by_pk.audits[1].categories_accessibility_score
             )}
-          />
+            <span className="ml-2">
+              {calculateScoreIcon(
+                page_by_pk.audits[0].categories_accessibility_score,
+                page_by_pk.audits[1].categories_accessibility_score
+              )}
+            </span>
+          </div>
           {chartNode('Accessibility', accessibilityScore)}
         </Card>
       </Col>

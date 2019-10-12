@@ -366,7 +366,7 @@ const SitesShow = (props: any) => {
           }
         />
       </div>
-      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow-md">
+      <div className="m-8 bg-white rounded border border-b-0 border-solid border-gray-300 shadow">
         <Table
           rowKey="id"
           columns={columns}
