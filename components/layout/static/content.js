@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Card } from 'antd'
-
-const { Content } = Layout
 
 class StaticLayoutContent extends Component {
   render() {

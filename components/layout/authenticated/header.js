@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Dropdown, Icon, Avatar, Button } from 'antd'
+import { Layout, Menu, Dropdown, Icon, Button } from 'antd'
 import Router from 'next/router'
 import Link from 'next/link'
 import Gravatar from 'react-gravatar'

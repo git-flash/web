@@ -1,16 +1,5 @@
-import React, { Component, useState } from 'react'
-import PropTypes from 'prop-types'
-import {
-  Layout,
-  Menu,
-  Dropdown,
-  Icon,
-  Avatar,
-  Button,
-  Row,
-  Col,
-  Drawer,
-} from 'antd'
+import React, { useState } from 'react'
+import { Layout, Icon, Button, Row, Col, Drawer } from 'antd'
 import Link from 'next/link'
 
 import Logo from '../../../static/images/logo.svg'

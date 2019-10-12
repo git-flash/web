@@ -5,8 +5,6 @@ import { Layout } from 'antd'
 import ContentComponent from './content'
 import HeaderComponent from './header'
 
-const { Content } = Layout
-
 class StaticLayout extends Component {
   render() {
     return (

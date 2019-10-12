@@ -1,8 +1,8 @@
 import App from 'next/app'
 import * as Sentry from '@sentry/browser'
 
-import '../static/styles/tailwind.css'
-import '../static/styles/ant.css'
+import 'ui/styles/tailwind.css'
+import 'ui/styles/ant.css'
 
 class Perfy extends App {
   constructor(args: any) {
