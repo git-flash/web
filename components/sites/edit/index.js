@@ -103,7 +103,7 @@ const SitesEdit = props => {
   return (
     <Query
       query={fetchSiteQuery}
-      variables={{ id: props.id }}
+      variables={{ id: props.siteId }}
       fetchPolicy="network-only"
     >
       {({ data, error, loading }) => {

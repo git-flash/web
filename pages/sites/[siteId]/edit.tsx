@@ -16,7 +16,7 @@ const SitesEditPage = (props: Props) => {
       <Head>
         <title>Edit site - Perfy</title>
       </Head>
-      <Site id={props.router.query.siteId} />
+      <Site {...props.router.query} />
     </Fragment>
   )
 }

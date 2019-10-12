@@ -1,6 +1,6 @@
-import { Fragment } from "react";
+import { Fragment } from 'react'
 import Head from 'next/head'
-import withLayout from '../../lib/with-authentication-layout'
+import withLayout from '../lib/with-authentication-layout'
 
 export default withLayout(() => {
   return (

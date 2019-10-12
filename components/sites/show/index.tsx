@@ -273,7 +273,7 @@ const SitesShow = (props: any) => {
   }
 
   const { data, loading, error } = useSubscription(fetchSiteSubscription, {
-    variables: { id: props.id },
+    variables: { id: props.siteId },
     fetchPolicy: 'network-only',
   })
 
