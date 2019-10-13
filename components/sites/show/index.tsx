@@ -85,7 +85,7 @@ const SitesShow = (props: any) => {
         }
       ) => (
         <Link
-          href={`/sites/[siteId]/pages/[id]?id=${record.id}&siteId=${props.id}`}
+          href={`/sites/[siteId]/pages/[pageId]?pageId=${record.id}&siteId=${props.id}`}
           as={`/sites/${props.id}/pages/${record.id}`}
         >
           <a className="font-base w-full flex-col">
@@ -239,7 +239,7 @@ const SitesShow = (props: any) => {
         <div>
           <ButtonGroup>
             <Link
-              href={`/sites/[siteId]/pages/[id]?id=${record.id}&siteId=${props.id}`}
+              href={`/sites/[siteId]/pages/[pageId]?pageId=${record.id}&siteId=${props.id}`}
               as={`/sites/${props.id}/pages/${record.id}`}
             >
               <Button>

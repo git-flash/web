@@ -22,7 +22,9 @@ const fetchAuditsSubscription = gql`
       categories_seo_score
       categories_accessibility_score
       page {
+        id
         link
+        site_id
       }
     }
   }
@@ -51,11 +53,16 @@ const AuditsIndex = () => {
         record: {
           id: number
           page: {
+            id: number
+            site_id: number
             link: string
           }
         }
       ) => (
-        <Link href={`/audits/[id]?id=${record.id}`} as={`/audits/${record.id}`}>
+        <Link
+          href={`sites/[siteId]/pages/[pageId]/audits/[auditId]?auditId=${record.id}`}
+          as={`sites/${record.page.site_id}/pages/${record.page.id}/audits/${record.id}`}
+        >
           <a className="font-base w-full flex-col">
             <div className="text-sm font-semibold">
               {truncate(record.page.link, { length: 200, separator: '...' })}

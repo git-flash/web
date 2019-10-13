@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
 import { PageHeader, Icon } from 'antd'
@@ -8,30 +8,28 @@ import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import truncate from 'lodash/truncate'
 
-import Loader from '../../../common/loader'
-import PerformanceChart from './performance-chart'
+import Loader from '../../../../common/loader'
 import NetworkRequestsTable from './network-requests-table'
-import DetailsSummary from './details-summary'
 
 dayjs.extend(advancedFormat)
 dayjs.extend(relativeTime)
 
-const fetchPagesSubscription = gql`
+const fetchAuditsSubscription = gql`
   subscription($id: uuid!) {
-    page_by_pk(id: $id) {
+    audit_by_pk(id: $id) {
       id
-      link
-      audits(limit: 1, order_by: { fetch_time: desc }) {
-        id
-        fetch_time
+      created_at
+      categories_performance_score
+      page {
+        link
       }
     }
   }
 `
 
-const PageDetails = (props: any) => {
-  const { data, loading, error } = useSubscription(fetchPagesSubscription, {
-    variables: { id: props.pageId },
+const AuditDetails = (props: any) => {
+  const { data, loading, error } = useSubscription(fetchAuditsSubscription, {
+    variables: { id: props.auditId },
     fetchPolicy: 'network-only',
   })
 
@@ -39,21 +37,21 @@ const PageDetails = (props: any) => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { page_by_pk } = data
+  const { audit_by_pk } = data
 
   return (
-    <>
+    <Fragment>
       <div className="border border-solid border-gray-300 border-t-0 border-l-0 border-r-0 bg-white">
         <PageHeader
           onBack={() =>
             Router.push(
-              `/sites/[siteId]?id=${props.siteId}`,
-              `/sites/${props.siteId}`
+              `/sites/[siteId]/pages/[pageId]?pageId=${props.pageId}&siteId=${props.siteId}`,
+              `/sites/${props.siteId}/pages/${props.pageId}`
             )
           }
           title={
             <div style={{ margin: '12px 0 0 12px' }} className="text-base">
-              {truncate(page_by_pk.link, {
+              {truncate(audit_by_pk.page.link, {
                 length: 200,
                 separator: '...',
               })}
@@ -67,17 +65,10 @@ const PageDetails = (props: any) => {
         />
       </div>
       <div className="bg-white rounded border border-b-0 border-solid border-gray-300 shadow m-8">
-        <h2 className="uppercase text-lg text-gray-900 m-6">Performance</h2>
-        <PerformanceChart id={props.pageId} />
+        <NetworkRequestsTable id={props.auditId} />
       </div>
-      <div className="m-8">
-        <DetailsSummary id={props.pageId} />
-      </div>
-      <div className="bg-white rounded border border-b-0 border-solid border-gray-300 shadow m-8">
-        <NetworkRequestsTable id={props.pageId} />
-      </div>
-    </>
+    </Fragment>
   )
 }
 
-export default withApollo(PageDetails)
+export default withApollo(AuditDetails)

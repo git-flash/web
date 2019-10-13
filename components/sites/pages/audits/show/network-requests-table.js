@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useSubscription } from 'react-apollo'
 import { Table, Popover, PageHeader, Tabs, Icon, Tag } from 'antd'
@@ -7,21 +7,18 @@ import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import dynamic from 'next/dynamic'
 
-import Loader from '../../../common/loader'
-import chartConfig from '../../../../static/configs/chart.json'
-import calculateFileSize from '../../../../lib/calculate-file-size'
+import Loader from '../../../../common/loader'
+import chartConfig from '../../../../../static/configs/chart.json'
+import calculateFileSize from '../../../../../lib/calculate-file-size'
 
 dayjs.extend(customParseFormat)
 
-const fetchNetworkRequestsSubscription = gql`
+const fetchNetworkRequests = gql`
   subscription($id: uuid!) {
-    page_by_pk(id: $id) {
+    audit_by_pk(id: $id) {
       id
-      audits(limit: 1, order_by: { fetch_time: desc }) {
-        id
-        audit_network_requests_details
-        fetch_time
-      }
+      audit_network_requests_details
+      fetch_time
     }
   }
 `
@@ -120,19 +117,16 @@ const NetworkRequestsTable = props => {
     },
   ]
 
-  const { data, loading, error } = useSubscription(
-    fetchNetworkRequestsSubscription,
-    {
-      variables: { id: props.id },
-      fetchPolicy: 'network-only',
-    }
-  )
+  const { data, loading, error } = useSubscription(fetchNetworkRequests, {
+    variables: { id: props.id },
+    fetchPolicy: 'network-only',
+  })
 
   if (loading) return <Loader />
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { page_by_pk } = data
+  const { audit_by_pk } = data
 
   return (
     <Fragment>
@@ -141,8 +135,8 @@ const NetworkRequestsTable = props => {
         rowKey="id"
         columns={columns}
         dataSource={
-          !!page_by_pk.id
-            ? page_by_pk.audits[0].audit_network_requests_details.items.reverse()
+          !!audit_by_pk.id
+            ? audit_by_pk.audit_network_requests_details.items.reverse()
             : []
         }
         pagination={false}
