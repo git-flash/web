@@ -46,7 +46,7 @@ const AuditsIndex = () => {
       ),
       dataIndex: 'id',
       key: 'id',
-      width: 350,
+      width: 500,
       fixed: 'left',
       render: (
         _: string,
@@ -60,7 +60,7 @@ const AuditsIndex = () => {
         }
       ) => (
         <Link
-          href={`sites/[siteId]/pages/[pageId]/audits/[auditId]?auditId=${record.id}`}
+          href={`sites/[siteId]/pages/[pageId]/audits/[auditId]?auditId=${record.id}&siteId=${record.page.site_id}&pageId=${record.page.id}`}
           as={`sites/${record.page.site_id}/pages/${record.page.id}/audits/${record.id}`}
         >
           <a className="font-base w-full flex-col">
@@ -82,7 +82,7 @@ const AuditsIndex = () => {
       ),
       dataIndex: 'createdAt',
       key: 'createdAt',
-      width: 300,
+      width: 350,
       render: (
         _: string,
         record: {
@@ -175,7 +175,7 @@ const AuditsIndex = () => {
           columns={columns}
           dataSource={audit}
           pagination={false}
-          scroll={{ x: 1400 }}
+          scroll={{ x: 1450 }}
         />
       </div>
     </Fragment>

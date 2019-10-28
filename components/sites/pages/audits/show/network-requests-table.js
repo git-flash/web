@@ -31,10 +31,12 @@ const NetworkRequestsTable = props => {
       ),
       dataIndex: 'url',
       key: 'url',
-      width: 750,
+      width: 500,
       fixed: 'left',
       render: (_, record) => (
-        <div className="text-sm font-semibold w-full">{record.url}</div>
+        <div className="text-sm font-semibold w-full break-all">
+          {record.url}
+        </div>
       ),
     },
     {
@@ -132,7 +134,7 @@ const NetworkRequestsTable = props => {
     <Fragment>
       <h2 className="uppercase text-lg text-gray-900 m-6">Network Requests</h2>
       <Table
-        rowKey="id"
+        rowKey="url"
         columns={columns}
         dataSource={
           !!audit_by_pk.id
@@ -140,7 +142,7 @@ const NetworkRequestsTable = props => {
             : []
         }
         pagination={false}
-        scroll={{ x: 2150, y: 400 }}
+        scroll={{ x: 1900, y: 400 }}
         className="border-0 border-t border-solid border-gray-300"
       />
     </Fragment>

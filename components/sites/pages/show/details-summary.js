@@ -144,7 +144,7 @@ const DetailsSummary = props => {
     <Row gutter={32}>
       <Col sm={24} md={12} lg={6}>
         <Card className="shadow rounded" style={{ minHeight: '170px' }}>
-          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+          <div className="uppercase text-gray-500 text-center font-semibold mb-2">
             Performance
           </div>
           <div className="text-black text-4xl text-center mb-2">
@@ -177,7 +177,7 @@ const DetailsSummary = props => {
       </Col>
       <Col sm={24} md={12} lg={6}>
         <Card className="shadow rounded" style={{ minHeight: '170px' }}>
-          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+          <div className="uppercase text-gray-500 text-center font-semibold mb-2">
             SEO
           </div>
           <div className="text-black text-4xl text-center mb-2">
@@ -208,7 +208,7 @@ const DetailsSummary = props => {
       </Col>
       <Col sm={24} md={12} lg={6}>
         <Card className="shadow rounded" style={{ minHeight: '170px' }}>
-          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+          <div className="uppercase text-gray-500 text-center font-semibold mb-2">
             Best Practices
           </div>
           <div className="text-black text-4xl text-center mb-2">
@@ -241,7 +241,7 @@ const DetailsSummary = props => {
       </Col>
       <Col sm={24} md={12} lg={6}>
         <Card className="shadow rounded" style={{ minHeight: '170px' }}>
-          <div className="uppercase uppercase text-gray-500 text-center font-semibold mb-2">
+          <div className="uppercase text-gray-500 text-center font-semibold mb-2">
             Accessibility
           </div>
           <div className="text-black text-4xl text-center mb-2">
