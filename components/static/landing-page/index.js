@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { Row, Col, Button, Card, Icon } from 'antd'
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Button from 'antd/lib/button'
+import Card from 'antd/lib/card'
+import Icon from 'antd/lib/icon'
 import Link from 'next/link'
 
 import Illustration1 from '../../../static/images/landing-page-illustration-1.png'

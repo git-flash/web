@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import gql from 'graphql-tag'
 import { graphql, withApollo, Query } from 'react-apollo'
-import {
-  Form,
-  Button,
-  Input,
-  PageHeader,
-  Typography,
-  Card,
-  Row,
-  Col,
-  Tabs,
-  Icon,
-} from 'antd'
+import Card from 'antd/lib/card'
+import Button from 'antd/lib/button'
+import PageHeader from 'antd/lib/page-header'
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Form from 'antd/lib/form'
+import Input from 'antd/lib/input'
+import Typography from 'antd/lib/typography'
+import Tabs from 'antd/lib/tabs'
+import Icon from 'antd/lib/icon'
 import Router from 'next/router'
 import Link from 'next/link'
 

@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
-import { Layout, Icon, Button, Row, Col, Drawer } from 'antd'
+import Layout from 'antd/lib/layout'
+import Button from 'antd/lib/button'
+import Drawer from 'antd/lib/drawer'
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Icon from 'antd/lib/icon'
 import Link from 'next/link'
 
 import Logo from '../../../static/images/logo.svg'

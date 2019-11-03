@@ -1,5 +1,8 @@
 import React, { Component, useState } from 'react'
-import { Form, Button, Input, Alert } from 'antd'
+import Form from 'antd/lib/form'
+import Alert from 'antd/lib/alert'
+import Button from 'antd/lib/button'
+import Input from 'antd/lib/input'
 import Router from 'next/router'
 
 const SignIn = props => {

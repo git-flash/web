@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import gql from 'graphql-tag'
 import { withApollo, useQuery } from 'react-apollo'
-import {
-  Statistic,
-  Popover,
-  PageHeader,
-  Tabs,
-  Icon,
-  Row,
-  Card,
-  Col,
-} from 'antd'
+import Card from 'antd/lib/card'
+import Button from 'antd/lib/button'
+import PageHeader from 'antd/lib/page-header'
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Form from 'antd/lib/form'
+import Input from 'antd/lib/input'
+import Typography from 'antd/lib/typography'
+import Tabs from 'antd/lib/tabs'
+import Icon from 'antd/lib/icon'
+import Statistic from 'antd/lib/statistic'
+import Popover from 'antd/lib/popover'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import dynamic from 'next/dynamic'

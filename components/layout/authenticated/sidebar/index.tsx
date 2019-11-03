@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Layout } from 'antd'
-import { Menu, Icon } from 'antd'
+import Layout from 'antd/lib/layout'
+import Menu from 'antd/lib/menu'
+import Icon from 'antd/lib/icon'
 import { withRouter } from 'next/router'
 
 const AuthenticatedSidebar = (props: any) => {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Spin, Icon } from 'antd';
+import Spin from 'antd/lib/spin'
+import Icon from 'antd/lib/icon'
 
 const Loader = () => {
   return (
@@ -10,11 +11,9 @@ const Loader = () => {
       <Spin
         tip="Loading..."
         size="large"
-        indicator={
-          <Icon type="loading" style={{ fontSize: 30 }} spin />
-        }
+        indicator={<Icon type="loading" style={{ fontSize: 30 }} spin />}
       />
-    </div >
+    </div>
   )
 }
 

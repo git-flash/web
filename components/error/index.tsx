@@ -1,5 +1,6 @@
 import React from 'react'
-import { Spin, Icon } from 'antd';
+import Spin from 'antd/lib/spin'
+import Icon from 'antd/lib/icon'
 
 const ErrorPage = () => {
   return (
@@ -11,16 +12,9 @@ const ErrorPage = () => {
         className="text-gray-500 text-xl"
         tip="Oops! Page not found"
         size="large"
-        indicator={
-          <Icon
-            type="warning"
-            style={{
-
-            }}
-          />
-        }
+        indicator={<Icon type="warning" style={{}} />}
       />
-    </div >
+    </div>
   )
 }
 

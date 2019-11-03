@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
 import { withApollo, useSubscription } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Card, Button, PageHeader, Row, Col, Progress } from 'antd'
+import Card from 'antd/lib/card'
+import Button from 'antd/lib/button'
+import PageHeader from 'antd/lib/page-header'
+import Row from 'antd/lib/row'
+import Col from 'antd/lib/col'
+import Progress from 'antd/lib/progress'
 import Link from 'next/link'
 
 import Loader from '../../common/loader'
