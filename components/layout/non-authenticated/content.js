@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Card, Tabs } from 'antd'
+import Card from 'antd/lib/card'
+import Tabs from 'antd/lib/tabs'
 import Link from 'next/link'
 
 import Illustration from '../../../static/images/authentication-illustration.png'
