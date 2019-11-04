@@ -6,10 +6,6 @@ import Card from 'antd/lib/card'
 import Icon from 'antd/lib/icon'
 import Link from 'next/link'
 
-import Illustration1 from '../../../static/images/landing-page-illustration-1.png'
-import Illustration2 from '../../../static/images/landing-page-illustration-2.png'
-import Logo from '../../../static/images/logo.svg'
-
 class LandingPage extends Component {
   render() {
     return (
@@ -37,17 +33,6 @@ class LandingPage extends Component {
                 Know More
               </Button>
             </Col>
-            <img
-              className="w-0 md:w-auto lg:w-auto"
-              src={Illustration1}
-              style={{
-                position: 'absolute',
-                marginTop: '-150px',
-                marginLeft: '-100px',
-                maxWidth: '950px',
-              }}
-              alt="Illustration"
-            />
           </Row>
         </section>
         <section className="px-16 py-32 bg-gray-100">
@@ -243,17 +228,6 @@ class LandingPage extends Component {
                 Know More
               </Button>
             </Col>
-            <img
-              className="w-0 md:w-auto lg:w-auto"
-              src={Illustration2}
-              style={{
-                position: 'absolute',
-                marginTop: '-150px',
-                marginLeft: '-100px',
-                maxWidth: '950px',
-              }}
-              alt="Illustration"
-            />
           </Row>
         </section>
         <section className="px-16 py-32 bg-gray-100">
@@ -343,9 +317,7 @@ class LandingPage extends Component {
           </div>
           <div className="flex justify-center h-full max-w-6xl my-0 mx-auto">
             <Link href={`/`} as={`/`}>
-              <a>
-                <img src={Logo} alt="Perfy" width="40px" height="40px" />
-              </a>
+              <a>perfy</a>
             </Link>
           </div>
         </section>

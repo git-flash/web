@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import Layout from 'antd/lib/layout'
 import Menu from 'antd/lib/menu'
 import Dropdown from 'antd/lib/dropdown'
@@ -9,13 +8,11 @@ import AutoComplete from 'antd/lib/auto-complete'
 import Router from 'next/router'
 import Link from 'next/link'
 import Gravatar from 'react-gravatar'
-import { graphql, withApollo, useQuery } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'next/router'
 
-import Logo from '../../../static/images/logo.svg'
-
-const searchSiteQuery = gql`
+const SEARCH_SITE_QUERY = gql`
   query($query: String) {
     site(where: { name: { _ilike: $query } }) {
       id
@@ -24,7 +21,13 @@ const searchSiteQuery = gql`
   }
 `
 
-const AuthenticatedLayoutHeader = ({ email, client, router }) => {
+const AuthenticatedLayoutHeader = ({
+  email,
+  router,
+}: {
+  email: string
+  router: any
+}) => {
   const { Header } = Layout
   const { Option } = AutoComplete
   const [queryResults, setQueryResults] = useState([])
@@ -37,18 +40,18 @@ const AuthenticatedLayoutHeader = ({ email, client, router }) => {
     Router.push('/authentication')
   }
 
-  const handleSearch = async query => {
-    const res = await client.query({
-      query: searchSiteQuery,
+  const handleSearch = async (query: any) => {
+    const res = await useQuery(SEARCH_SITE_QUERY, {
       variables: {
         query: `%${query}%`,
       },
+      fetchPolicy: 'network-only',
     })
 
     const matchedSites =
       res &&
       res.data &&
-      res.data.site.map(s => ({
+      res.data.site.map((s: any) => ({
         id: s.id,
         name: s.name,
       }))
@@ -65,15 +68,7 @@ const AuthenticatedLayoutHeader = ({ email, client, router }) => {
       <div className="flex justify-between h-full border border-solid border-gray-300">
         <div className="mx-4 flex">
           <Link href={`/dashboard`} as={`/dashboard`}>
-            <a>
-              <img
-                src={Logo}
-                className="px-2"
-                alt="Perfy"
-                width="40px"
-                height="40px"
-              />
-            </a>
+            <a>perfy</a>
           </Link>
           <div className="px-4">
             <AutoComplete
@@ -87,7 +82,7 @@ const AuthenticatedLayoutHeader = ({ email, client, router }) => {
               placeholder="Search for a site"
               optionLabelProp="name"
             >
-              {queryResults.map(site => (
+              {queryResults.map((site: any) => (
                 <Option key={site.id} value={site.id}>
                   {site.name}
                 </Option>
@@ -126,8 +121,4 @@ const AuthenticatedLayoutHeader = ({ email, client, router }) => {
   )
 }
 
-AuthenticatedLayoutHeader.propTypes = {
-  email: PropTypes.string,
-}
-
-export default withRouter(withApollo(AuthenticatedLayoutHeader))
+export default withRouter(AuthenticatedLayoutHeader)
