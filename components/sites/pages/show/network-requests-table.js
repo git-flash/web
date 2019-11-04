@@ -146,7 +146,7 @@ const NetworkRequestsTable = props => {
         rowKey="id"
         columns={columns}
         dataSource={
-          !!page_by_pk.id
+          !!page_by_pk.id && !!page_by_pk.audits[0]
             ? page_by_pk.audits[0].audit_network_requests_details.items.reverse()
             : []
         }

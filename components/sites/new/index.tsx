@@ -1,7 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import find from 'lodash/find'
-import findIndex from 'lodash/findIndex'
-import { graphql, withApollo, useMutation } from 'react-apollo'
+import React, { Fragment } from 'react'
+import { useMutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import Card from 'antd/lib/card'
 import Button from 'antd/lib/button'
@@ -10,16 +8,12 @@ import Row from 'antd/lib/row'
 import Col from 'antd/lib/col'
 import Form from 'antd/lib/form'
 import Input from 'antd/lib/input'
-import Typography from 'antd/lib/typography'
 import Tabs from 'antd/lib/tabs'
 import Icon from 'antd/lib/icon'
 import Router from 'next/router'
 import Link from 'next/link'
-import { withRouter } from 'next/router'
 
-import Loader from '../../common/loader'
-
-const createSiteMutation = gql`
+const CREATE_SITE_MUTATION = gql`
   mutation(
     $name: String
     $login_url: String
@@ -49,12 +43,14 @@ const createSiteMutation = gql`
   }
 `
 
-const SitesNew = props => {
+const SitesNew = (props: any) => {
+  const [createSiteMutation] = useMutation(CREATE_SITE_MUTATION)
+  const { getFieldDecorator } = props.form
+
   const handleSubmit = () => {
-    props.form.validateFields(async (err, values) => {
+    props.form.validateFields(async (err: Error, values: any) => {
       if (!err) {
-        const res = await props.client.mutate({
-          mutation: createSiteMutation,
+        const res = await createSiteMutation({
           variables: {
             name: values.name,
             login_url: values.login_url,
@@ -69,21 +65,13 @@ const SitesNew = props => {
           },
         })
 
-        props.router.push(
-          `/sites/show?id=${res.data.insert_site.returning[0].id}`,
+        Router.push(
+          `/sites/[siteId]?id=${res.data.insert_site.returning[0].id}`,
           `/sites/${res.data.insert_site.returning[0].id}`
         )
       }
     })
   }
-
-  const { getFieldDecorator } = props.form
-
-  const { data, loading, error } = useMutation(createSiteMutation)
-
-  if (loading) return <Loader />
-
-  if (error) return <p>Error: {error.message}</p>
 
   return (
     <Fragment>
@@ -243,7 +231,7 @@ const SitesNew = props => {
               <div className="flex justify-end">
                 <div className="mr-4">
                   <Link href={`/sites`} as={`/sites`}>
-                    <Button loading={loading} size="large" icon="close-circle">
+                    <Button size="large" icon="close-circle">
                       Cancel
                     </Button>
                   </Link>
@@ -252,7 +240,6 @@ const SitesNew = props => {
                   type="primary"
                   htmlType="submit"
                   onClick={handleSubmit}
-                  loading={loading}
                   size="large"
                   icon="check-circle"
                 >
@@ -267,4 +254,4 @@ const SitesNew = props => {
   )
 }
 
-export default withRouter(withApollo(Form.create()(SitesNew)))
+export default Form.create()(SitesNew)

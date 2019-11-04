@@ -55,7 +55,11 @@ const PerformanceChart = props => {
   const fetchTimes = page_by_pk.audits.map(audit => audit.fetch_time)
 
   if (page_by_pk.audits.length < 2) {
-    return <Empty />
+    return (
+      <div className="p-4">
+        <Empty />
+      </div>
+    )
   }
 
   return (
