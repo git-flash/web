@@ -62,7 +62,7 @@ const SitesIndex = (props: any) => {
           }
         />
       </div>
-      <Row className="m-8" gutter={24}>
+      <Row className="my-8 mx-6" gutter={24}>
         {data.site.map(
           (site: { name: String; id: number; pages_aggregate: any }) => {
             return (

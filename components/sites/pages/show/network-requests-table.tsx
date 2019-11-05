@@ -144,7 +144,9 @@ const NetworkRequestsTable: React.SFC<IProps> = (props: any) => {
     <Fragment>
       <h2 className="uppercase text-lg text-gray-900 m-6">Network Requests</h2>
       <Table
-        rowKey="id"
+        rowKey={(record: any) =>
+          `${record.url}_${record.startTime}_${record.endTime}`
+        }
         columns={columns}
         dataSource={
           !!page_by_pk.id && !!page_by_pk.audits[0]
