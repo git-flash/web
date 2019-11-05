@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 
-export const auth = ctx => {
+export const auth = (ctx: any) => {
   const { token } = nextCookie(ctx)
 
   if (ctx.req && !token) {
-    const currentUrl = ctx.res.writeHead(302, {
+    ctx.res.writeHead(302, {
       Location: `/authentication`,
     })
 
@@ -22,16 +22,16 @@ export const auth = ctx => {
   return token
 }
 
-const getDisplayName = Component =>
+const getDisplayName = (Component: any) =>
   Component.displayName || Component.name || 'Component'
 
-export const withAuthentication = WrappedComponent =>
+export const withAuthentication = (WrappedComponent: any) =>
   class extends Component {
     static displayName = `withAuthentication(${getDisplayName(
       WrappedComponent
     )})`
 
-    static async getInitialProps(ctx) {
+    static async getInitialProps(ctx: any) {
       const componentProps =
         WrappedComponent.getInitialProps &&
         (await WrappedComponent.getInitialProps(ctx))

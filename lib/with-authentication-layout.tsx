@@ -4,9 +4,9 @@ import Router from 'next/router'
 
 import Layout from '../components/layout/non-authenticated'
 
-export default App => {
+export default (App: any) => {
   return class extends Component {
-    static async getInitialProps(ctx) {
+    static async getInitialProps(ctx: any) {
       let appProps = {}
 
       const { token } = nextCookie(ctx)

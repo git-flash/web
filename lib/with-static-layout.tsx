@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import Layout from '../components/layout/static'
 
-export default App => {
+export default (App: any) => {
   return class extends Component {
-    static async getInitialProps(ctx) {
+    static async getInitialProps(ctx: any) {
       let appProps = {}
 
       if (typeof App.getInitialProps === 'function') {
