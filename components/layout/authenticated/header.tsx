@@ -12,6 +12,8 @@ import { useQuery } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'next/router'
 
+import Logo from '../../../public/static/images/logo.svg'
+
 const SEARCH_SITE_QUERY = gql`
   query($query: String) {
     site(where: { name: { _ilike: $query } }) {
@@ -68,7 +70,15 @@ const AuthenticatedLayoutHeader = ({
       <div className="flex justify-between h-full border border-solid border-gray-300">
         <div className="mx-4 flex">
           <Link href={`/dashboard`} as={`/dashboard`}>
-            <a>perfy</a>
+            <a>
+              <img
+                src={Logo}
+                className="px-2"
+                alt="Perfy"
+                width="40px"
+                height="40px"
+              />
+            </a>
           </Link>
           <div className="px-4">
             <AutoComplete

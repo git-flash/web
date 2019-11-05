@@ -7,6 +7,8 @@ import Col from 'antd/lib/col'
 import Icon from 'antd/lib/icon'
 import Link from 'next/link'
 
+import Logo from '../../../public/static/images/logo.svg'
+
 const StaticLayoutHeader = () => {
   const { Header } = Layout
   const [isDrawerVisible, setDrawerVisibility] = useState(false)
@@ -74,7 +76,15 @@ const StaticLayoutHeader = () => {
           <Col xs={2} sm={2} md={0}>
             <div className="pr-4">
               <Link href={`/`} as={`/`}>
-                <a>perfy</a>
+                <a>
+                  <img
+                    src={Logo}
+                    className="pr-2"
+                    alt="Perfy"
+                    width="40px"
+                    height="40px"
+                  />
+                </a>
               </Link>
             </div>
           </Col>
@@ -82,7 +92,15 @@ const StaticLayoutHeader = () => {
             <div className="flex uppercase text-sm">
               <div className="pr-4">
                 <Link href={`/`} as={`/`}>
-                  <a>perfy</a>
+                  <a>
+                    <img
+                      src={Logo}
+                      className="pr-2"
+                      alt="Perfy"
+                      width="40px"
+                      height="40px"
+                    />
+                  </a>
                 </Link>
               </div>
               <div className="px-4">
