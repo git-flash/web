@@ -13,7 +13,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import dynamic from 'next/dynamic'
 
 import Loader from '../../../common/loader'
-import chartConfig from '../../../../static/configs/chart.json'
+import chartConfig from '../../../../public/static/configs/chart.json'
 import calculateFileSize from '../../../../lib/calculate-file-size'
 
 dayjs.extend(customParseFormat)

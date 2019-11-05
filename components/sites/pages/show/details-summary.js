@@ -19,7 +19,7 @@ import dynamic from 'next/dynamic'
 
 import Loader from '../../../common/loader'
 import calculateProgress from '../../../../lib/calculate-progress'
-import chartConfig from '../../../../static/configs/chart.json'
+import chartConfig from '../../../../public/static/configs/chart.json'
 
 dayjs.extend(LocalizedFormat)
 
