@@ -1,29 +1,20 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
-import { withApollo, useQuery } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import Card from 'antd/lib/card'
-import Button from 'antd/lib/button'
-import PageHeader from 'antd/lib/page-header'
 import Row from 'antd/lib/row'
 import Col from 'antd/lib/col'
-import Form from 'antd/lib/form'
-import Input from 'antd/lib/input'
-import Typography from 'antd/lib/typography'
-import Tabs from 'antd/lib/tabs'
 import Icon from 'antd/lib/icon'
-import Statistic from 'antd/lib/statistic'
-import Popover from 'antd/lib/popover'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import dynamic from 'next/dynamic'
 
 import Loader from '../../../common/loader'
-import calculateProgress from '../../../../lib/calculate-progress'
 import chartConfig from '../../../../public/static/configs/chart.json'
 
 dayjs.extend(LocalizedFormat)
 
-const fetchPageDetailsQuery = gql`
+const FETCH_PAGE_DETAILS_QUERY = gql`
   query($id: uuid!) {
     page_by_pk(id: $id) {
       id
@@ -39,8 +30,8 @@ const fetchPageDetailsQuery = gql`
   }
 `
 
-const DetailsSummary = props => {
-  const { data, loading, error } = useQuery(fetchPageDetailsQuery, {
+const DetailsSummary = (props: any) => {
+  const { data, loading, error } = useQuery(FETCH_PAGE_DETAILS_QUERY, {
     variables: { id: props.id },
     fetchPolicy: 'network-only',
   })
@@ -53,25 +44,25 @@ const DetailsSummary = props => {
 
   const ReactApexChart = dynamic(() => import('react-apexcharts'))
 
-  const performanceScore = page_by_pk.audits.map(audit =>
+  const performanceScore = page_by_pk.audits.map((audit: any) =>
     Math.round(audit.categories_performance_score * 100)
   )
 
-  const seoScore = page_by_pk.audits.map(audit =>
+  const seoScore = page_by_pk.audits.map((audit: any) =>
     Math.round(audit.categories_seo_score * 100)
   )
 
-  const bestPracticesScore = page_by_pk.audits.map(audit =>
+  const bestPracticesScore = page_by_pk.audits.map((audit: any) =>
     Math.round(audit.categories_best_practices_score * 100)
   )
 
-  const accessibilityScore = page_by_pk.audits.map(audit =>
+  const accessibilityScore = page_by_pk.audits.map((audit: any) =>
     Math.round(audit.categories_accessibility_score * 100)
   )
 
-  const fetchTimes = page_by_pk.audits.map(audit => audit.fetch_time)
+  const fetchTimes = page_by_pk.audits.map((audit: any) => audit.fetch_time)
 
-  const calculateScorePercentage = (firstScore, lastScore) => {
+  const calculateScorePercentage = (firstScore: number, lastScore: number) => {
     if (firstScore === lastScore) return `0%`
 
     if (firstScore < lastScore)
@@ -80,7 +71,7 @@ const DetailsSummary = props => {
     return `+ ${Math.round(firstScore / lastScore) / 100}%`
   }
 
-  const calculateScoreColor = (firstScore, lastScore) => {
+  const calculateScoreColor = (firstScore: number, lastScore: number) => {
     if (firstScore === lastScore) return '#2b6cb0'
 
     if (firstScore > lastScore) return '#2f855a'
@@ -88,7 +79,7 @@ const DetailsSummary = props => {
     return '#c53030'
   }
 
-  const calculateScoreIcon = (firstScore, lastScore) => {
+  const calculateScoreIcon = (firstScore: number, lastScore: number) => {
     if (firstScore === lastScore) return <Icon type="dash" />
 
     if (firstScore > lastScore) return <Icon type="caret-up" />
@@ -96,7 +87,7 @@ const DetailsSummary = props => {
     return <Icon type="caret-down" />
   }
 
-  const chartNode = (key, score) => {
+  const chartNode = (key: string, score: number) => {
     return (
       <div style={{ margin: '-10px -14px -56px' }}>
         <ReactApexChart
@@ -139,7 +130,7 @@ const DetailsSummary = props => {
   }
 
   if (page_by_pk.audits.length < 2) {
-    return false
+    return <div />
   }
 
   return (
@@ -278,4 +269,4 @@ const DetailsSummary = props => {
   )
 }
 
-export default withApollo(DetailsSummary)
+export default DetailsSummary

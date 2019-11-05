@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
-import { withApollo, useSubscription } from 'react-apollo'
-import PageHeader from 'antd/lib/page-header'
-import Icon from 'antd/lib/icon'
-import Table from 'antd/lib/table'
-import Popover from 'antd/lib/popover'
-import Tabs from 'antd/lib/tabs'
+import { useSubscription } from 'react-apollo'
 import Empty from 'antd/lib/empty'
-import Router from 'next/router'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
-import truncate from 'lodash/truncate'
 import dynamic from 'next/dynamic'
 
 import Loader from '../../../common/loader'
@@ -18,7 +11,7 @@ import chartConfig from '../../../../public/static/configs/chart.json'
 
 dayjs.extend(LocalizedFormat)
 
-const fetchPerformanceSubscription = gql`
+const FETCH_PERFORMANCE_SUBSCRIPTION = gql`
   subscription($id: uuid!) {
     page_by_pk(id: $id) {
       id
@@ -31,9 +24,9 @@ const fetchPerformanceSubscription = gql`
   }
 `
 
-const PerformanceChart = props => {
+const PerformanceChart = (props: any) => {
   const { data, loading, error } = useSubscription(
-    fetchPerformanceSubscription,
+    FETCH_PERFORMANCE_SUBSCRIPTION,
     {
       variables: { id: props.id },
       fetchPolicy: 'network-only',
@@ -48,11 +41,11 @@ const PerformanceChart = props => {
 
   const ReactApexChart = dynamic(() => import('react-apexcharts'))
 
-  const scores = page_by_pk.audits.map(audit =>
+  const scores = page_by_pk.audits.map((audit: any) =>
     Math.round(audit.categories_performance_score * 100)
   )
 
-  const fetchTimes = page_by_pk.audits.map(audit => audit.fetch_time)
+  const fetchTimes = page_by_pk.audits.map((audit: any) => audit.fetch_time)
 
   if (page_by_pk.audits.length < 2) {
     return (
@@ -70,14 +63,14 @@ const PerformanceChart = props => {
           xaxis: {
             categories: fetchTimes.reverse(),
             labels: {
-              formatter: value => dayjs(value).format('MMM D'),
+              formatter: (value: string) => dayjs(value).format('MMM D'),
             },
           },
           yaxis: {
             min: 0,
             max: 100,
             labels: {
-              formatter: value => value,
+              formatter: (value: string) => value,
             },
           },
         }}
@@ -94,4 +87,4 @@ const PerformanceChart = props => {
   )
 }
 
-export default withApollo(PerformanceChart)
+export default PerformanceChart

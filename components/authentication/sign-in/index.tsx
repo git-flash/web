@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import Form from 'antd/lib/form'
 import Alert from 'antd/lib/alert'
 import Button from 'antd/lib/button'
 import Input from 'antd/lib/input'
 import Router from 'next/router'
 
-const SignUp = props => {
+const SignIn = (props: any) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const { getFieldDecorator } = props.form
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
-    props.form.validateFields(async (err, values) => {
+    props.form.validateFields(async (err: Error, values: any) => {
       if (!err) {
         setIsLoading(true)
 
         try {
-          const response = await fetch(`${process.env.AUTH_URL}/signup`, {
+          const response = await fetch(`${process.env.AUTH_URL}/login`, {
             method: 'post',
             headers: {
               Accept: 'application/json',
@@ -30,26 +30,25 @@ const SignUp = props => {
             }),
           })
 
-          const data = await response.json()
-
-          document.cookie = `userId=${data.id};path=/`
-          document.cookie = `email=${data.email};path=/`
-          document.cookie = `token=${data.token};path=/`
-
           if ([200, 201].indexOf(response.status) > -1) {
+            const data = await response.json()
+
+            document.cookie = `userId=${data.id};path=/`
+            document.cookie = `email=${data.email};path=/`
+            document.cookie = `token=${data.token};path=/`
+
             setError('')
 
             Router.push('/sites')
           } else {
             const data = await response.json()
 
-            setError('Invalid credentials')
+            setError(data.error)
 
             setIsLoading(false)
           }
         } catch (error) {
-          setError('Invalid credentials')
-
+          setError(error)
           setIsLoading(false)
 
           console.error(error)
@@ -102,7 +101,7 @@ const SignUp = props => {
               block
               loading={isLoading}
             >
-              Sign Up
+              Sign In
             </Button>
           </div>
         </Form>
@@ -111,4 +110,4 @@ const SignUp = props => {
   )
 }
 
-export default Form.create()(SignUp)
+export default Form.create()(SignIn)

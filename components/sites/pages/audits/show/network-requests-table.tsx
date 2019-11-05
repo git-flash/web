@@ -1,48 +1,44 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import gql from 'graphql-tag'
-import { withApollo, useSubscription } from 'react-apollo'
-import Table from 'antd/lib/table'
-import Popover from 'antd/lib/popover'
-import PageHeader from 'antd/lib/page-header'
-import Tabs from 'antd/lib/tabs'
-import Icon from 'antd/lib/icon'
+import { useSubscription } from 'react-apollo'
 import Tag from 'antd/lib/tag'
-import Router from 'next/router'
+import Table from 'antd/lib/table'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import dynamic from 'next/dynamic'
 
-import Loader from '../../../common/loader'
-import chartConfig from '../../../../public/static/configs/chart.json'
-import calculateFileSize from '../../../../lib/calculate-file-size'
+import Loader from '../../../../common/loader'
+import calculateFileSize from '../../../../../lib/calculate-file-size'
 
 dayjs.extend(customParseFormat)
 
-const fetchNetworkRequestsSubscription = gql`
+interface IProps {
+  id: string
+}
+
+const FETCH_NETWORK_REQUESTS_SUBSCRIPTION = gql`
   subscription($id: uuid!) {
-    page_by_pk(id: $id) {
+    audit_by_pk(id: $id) {
       id
-      audits(limit: 1, order_by: { fetch_time: desc }) {
-        id
-        audit_network_requests_details
-        fetch_time
-      }
+      audit_network_requests_details
+      fetch_time
     }
   }
 `
 
-const NetworkRequestsTable = props => {
-  const columns = [
+const NetworkRequestsTable: React.SFC<IProps> = (props: any) => {
+  const columns: any = [
     {
       title: (
         <span className="text-xs uppercase text-gray-700 font-bold">URL</span>
       ),
       dataIndex: 'url',
       key: 'url',
-      width: 750,
+      width: 500,
       fixed: 'left',
-      render: (_, record) => (
-        <div className="text-sm font-semibold w-full">{record.url}</div>
+      render: (_: any, record: any) => (
+        <div className="text-sm font-semibold w-full break-all">
+          {record.url}
+        </div>
       ),
     },
     {
@@ -54,8 +50,8 @@ const NetworkRequestsTable = props => {
       dataIndex: 'resourceSize',
       key: 'resourceSize',
       width: 200,
-      render: (_, record) => calculateFileSize(record.resourceSize),
-      sorter: (a, b) => a.resourceSize - b.resourceSize,
+      render: (_: any, record: any) => calculateFileSize(record.resourceSize),
+      sorter: (a: any, b: any) => a.resourceSize - b.resourceSize,
     },
     {
       title: (
@@ -66,7 +62,7 @@ const NetworkRequestsTable = props => {
       dataIndex: 'startTime',
       key: 'startTime',
       width: 200,
-      render: (_, record) => `${Math.round(record.startTime)} ms`,
+      render: (_: any, record: any) => `${Math.round(record.startTime)} ms`,
     },
     {
       title: (
@@ -77,7 +73,7 @@ const NetworkRequestsTable = props => {
       dataIndex: 'endTime',
       key: 'endTime',
       width: 200,
-      render: (_, record) => `${Math.round(record.endTime)} ms`,
+      render: (_: any, record: any) => `${Math.round(record.endTime)} ms`,
     },
     {
       title: (
@@ -88,8 +84,8 @@ const NetworkRequestsTable = props => {
       dataIndex: 'transferSize',
       key: 'transferSize',
       width: 200,
-      render: (_, record) => calculateFileSize(record.transferSize),
-      sorter: (a, b) => a.transferSize - b.transferSize,
+      render: (_: any, record: any) => calculateFileSize(record.transferSize),
+      sorter: (a: any, b: any) => a.transferSize - b.transferSize,
     },
     {
       title: (
@@ -100,8 +96,10 @@ const NetworkRequestsTable = props => {
       dataIndex: 'statusCode',
       key: 'statusCode',
       width: 200,
-      render: (_, record) => <Tag color="blue">{record.statusCode}</Tag>,
-      sorter: (a, b) => a.statusCode - b.statusCode,
+      render: (_: any, record: any) => (
+        <Tag color="blue">{record.statusCode}</Tag>
+      ),
+      sorter: (a: any, b: any) => a.statusCode - b.statusCode,
     },
     {
       title: (
@@ -126,7 +124,7 @@ const NetworkRequestsTable = props => {
   ]
 
   const { data, loading, error } = useSubscription(
-    fetchNetworkRequestsSubscription,
+    FETCH_NETWORK_REQUESTS_SUBSCRIPTION,
     {
       variables: { id: props.id },
       fetchPolicy: 'network-only',
@@ -137,25 +135,25 @@ const NetworkRequestsTable = props => {
 
   if (error) return <p>Error: {error.message}</p>
 
-  const { page_by_pk } = data
+  const { audit_by_pk } = data
 
   return (
     <Fragment>
       <h2 className="uppercase text-lg text-gray-900 m-6">Network Requests</h2>
       <Table
-        rowKey="id"
+        rowKey="url"
         columns={columns}
         dataSource={
-          !!page_by_pk.id && !!page_by_pk.audits[0]
-            ? page_by_pk.audits[0].audit_network_requests_details.items.reverse()
+          !!audit_by_pk.id
+            ? audit_by_pk.audit_network_requests_details.items.reverse()
             : []
         }
         pagination={false}
-        scroll={{ x: 2150, y: 400 }}
+        scroll={{ x: 1900, y: 400 }}
         className="border-0 border-t border-solid border-gray-300"
       />
     </Fragment>
   )
 }
 
-export default withApollo(NetworkRequestsTable)
+export default NetworkRequestsTable
