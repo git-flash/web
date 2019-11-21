@@ -5496,10 +5496,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-next-cookies@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/next-cookies/-/next-cookies-2.0.1.tgz#3660c3d000cfe65064a36b27dbbaf4e803287cff"
-  integrity sha512-tTWMZLt4WyhM+/fluCLFoUv4pnt320olH9/XNJITEcEprVcwnMU9XRUJwqnBcJpt+l/4lA6OCfHGFAqVlAM81Q==
+next-cookies@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/next-cookies/-/next-cookies-2.0.2.tgz#85c727402e1360e170c9f90b6e557264f2b2cde2"
+  integrity sha512-hkxhup5mIWvr6gFWlqeJJpDrp3KUgXsw4suxvU7P5cKoBKyk7wn7tiWeRiE5Bx2nDIIumfRObIzS/zQ/Mw0vAA==
   dependencies:
     universal-cookie "^4.0.2"
 
