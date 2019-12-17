@@ -43,7 +43,7 @@
     "react-gravatar": "^2.6.3",
     "subscriptions-transport-ws": "^0.9.16",
     "ui": "git+https://github.com/perfy-io/ui.git",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.3"
   },
   "devDependencies": {
     "@types/compression": "^1.0.1",
