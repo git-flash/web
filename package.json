@@ -11,7 +11,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^9.1.5",
+    "@next/bundle-analyzer": "^9.1.6",
     "@sentry/browser": "^5.10.2",
     "@sentry/node": "^5.10.2",
     "@zeit/next-css": "^1.0.1",
