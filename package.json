@@ -55,7 +55,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-gravatar": "^2.6.7",
     "autoprefixer": "^9.7.4",
-    "cross-env": "^7.0.1",
+    "cross-env": "^7.0.2",
     "husky": "^4.2.3",
     "lessc": "^1.0.2",
     "lint-staged": "^10.0.8",
