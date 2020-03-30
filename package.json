@@ -13,7 +13,7 @@
   "dependencies": {
     "@next/bundle-analyzer": "^9.3.2",
     "@sentry/browser": "^5.15.4",
-    "@sentry/node": "^5.15.2",
+    "@sentry/node": "^5.15.4",
     "@zeit/next-css": "^1.0.1",
     "antd": "^4.1.0",
     "apexcharts": "^3.17.0",
