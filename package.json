@@ -54,7 +54,7 @@
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@types/react-gravatar": "^2.6.7",
-    "autoprefixer": "^9.7.5",
+    "autoprefixer": "^9.7.6",
     "cross-env": "^7.0.2",
     "husky": "^4.2.3",
     "lessc": "^1.0.2",
